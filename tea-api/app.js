@@ -15,9 +15,18 @@ const bcrypt = require("bcryptjs");
 
 
 //Import routers
-
+const userRouter = require("./src/routes/user");
+const teaRouter = require("./src/routes/teas");
 
 const app = express();
+
+// Connect to mongoDBAtlas with mongoose
+const mongoose = require("mongoose");
+const mongoDB = process.env.MONGOURL;
+
+mongoose.connect(mongoDB, { useNewURLParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 //Set Middleware
 app.use(logger("dev"));
@@ -26,7 +35,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser);
 
 // Add routers to middleware
-
+app.use("/teas", teaRouter);
+app.use("/user", userRouter);
 
 //Add error handling middleware
 let catch404 = (req, res, next) => {
