@@ -1,6 +1,6 @@
 
 // Import middleware
-require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const multer = require('multer');
@@ -12,6 +12,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
+require('dotenv').config();
 
 
 //Import routers
@@ -21,18 +22,24 @@ const teaRouter = require("./src/routes/teas");
 const app = express();
 
 // Connect to mongoDBAtlas with mongoose
-const mongoose = require("mongoose");
-const mongoDB = process.env.MONGOURL;
+const mongoose = require('mongoose');
+const mongoDB = process.env.MONGO_URI;
 
 mongoose.connect(mongoDB, { useNewURLParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 //Set Middleware
+app.use((req, res, next) => {
+    console.log(req.path, req.method);
+    next();
+})
+
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use(cookieParser);
+app.use(cookieParser());
 
 // Add routers to middleware
 app.use("/teas", teaRouter);
@@ -48,7 +55,7 @@ let errorHandler = (err, req, res, next) => {
     res.locals.error = req.app.get("env") === "development" ? err : {};
 
     res.status(err.status || 500);
-    res.render("error");
+    res.json({ error: err });
 };
 
 app.use(catch404);

@@ -17,6 +17,7 @@ export default function RouteSwitch() {
                 <Route path='/userinfo' element={<UserInfo />} />
                 <Route path='/userlist' element={<UserList />} />
                 <Route path='/viewteas' element={<ViewTeas />} />
+                <Route path='/teas/:id' element={<TeaInfo />} />
             </Routes>
         </BrowserRouter>
     );

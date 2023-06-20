@@ -1,6 +1,28 @@
+import React from "react";
 import Navbar from "./Navbar";
+import { useLocation } from "react-router-dom";
 
 export default function TeaInfo() {
+    const [tea, setTea] = React.useState(null);
+
+    const pathID = useLocation().pathname;
+
+    async function getTeaInfo() {
+        const response = await fetch(`http://localhost:9000${pathID}`);
+        const json = await response.json();
+    
+        if(response.ok) {
+          setTea(json);
+          console.log(tea);
+        }
+        
+      }
+    
+    React.useEffect(() => {
+        if (pathID !== "/") {
+            getTeaInfo();
+        }
+    }, []);
 
     return (
         <div>

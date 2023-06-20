@@ -1,12 +1,14 @@
 
 export default function TeaForm() {
 
+// TODO: Fix multipart/formdata?, add tea router and user router links and test
+
     return (
-        <form method="POST" action="/teas/create" className="teaform" id="newteaform" encType="multipart/form-data">
+        <form method="POST" action="http://localhost:9000/teas/create" className="teaform" id="newteaform">
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                    <input type="text" id="teaname" className="form-control" name="teaname" placeholder="Tea" required maxLength={50}></input>
+                    <input type="text" id="teaname" className="form-control" name="teaname" placeholder="Tea" required maxLength={50} ></input>
                     <label htmlFor="teaname" className="form-label">Tea Name</label>
                     </div>
                 </div>
@@ -14,7 +16,7 @@ export default function TeaForm() {
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                        <input type="text" id="brand" className="form-control" name="brand" placeholder="Brand" maxLength={30}></input>
+                        <input type="text" id="brand" className="form-control" name="brand" placeholder="Brand" maxLength={30} ></input>
                         <label htmlFor="brand" className="form-label">Brand</label>
                     </div>
                 </div>
