@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const user = require("./User");
 
+const opts = { toJSON: { virtuals: true } };
+
 const TeaSchema = new Schema({
     tea_name: {type: String, required: [true, "Please enter a tea name"], minLength: 2, maxLength: 20},
     brand: {type: String, maxLength: 20},
@@ -11,7 +13,7 @@ const TeaSchema = new Schema({
     created_by: {type: Schema.Types.ObjectId, ref: "User"},
     created_on: {type: Date},
     updated_on: {type: Date},
-    type: {type: String}
+    type: {type: String},
 });
 
 TeaSchema.virtual("url").get(function () {

@@ -1,4 +1,4 @@
-import { PropTeaType } from '../ts/interfaces';
+import { PropTeaType} from '../ts/interfaces';
 
 export default function TeaCard(props: PropTeaType) {
 
@@ -10,7 +10,7 @@ export default function TeaCard(props: PropTeaType) {
                 <li>Type: {props.tea.type} </li> 
                 <li>Brand: {props.tea.brand} </li> 
                 <li>Rating(out of 10): {props.tea.rating} </li> 
-                <li>Notes: {props.tea.notes} </li> 
+                <li>Notes: {props.tea.notes} </li>
             </div>
         </div>
     )

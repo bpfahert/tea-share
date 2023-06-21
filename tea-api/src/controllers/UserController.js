@@ -22,3 +22,34 @@ exports.user_list = (req, res) => {
   });
 };
 
+exports.new_user = [
+  body("username", "Please enter a username").trim().isLength({min: 2}).escape(),
+  body("password").trim().isLength({min: 2}).escape(),
+  body("favoritetea"),
+  body("email"),
+  body("about"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const user = new User({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      favorite_tea_type: req.body.favoritetea,
+      about: req.body.about,
+    });
+
+    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+      if (err) {
+        return next(err);
+      }
+      user.password = hashedPassword;
+      user.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("http://localhost:3000");
+      })
+    })
+  }
+]

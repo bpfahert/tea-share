@@ -7,7 +7,7 @@ export default function Signup() {
             <Navbar />
             <h2>Sign up for an account!</h2>
             <div className="formdiv border border-dark w-50">
-            <form method="POST" action="" className="userform" id="newuserform">
+            <form method="POST" action="http://localhost:9000/user/create" className="userform" id="newuserform">
                 <div className="row">
                     <div className="form-group col-lg-4">
                         <label htmlFor="username" className="form-label">Username</label>

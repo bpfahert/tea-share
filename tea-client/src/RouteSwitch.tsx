@@ -13,7 +13,6 @@ export default function RouteSwitch() {
             <Routes>
                 <Route path="/" element={<UserFeed />} />
                 <Route path="/createaccount" element={<Signup />} />
-                {/* <Route path="/teainfo" element={<TeaInfo />} /> */}
                 <Route path='/userinfo' element={<UserInfo />} />
                 <Route path='/userlist' element={<UserList />} />
                 <Route path='/viewteas' element={<ViewTeas />} />

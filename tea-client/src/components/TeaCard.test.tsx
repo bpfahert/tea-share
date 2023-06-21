@@ -9,6 +9,7 @@ const testTea: TeaType = {
         brand: "David's Tea",
         rating: 9,
         notes: "Notes on the tea will go here",
+
 }
 
 describe('TeaCard component', () => {
