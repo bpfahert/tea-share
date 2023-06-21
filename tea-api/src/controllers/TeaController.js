@@ -22,6 +22,11 @@ exports.index = (req, res, next) => {
       })
 }
 
+exports.get_all_teas = async (req, res, next) => {
+  const teas = await Tea.find({});
+  res.status(200).json(teas);
+}
+
 exports.tea_create_post = [
   body("tea_name").trim().isLength({min: 2}).escape().withMessage("Please enter a tea name"),
   body("brand").trim().isLength({min: 2}),

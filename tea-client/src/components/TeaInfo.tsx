@@ -1,9 +1,10 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
+import { TeaType } from '../ts/interfaces';
 
 export default function TeaInfo() {
-    const [tea, setTea] = React.useState(null);
+    const [tea, setTea] = React.useState<TeaType>();
 
     const pathID = useLocation().pathname;
 
@@ -27,11 +28,11 @@ export default function TeaInfo() {
     return (
         <div>
             <Navbar />
-            <p>Tea name: </p>
-            <p>Type:</p>
-            <p>Brand:</p>
-            <p>Rating:</p>
-            <p>Added by User on Date</p>
+            <p>Tea name: {tea ? tea.tea_name : ""}</p>
+            <p>Type: {tea ? tea.type : ""}</p>
+            <p>Brand: {tea ? tea.brand : ""}</p>
+            <p>Rating: {tea ? tea.rating : ""}</p>
+            {/* <p>Added by User on </p> */}
             <a href="#" data-bs-toggle="modal" data-bs-target="#teamodal">Recommend this tea to a user</a>
             <div className="modal fade" id="teamodal">
                 <div className="modal-dialog">

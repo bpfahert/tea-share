@@ -1,9 +1,26 @@
+import React from 'react';
 import Navbar from './Navbar';
 import TeaList from './TeaList';
 import { TeaType } from '../ts/interfaces';
 
 export default function UserFeed() {
     const username: string = "User";
+
+    const [allTeas, setAllTeas] = React.useState([]);
+
+    async function getAllTeas() {
+        const response = await fetch(`http://localhost:9000/teas/all`);
+        const json = await response.json();
+    
+        if(response.ok) {
+          setAllTeas(json);
+        }
+        
+    }
+    
+    React.useEffect(() => {
+        getAllTeas();
+    }, []);
 
     const teaArray: TeaType[] = [
         { tea_name: "Test Tea", type: "Green", brand: "David's Tea", rating: 9, notes: "A great tea!" },
@@ -23,6 +40,10 @@ export default function UserFeed() {
                 <h4>Hello {username}!</h4> 
                 : <h4>Log in to your account!</h4>
             }
+            <div className="testdiv">
+                <h3>All: </h3>
+                <TeaList tealist={allTeas} listname={"all teas"}/>
+            </div>
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={teaArray} listname={"Friends activity"}/>
