@@ -1,11 +1,11 @@
 import React from 'react';
 import Navbar from './Navbar';
 import TeaList from './TeaList';
-import { TeaType } from '../ts/interfaces';
+import { TeaType, UserType } from '../ts/interfaces';
 
 export default function UserFeed() {
 
-    const [username, setUsername] = React.useState(null);
+    const [username, setUsername] = React.useState<UserType>();
     const [allTeas, setAllTeas] = React.useState([]);
 
     async function getUser() {
@@ -51,6 +51,10 @@ export default function UserFeed() {
     return (
         <div>
             <Navbar />
+            <div>
+                Hello {username?.user.username}
+            </div>
+            <button onClick={() => console.log(username?.user.username)}>Check user</button>
             {/* {username !== null ? 
                 <h4>Hello {username}!</h4> 
                 : <h4>Log in to your account!</h4>

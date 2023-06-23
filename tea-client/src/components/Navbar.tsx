@@ -2,16 +2,16 @@ import LoginForm from './LoginForm';
 import TeaForm from './TeaForm';
 import { CurrentUser } from '../ts/interfaces';
 
-export default function Navbar( { currentuser }: CurrentUser) {
+export default function Navbar() {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "turquoise"}}>
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
                 <ul className="navbar-nav">
-                    {currentuser ? 
-                    <li className="nav-item active"><a className="nav-link" href="/teas">{currentuser.username}</a></li> :
+                    {/* {currentuser ?  */}
+                    {/* <li className="nav-item active"><a className="nav-link" href="/teas">{currentuser.username}</a></li> : */}
                     <li className="nav-item"><a className="nav-link" href="/createaccount">Sign up</a></li>
-                    }
+                    {/* } */}
                     <li className="nav-item"><a className="nav-link" href="/viewteas">Teas</a></li>
                     <li className="nav-item"><a className="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#newteamodal">Add New Tea</a></li>
                     <div className="modal fade" id="newteamodal">
@@ -29,8 +29,8 @@ export default function Navbar( { currentuser }: CurrentUser) {
                             </div>
                         </div>
                     </div>
-                    {currentuser ? 
-                    <li className="nav-item"><a className="nav-link" href={currentuser.url}>Profile</a></li>:
+                    {/* {currentuser ?  */}
+                    {/* <li className="nav-item"><a className="nav-link" href={currentuser.url}>Profile</a></li>: */}
                     <div>
                         <li className="nav-item"><a className="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginmodal">Log in</a></li>
                         <div className="modal fade" id="loginmodal">
@@ -49,7 +49,7 @@ export default function Navbar( { currentuser }: CurrentUser) {
                             </div>                        
                         </div>
                     </div>
-                    }
+                    {/* } */}
                     <li className="nav-item"><a className="nav-link" href="/userlist">Friends</a></li>
                 </ul>
             </div>

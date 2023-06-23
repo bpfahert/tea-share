@@ -21,9 +21,22 @@ export interface PropTeaList {
     listname: string,
     }
 
-export interface CurrentUser {
-    currentuser?: {
+export interface UserType {
+    user: {
         username: string,
-        url: string,
+        password: string,
+        about: string,
+        favorite_tea_type: string,
+        favorite_teas: [],
+        email: string,
+        saved_teas: [],
+        recommended_teas: [],
+    }
+}
+
+export interface CurrentUser {
+    currentuser: {
+        username: string,
+        url: string
     }
 }
