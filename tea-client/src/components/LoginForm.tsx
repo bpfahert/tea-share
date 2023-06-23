@@ -2,7 +2,7 @@
 export default function LoginForm() {
 
     return (
-        <form method="POST" action="/userlogin" className="loginform" id="loginform">
+        <form method="POST" action="http://localhost:9000/user/login" className="loginform" id="loginform">
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">

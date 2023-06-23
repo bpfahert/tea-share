@@ -12,6 +12,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
+const User = require("./src/models/User");
 require('dotenv').config();
 
 
@@ -29,21 +30,94 @@ mongoose.connect(mongoDB, { useNewURLParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
-//Set Middleware
-app.use((req, res, next) => {
-    console.log(req.path, req.method);
-    next();
-})
+// Set password middleware
+  passport.use(
+    new LocalStrategy(async(username, password, done) => {
+      try {
+        const user = await User.findOne({ username: username });
+        if (!user) {
+          return done(null, false, { message: "Username does not exist" });
+        };
+        bcrypt.compare(password, user.password, (err, res) => {
+          if (res) {
+            return done(null, user);
+          }
+          else {
+            return done(null, false, {message: "Incorrect password!"});
+          }
+        })
+      } catch(err) {
+        return done(err);
+      };
+    })
+  );
+  
 
-app.use(cors());
+
+// Set passport serialize/deserialize
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async function(id, done) {
+  try {
+    const user = await User.findById(id).exec();
+    done(null, user);
+  } catch(err) {
+    done(err);
+  };
+});
+
+
+//Set Middleware
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+
+app.use(session({secret: 'cat', resave: false, saveUninitialized: true}));
+app.use(cookieParser('cat'));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Add routers to middleware
 app.use("/teas", teaRouter);
 app.use("/user", userRouter);
+
+app.get('/user/getuser', (req, res) => {
+  if (req.user) {
+    res.json({ user: req.user });
+  } else {
+    res.json({ user: null });
+  }
+})
+
+// Login and logout handlers
+
+app.post(
+    "/user/login", 
+    passport.authenticate("local", {
+      successRedirect: "http://localhost:3000/",
+      failureRedirect: "http://localhost:3000/viewteas"
+    })
+);
+  
+app.get("/user/logout", (req, res, next) => {
+  req.logout(function(err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/teas/tealist");
+  });
+});
 
 //Add error handling middleware
 let catch404 = (req, res, next) => {

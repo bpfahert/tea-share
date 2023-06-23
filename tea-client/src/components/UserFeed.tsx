@@ -4,9 +4,20 @@ import TeaList from './TeaList';
 import { TeaType } from '../ts/interfaces';
 
 export default function UserFeed() {
-    const username: string = "User";
 
+    const [username, setUsername] = React.useState(null);
     const [allTeas, setAllTeas] = React.useState([]);
+
+    async function getUser() {
+        const response = await fetch('http://localhost:9000/user/getuser', {
+            credentials: 'include',
+        });
+        const json = await response.json();
+
+        if(response.ok) {
+            setUsername(json);
+        }
+    }
 
     async function getAllTeas() {
         const response = await fetch(`http://localhost:9000/teas/all`);
@@ -17,9 +28,13 @@ export default function UserFeed() {
         }
         
     }
-    
+
     React.useEffect(() => {
         getAllTeas();
+    }, []);
+
+    React.useEffect(() => {
+        getUser();
     }, []);
 
     const teaArray: TeaType[] = [
@@ -36,10 +51,10 @@ export default function UserFeed() {
     return (
         <div>
             <Navbar />
-            {username ? 
+            {/* {username !== null ? 
                 <h4>Hello {username}!</h4> 
                 : <h4>Log in to your account!</h4>
-            }
+            } */}
             <div className="testdiv">
                 <h3>All: </h3>
                 <TeaList tealist={allTeas} listname={"all teas"}/>
