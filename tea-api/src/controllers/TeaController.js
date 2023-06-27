@@ -44,8 +44,25 @@ exports.tea_create_post = [
       rating: req.body.rating,
       notes: req.body.notes,
       created_on: new Date(),
-      // created_by: req.user._id,
+      created_by: req.user._id,
     });
+    User.findById(tea.created_by)
+    .exec((err, creator) => {
+      if (err) {
+        return next(err);
+      }
+      if (creator === null) {
+        const err = new Error ("User does not exist!");
+        err.status = 404;
+        return next(err);
+      }
+      creator.teas_added.push(tea._id);
+      creator.save((err) => {
+        if(err) {
+          return next(err);
+        }
+      })
+    })
 
     tea.save((err) => {
       if(err) {
@@ -55,3 +72,6 @@ exports.tea_create_post = [
     })
   }
 ];
+
+
+  

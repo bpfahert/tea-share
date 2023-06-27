@@ -1,6 +1,5 @@
 import LoginForm from './LoginForm';
 import TeaForm from './TeaForm';
-import { CurrentUser } from '../ts/interfaces';
 
 export default function Navbar() {
 
@@ -8,8 +7,8 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "turquoise"}}>
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
                 <ul className="navbar-nav">
-                    {/* {currentuser ?  */}
-                    {/* <li className="nav-item active"><a className="nav-link" href="/teas">{currentuser.username}</a></li> : */}
+                    {/* {user !== undefined ?  */}
+                    {/* <li className="nav-item active"><a className="nav-link" href="/teas">{user.username}</a></li> : */}
                     <li className="nav-item"><a className="nav-link" href="/createaccount">Sign up</a></li>
                     {/* } */}
                     <li className="nav-item"><a className="nav-link" href="/viewteas">Teas</a></li>

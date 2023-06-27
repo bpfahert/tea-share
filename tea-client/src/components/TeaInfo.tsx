@@ -1,10 +1,12 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
-import { TeaType } from '../ts/interfaces';
+import { TeaType, UserType } from '../ts/interfaces';
 
 export default function TeaInfo() {
     const [tea, setTea] = React.useState<TeaType>();
+    const [user, setUser] = React.useState<UserType>();
+    const [userList, setUserList] = React.useState();
 
     const pathID = useLocation().pathname;
 
@@ -18,6 +20,28 @@ export default function TeaInfo() {
         }
         
       }
+
+    async function getUser() {
+        const response = await fetch('http://localhost:9000/user/getuser', {
+            credentials: 'include',
+        });
+        const json = await response.json();
+
+        if(response.ok) {
+            setUser(json);
+        }
+    }
+
+    async function getUserList() {
+        const response = await fetch('http://localhost:9000/user/userlist', {
+            credentials: 'include',
+        });
+        const json = await response.json();
+
+        if(response.ok) {
+            setUserList(json);
+        }
+    }
     
     React.useEffect(() => {
         if (pathID !== "/") {
@@ -25,9 +49,19 @@ export default function TeaInfo() {
         }
     }, []);
 
+    React.useEffect(() => {
+        getUser();
+    }, []);
+
+    React.useEffect(() => {
+        getUserList();
+    }, []);
+
+    
     return (
         <div>
             <Navbar />
+            <button onClick={() => console.log(userList)}>Test</button>
             <p>Tea name: {tea ? tea.tea_name : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? tea.brand : ""}</p>

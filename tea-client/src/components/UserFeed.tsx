@@ -5,7 +5,7 @@ import { TeaType, UserType } from '../ts/interfaces';
 
 export default function UserFeed() {
 
-    const [username, setUsername] = React.useState<UserType>();
+    const [user, setUser] = React.useState<UserType>();
     const [allTeas, setAllTeas] = React.useState([]);
 
     async function getUser() {
@@ -15,7 +15,7 @@ export default function UserFeed() {
         const json = await response.json();
 
         if(response.ok) {
-            setUsername(json);
+            setUser(json);
         }
     }
 
@@ -51,14 +51,7 @@ export default function UserFeed() {
     return (
         <div>
             <Navbar />
-            <div>
-                Hello {username?.user.username}
-            </div>
-            <button onClick={() => console.log(username?.user.username)}>Check user</button>
-            {/* {username !== null ? 
-                <h4>Hello {username}!</h4> 
-                : <h4>Log in to your account!</h4>
-            } */}
+            <button onClick={() => console.log(user?.user.username)}>Check user</button>
             <div className="testdiv">
                 <h3>All: </h3>
                 <TeaList tealist={allTeas} listname={"all teas"}/>
