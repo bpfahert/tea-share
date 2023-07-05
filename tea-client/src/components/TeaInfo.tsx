@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
-import { TeaType, UserType } from '../ts/interfaces';
+import { TeaType, UserRef} from '../ts/interfaces';
 
 export default function TeaInfo() {
     const [tea, setTea] = React.useState<TeaType>();
-    const [user, setUser] = React.useState<UserType>();
-    const [userList, setUserList] = React.useState();
+    const [user, setUser] = React.useState<UserRef>();
+    const [userList, setUserList] = React.useState<UserRef[]>();
 
     const pathID = useLocation().pathname;
 
@@ -16,7 +16,6 @@ export default function TeaInfo() {
     
         if(response.ok) {
           setTea(json);
-          console.log(tea);
         }
         
       }
@@ -57,11 +56,17 @@ export default function TeaInfo() {
         getUserList();
     }, []);
 
-    
+    const userListElements = userList?.map((rec_user) => {
+        return (
+            <option value={rec_user._id}>{rec_user.username}</option>
+        )
+    });
+
+    // TODO: RECOMMENDER/recommended by IS NOT SENDING TO CONTROLLER 
+    // PROBLEM IS _ID IS NOT ACCESSIBLE
     return (
         <div>
             <Navbar />
-            <button onClick={() => console.log(userList)}>Test</button>
             <p>Tea name: {tea ? tea.tea_name : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? tea.brand : ""}</p>
@@ -77,13 +82,13 @@ export default function TeaInfo() {
                         </div>
                         <div className="modal-body">
                             <div>
-                                <form method="POST" action="/teas/recommend" className="teaform" id="recommendationform">
+                                <form method="POST" action="http://localhost:9000/teas/recommend" className="teaform" id="recommendationform">
                                     <h4>Recommend this Tea</h4>
-                                    <input type="hidden" id="recommendedtea" name="recommendedtea" value="TeaID"></input>
-                                    <input type="text" id="recommendedtea" name="recommendedtea" disabled value="tea name"></input>
-                                    <input type="hidden" name="recommender" id="recommender" value="User"></input>
+                                    <input type="hidden" id="recommendedtea" name="recommendedtea" value={tea?._id}></input>
+                                    <input type="text" id="recommendedteaname" name="recommendedteaname" disabled value={tea?.tea_name}></input>
+                                    {/* <input type="hidden" name="currentuser" id="currentuser" value={user?.username}></input> */}
                                     <select id="user" name="user">
-                                    <option value="Username">Username</option>
+                                        {userListElements}
                                     </select>
                                     <p>Enter a message here:</p>
                                     <input type="text" id="recmessage" name="recmessage"></input>

@@ -73,5 +73,34 @@ exports.tea_create_post = [
   }
 ];
 
+exports.tea_recommend_post = [
+  body("recommendedtea"),
+  // body("currentuser"),
+  body("user"),
+  body("recmessage"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    User.findById(req.body.user).exec((err, friend) => {
+      if(err) {
+        return next(err);
+      }
+      let tea_obj = {
+        tea_rec: req.body.recommendedtea,
+        // recommended_by: req.body.currentuser,
+        message: req.body.recmessage,
+      };
+      friend.recommended_teas.push(tea_obj);
+      friend.notificationStatus = true;
+
+      friend.save((err) => {
+        if(err) {
+          return next(err);
+        }
+        res.redirect("http://localhost:3000");
+      })
+  })
+  }
+];
+
 
   

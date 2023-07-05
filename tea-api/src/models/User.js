@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     teas_added: [{type: Schema.Types.ObjectId, ref: "Tea"}],
     recommended_teas: [{
         tea_rec: {type: Schema.Types.ObjectId, ref:"Tea"},
-        recommended_by: {type: Schema.Types.ObjectId, ref: "User"},
+        // recommended_by: {type: Schema.Types.ObjectId, ref: "User"},
         message: {type: String}
     }],
     email: {type: String},

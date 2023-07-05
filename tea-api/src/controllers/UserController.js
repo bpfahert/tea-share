@@ -12,7 +12,7 @@ exports.index = (req, res, next) => {
 }
 
 exports.user_list = (req, res) => {
-  User.find({}, "username")
+  User.find({})
   .sort({username: 1})
   .exec(function (err, userlist) {
     if (err) {
@@ -37,6 +37,7 @@ exports.new_user = [
       email: req.body.email,
       favorite_tea_type: req.body.favoritetea,
       about: req.body.about,
+      notificationStatus: false,
     });
 
     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {

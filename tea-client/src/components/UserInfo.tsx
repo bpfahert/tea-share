@@ -4,8 +4,8 @@ import Navbar from "./Navbar";
 
 export default function UserInfo() {
     const teaArray: TeaType[] = [
-        { tea_name: "Test Tea", type: "Green", brand: "David's Tea", rating: 9, notes: "A great tea!" },
-        { tea_name: "Test Tea 2", type: "Herbal", brand: "David's Tea", rating: 7, notes: "A decent tea"}
+        { tea_name: "Test Tea", type: "Green", brand: "David's Tea", rating: 9, notes: "A great tea!", _id: "1" },
+        { tea_name: "Test Tea 2", type: "Herbal", brand: "David's Tea", rating: 7, notes: "A decent tea", _id: "2"}
     ]
 
     return (
