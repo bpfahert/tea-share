@@ -5,6 +5,9 @@ const async = require("async");
 const path = require('path');
 const fs = require('fs');
 const user = require('../models/User');
+const multer = require('multer');
+
+const upload = multer({dest: '../tea-api/public/images/'});
 
 const mongoose = require("mongoose");
 
@@ -28,12 +31,19 @@ exports.get_all_teas = async (req, res, next) => {
 }
 
 exports.tea_create_post = [
+  upload.single('teaimg'),
   body("tea_name").trim().isLength({min: 2}).escape().withMessage("Please enter a tea name"),
   body("brand").trim().isLength({min: 2}),
   body("type"),
   body("rating"),
   body("notes").trim(),
   (req, res, next) => {
+    const uploadedImage = {
+      teaImage: req.file ? {
+        data: fs.readFileSync(path.join(__dirname + "/../../public/images/" + req.file.filename)),
+      contentType: "image/png"
+      } : ""
+    }
 
     const errors = validationResult(req);
 
@@ -45,6 +55,7 @@ exports.tea_create_post = [
       notes: req.body.notes,
       created_on: new Date(),
       created_by: req.user._id,
+      img: uploadedImage.teaImage,
     });
     User.findById(tea.created_by)
     .exec((err, creator) => {

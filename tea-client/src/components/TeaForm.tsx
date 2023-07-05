@@ -4,7 +4,7 @@ export default function TeaForm() {
 // TODO: Fix multipart/formdata?, add tea router and user router links and test
 
     return (
-        <form method="POST" action="http://localhost:9000/teas/create" className="teaform" id="newteaform">
+        <form method="POST" action="http://localhost:9000/teas/create" className="teaform" id="newteaform" encType="multipart/form-data" >
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
