@@ -1,10 +1,11 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
-import { TeaType, UserRef} from '../ts/interfaces';
+import { TeaTypeImg, UserRef} from '../ts/interfaces';
+import { Buffer } from "buffer";
 
 export default function TeaInfo() {
-    const [tea, setTea] = React.useState<TeaType>();
+    const [tea, setTea] = React.useState<TeaTypeImg>();
     const [user, setUser] = React.useState<UserRef>();
     const [userList, setUserList] = React.useState<UserRef[]>();
 
@@ -64,6 +65,8 @@ export default function TeaInfo() {
 
     // TODO: RECOMMENDER/recommended by IS NOT SENDING TO CONTROLLER 
     // PROBLEM IS _ID IS NOT ACCESSIBLE
+
+    
     return (
         <div>
             <Navbar />
@@ -71,7 +74,9 @@ export default function TeaInfo() {
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? tea.brand : ""}</p>
             <p>Rating: {tea ? tea.rating : ""}</p>
+            {tea?.img ? <img src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
             {/* <p>Added by User on </p> */}
+            <p></p>
             <a href="#" data-bs-toggle="modal" data-bs-target="#teamodal">Recommend this tea to a user</a>
             <div className="modal fade" id="teamodal">
                 <div className="modal-dialog">

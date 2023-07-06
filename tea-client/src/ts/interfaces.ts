@@ -11,6 +11,19 @@ export interface TeaType {
     _id: string,
 }
 
+export interface TeaTypeImg {
+    tea_name: string, 
+    type: string, 
+    brand: string,
+    rating: number,
+    notes: string,
+    img: {
+        data: any,
+        contentType: string,
+    },
+    _id: string,
+}
+
 export interface PropTeaType {
 tea: {
     tea_name: string, 
