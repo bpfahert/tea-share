@@ -8,6 +8,10 @@ export interface TeaType {
     brand: string,
     rating: number,
     notes: string,
+    img: {
+        data: any,
+        contentType: string,
+    }
     _id: string,
 }
 
@@ -31,6 +35,10 @@ tea: {
     brand: string,
     rating: number,
     notes: string,
+    img: {
+        data: any,
+        contentType: string,
+    },
     }   
 }
 

@@ -37,11 +37,6 @@ export default function UserFeed() {
         getUser();
     }, []);
 
-    const teaArray: TeaType[] = [
-        { tea_name: "Test Tea", type: "Green", brand: "David's Tea", rating: 9, notes: "A great tea!", _id: "1"},
-        { tea_name: "Test Tea 2", type: "Herbal", brand: "David's Tea", rating: 7, notes: "A decent tea", _id: "2"}
-    ]
-
     const recommended_teas = null;
     const saved_teas = null;
     const favorite_teas = null;
@@ -57,40 +52,40 @@ export default function UserFeed() {
             </div>
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
-                <TeaList tealist={teaArray} listname={"Friends activity"}/>
+                <TeaList tealist={allTeas} listname={"Friends activity"}/>
             </div>
             <div className="recommendedteas">
                 <h3>Recommended Teas</h3>
                 {recommended_teas ? 
-                    <TeaList tealist={teaArray} listname={"Teas recommended by friends"} />
+                    <TeaList tealist={allTeas} listname={"Teas recommended by friends"} />
                     : <p>You have no recommendations currently.</p>
                 }
             </div>
             <div className="savedteas">
                 <h3>Saved Teas</h3>
                 {saved_teas ? 
-                    <TeaList tealist={teaArray} listname={"Saved teas"} />
+                    <TeaList tealist={allTeas} listname={"Saved teas"} />
                     : <p>You have no saved teas.</p>
                 }
             </div>
             <div className="favoriteteas">
                 <h3>Favorite Teas</h3>
                 {favorite_teas ? 
-                    <TeaList tealist={teaArray} listname={"Favorite teas"} />
+                    <TeaList tealist={allTeas} listname={"Favorite teas"} />
                     : <p>You have no favorited teas.</p>
                 }
             </div>
             <div className="yourteas">
                 <h3>Teas added by you</h3>
                 {user_teas ? 
-                    <TeaList tealist={teaArray} listname={"Your teas"} />
+                    <TeaList tealist={allTeas} listname={"Your teas"} />
                     : <p>You have no favorited teas.</p>
                 }
             </div>
             <div className="topteas">
                 <h3>Top teas</h3>
                 {top_teas ? 
-                    <TeaList tealist={teaArray} listname={"Top rated teas"} />
+                    <TeaList tealist={allTeas} listname={"Top rated teas"} />
                     : <p>You have no favorited teas.</p>
                 }
             </div>

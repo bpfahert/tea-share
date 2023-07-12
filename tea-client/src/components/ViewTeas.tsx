@@ -5,8 +5,8 @@ import TeaList from './TeaList';
 
 export default function ViewTeas() {
     const teaArray: TeaType[] = [
-        { tea_name: "Test Tea", type: "Green", brand: "David's Tea", rating: 9, notes: "A great tea!", _id: "1" },
-        { tea_name: "Test Tea 2", type: "Herbal", brand: "David's Tea", rating: 7, notes: "A decent tea", _id: "2" }
+        { tea_name: "Test Tea", type: "Green", brand: "David's Tea", rating: 9, notes: "A great tea!", _id: "1", img: {data: "", contentType: ""} },
+        { tea_name: "Test Tea 2", type: "Herbal", brand: "David's Tea", rating: 7, notes: "A decent tea", _id: "2", img: {data: "", contentType: ""} }
     ]
     
     return (

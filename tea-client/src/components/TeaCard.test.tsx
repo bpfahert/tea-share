@@ -10,6 +10,7 @@ const testTea: TeaType = {
         rating: 9,
         notes: "Notes on the tea will go here",
         _id: "1",
+        img: {data: "", contentType: ""},
 
 }
 
