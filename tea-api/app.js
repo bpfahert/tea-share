@@ -94,7 +94,12 @@ app.use("/user", userRouter);
 
 app.get('/user/getuser', (req, res) => {
   if (req.user) {
-    res.json({ user: req.user });
+    User.find({username: req.user.username}).select("-password").populate("recommended_teas.tea_rec saved_teas teas_added favorite_teas").exec(function (err, currentUser) {
+      if (err) {
+        return next(err);
+      }
+    res.json({ user: currentUser[0] })
+    });
   } else {
     res.json({ user: null });
   }

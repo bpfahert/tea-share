@@ -7,6 +7,7 @@ export default function UserFeed() {
 
     const [user, setUser] = React.useState<UserType>();
     const [allTeas, setAllTeas] = React.useState([]);
+    const [recTeas, setRecTeas] = React.useState([]);
 
     async function getUser() {
         const response = await fetch('http://localhost:9000/user/getuser', {
@@ -20,7 +21,7 @@ export default function UserFeed() {
     }
 
     async function getAllTeas() {
-        const response = await fetch(`http://localhost:9000/teas/all`);
+        const response = await fetch('http://localhost:9000/teas/all');
         const json = await response.json();
     
         if(response.ok) {
@@ -29,27 +30,37 @@ export default function UserFeed() {
         
     }
 
+    // async function getRecommendedTeas() {
+    //     const response = await fetch('http://localhost:9000/teas/rec');
+    //     const json = await response.json();
+
+    //     if(response.ok) {
+    //         setRecTeas(json);
+    //     }
+    // }
+
     React.useEffect(() => {
         getAllTeas();
+        // getRecommendedTeas();
+        
     }, []);
 
     React.useEffect(() => {
         getUser();
     }, []);
 
-    const recommended_teas = null;
-    const saved_teas = null;
-    const favorite_teas = null;
-    const user_teas = null;
+    //TODO: DISPLAY RECOMMENDED TEAS
+    const recommended_teas = user?.user ? user.user.recommended_teas : allTeas;
+    const saved_teas = user?.user ? user.user.saved_teas : allTeas;
+    const favorite_teas = user?.user ? user.user.favorite_teas : allTeas;
+    const user_teas = user?.user ? user.user.teas_added : allTeas;
     const top_teas = null;
 
     return (
         <div>
             <Navbar />
-            <div className="testdiv">
-                <h3>All: </h3>
-                <TeaList tealist={allTeas} listname={"all teas"}/>
-            </div>
+            <button onClick={() => console.log(user)}>user</button>
+            <button onClick={() => console.log(user_teas)}>added</button>
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={allTeas} listname={"Friends activity"}/>
@@ -57,28 +68,28 @@ export default function UserFeed() {
             <div className="recommendedteas">
                 <h3>Recommended Teas</h3>
                 {recommended_teas ? 
-                    <TeaList tealist={allTeas} listname={"Teas recommended by friends"} />
+                    <TeaList tealist={recommended_teas} listname={"Teas recommended by friends"} />
                     : <p>You have no recommendations currently.</p>
                 }
             </div>
             <div className="savedteas">
                 <h3>Saved Teas</h3>
                 {saved_teas ? 
-                    <TeaList tealist={allTeas} listname={"Saved teas"} />
+                    <TeaList tealist={saved_teas} listname={"Saved teas"} />
                     : <p>You have no saved teas.</p>
                 }
             </div>
             <div className="favoriteteas">
                 <h3>Favorite Teas</h3>
                 {favorite_teas ? 
-                    <TeaList tealist={allTeas} listname={"Favorite teas"} />
+                    <TeaList tealist={favorite_teas} listname={"Favorite teas"} />
                     : <p>You have no favorited teas.</p>
                 }
             </div>
             <div className="yourteas">
                 <h3>Teas added by you</h3>
                 {user_teas ? 
-                    <TeaList tealist={allTeas} listname={"Your teas"} />
+                    <TeaList tealist={user_teas} listname={"Your teas"} />
                     : <p>You have no favorited teas.</p>
                 }
             </div>

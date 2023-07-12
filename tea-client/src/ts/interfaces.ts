@@ -57,6 +57,7 @@ export interface UserType {
         email: string,
         saved_teas: [],
         recommended_teas: [],
+        teas_added: [],
     }
 }
 

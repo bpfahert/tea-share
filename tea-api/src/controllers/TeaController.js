@@ -30,6 +30,11 @@ exports.get_all_teas = async (req, res, next) => {
   res.status(200).json(teas);
 }
 
+// exports.get_rec_teas = async (req, res, next) => {
+//   const teas = await User.find({username: req.user.username});
+//   res.status(200).json(teas);
+// }
+
 exports.tea_create_post = [
   upload.single('teaimg'),
   body("tea_name").trim().isLength({min: 2}).escape().withMessage("Please enter a tea name"),
