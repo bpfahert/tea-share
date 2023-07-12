@@ -7,7 +7,6 @@ export default function UserFeed() {
 
     const [user, setUser] = React.useState<UserType>();
     const [allTeas, setAllTeas] = React.useState([]);
-    const [recTeas, setRecTeas] = React.useState([]);
 
     async function getUser() {
         const response = await fetch('http://localhost:9000/user/getuser', {
@@ -59,8 +58,6 @@ export default function UserFeed() {
     return (
         <div>
             <Navbar />
-            <button onClick={() => console.log(user)}>user</button>
-            <button onClick={() => console.log(user_teas)}>added</button>
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={allTeas} listname={"Friends activity"}/>

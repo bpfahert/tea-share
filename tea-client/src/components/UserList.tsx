@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
+import { UserRef } from '../ts/interfaces';
 
 
 export default function UserList() {
@@ -33,13 +34,14 @@ export default function UserList() {
         fetchData()
     }, [])
 
-    const listElements = userList.map(user => {
-        return <li>{user}</li>
+    const listElements = userList.map((user : UserRef) => {
+        return <li>{user.username}</li>
     })
 
     return (
         <div>
             <Navbar />
+            <button onClick={() => console.log(userList)}>list</button>
             <ul>
                 {/* <li><a href="/userinfo">User</a></li> */}
                 {listElements}
