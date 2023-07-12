@@ -47,6 +47,11 @@ export interface PropTeaList {
     listname: string,
     }
 
+export interface PropUsername {
+    username: string,
+    userID: string,
+}
+
 export interface UserType {
     user: {
         username: string,
@@ -58,6 +63,7 @@ export interface UserType {
         saved_teas: [],
         recommended_teas: [],
         teas_added: [],
+        _id: string,
     }
 }
 

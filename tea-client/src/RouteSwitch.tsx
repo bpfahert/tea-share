@@ -13,7 +13,7 @@ export default function RouteSwitch() {
             <Routes>
                 <Route path="/" element={<UserFeed />} />
                 <Route path="/createaccount" element={<Signup />} />
-                <Route path='/userinfo' element={<UserInfo />} />
+                <Route path='/users/:id' element={<UserInfo />} />
                 <Route path='/userlist' element={<UserList />} />
                 <Route path='/viewteas' element={<ViewTeas />} />
                 <Route path='/teas/:id' element={<TeaInfo />} />
