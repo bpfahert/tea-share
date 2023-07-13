@@ -29,18 +29,8 @@ export default function UserFeed() {
         
     }
 
-    // async function getRecommendedTeas() {
-    //     const response = await fetch('http://localhost:9000/teas/rec');
-    //     const json = await response.json();
-
-    //     if(response.ok) {
-    //         setRecTeas(json);
-    //     }
-    // }
-
     React.useEffect(() => {
         getAllTeas();
-        // getRecommendedTeas();
         
     }, []);
 

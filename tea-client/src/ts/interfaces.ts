@@ -76,6 +76,7 @@ export interface UserRef {
     email: string,
     saved_teas: [],
     recommended_teas: [],
+    teas_added: [],
     _id: string,
 }
 

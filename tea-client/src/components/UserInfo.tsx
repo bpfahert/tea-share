@@ -1,22 +1,47 @@
 import TeaList from "./TeaList";
-import { TeaType } from "../ts/interfaces";
+import { TeaType, UserRef } from "../ts/interfaces";
 import Navbar from "./Navbar";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 export default function UserInfo() {
-    const teaArray: TeaType[] = [
-        { tea_name: "Test Tea", type: "Green", brand: "David's Tea", rating: 9, notes: "A great tea!", _id: "1", img: {data: "", contentType: ""} },
-        { tea_name: "Test Tea 2", type: "Herbal", brand: "David's Tea", rating: 7, notes: "A decent tea", _id: "2", img: {data: "", contentType: ""}}
-    ]
+    const [userDetails, setUserDetails] = React.useState<UserRef>();
+
+    const pathID = useLocation().pathname;
+
+    async function getUserDetails() {
+        const response = await fetch(`http://localhost:9000${pathID}`, {
+            credentials: 'include',
+        });
+        const json = await response.json();
+
+        if(response.ok) {
+            setUserDetails(json);
+        }
+    }
+
+    React.useEffect(() => {
+        getUserDetails();
+
+    }, []);
 
     return (
         <div>
-            <Navbar />
-            <p>Username: </p>
-            <p>Favorite type of tea: </p>
-            <p>User's favorite teas:</p>
-            <TeaList tealist={teaArray} listname={"User's favorite teas"}/>
-            <p>Teas added by User</p>
-            <TeaList tealist={teaArray} listname={"User's added teas"}/>
+            <Navbar username="" userID=""/>
+            <button onClick={() => console.log(userDetails)}>user details</button>
+            <p>Username: {userDetails?.username}</p>
+            <p>Favorite type of tea: {userDetails?.favorite_tea_type}</p>
+            <p>User's favorite teas: </p>
+            { userDetails?.favorite_teas ? 
+            <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`}/> : 
+            <p>{`${userDetails?.username} hasn't favorited any teas yet!`}</p>
+            }
+            <p>Teas added by {userDetails?.username}</p>
+            { userDetails?.teas_added ? 
+            <TeaList tealist={userDetails?.teas_added} listname={`${userDetails?.username}'s added teas`}/> :
+            <p>{`${userDetails?.username} hasn't added any teas yet!`}</p>
+            } 
+
         </div>
     )
 }

@@ -22,6 +22,20 @@ exports.user_list = (req, res) => {
   });
 };
 
+exports.get_user_info = (req, res, next) => {
+  User.findById(req.params.id).select("-password").populate("teas_added favorite_teas _id").exec((err, user) => {
+      if(err) {
+        return next(err);
+      }
+      if (user === null) {
+        const err = new Error ("User does not exist or has been deleted!");
+        err.status = 404;
+        return next(err);
+      }
+      res.json(user);
+    })
+}
+
 exports.new_user = [
   body("username", "Please enter a username").trim().isLength({min: 2}).escape(),
   body("password").trim().isLength({min: 2}).escape(),
