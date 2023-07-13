@@ -11,7 +11,7 @@ export default function ViewTeas() {
     
     return (
         <div>
-            <Navbar />
+            <Navbar username="" userID=""/>
             <TeaList tealist={teaArray} listname={"Recently added teas"} />
             <TeaList tealist={teaArray} listname={"Green teas"} />
             <TeaList tealist={teaArray} listname={"Black teas"} />

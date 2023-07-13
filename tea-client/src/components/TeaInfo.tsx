@@ -69,7 +69,7 @@ export default function TeaInfo() {
     
     return (
         <div>
-            <Navbar />
+            <Navbar username="" userID="" />
             <p>Tea name: {tea ? tea.tea_name : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? tea.brand : ""}</p>

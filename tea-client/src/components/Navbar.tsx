@@ -30,7 +30,7 @@ export default function Navbar( {username, userID} : PropUsername) {
                         </div>
                     </div>
                     {username !== "" ? 
-                    <li className="nav-item"><a className="nav-link" href={`/users/${userID}`}>Profile</a></li>: 
+                    <li className="nav-item"><a className="nav-link" href={`/user/profile/${userID}`}>Profile</a></li>: 
                     <div>
                         <li className="nav-item"><a className="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginmodal">Log in</a></li>
                         <div className="modal fade" id="loginmodal">

@@ -4,7 +4,7 @@ export default function Signup() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar username="" userID=""/>
             <h2>Sign up for an account!</h2>
             <div className="formdiv border border-dark w-50">
             <form method="POST" action="http://localhost:9000/user/create" className="userform" id="newuserform">

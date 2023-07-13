@@ -51,7 +51,6 @@ export default function UserFeed() {
     return (
         <div>
             <Navbar username={usersname} userID={id}/>
-            <button onClick={() => console.log(user.user._id)}>user</button>
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={allTeas} listname={"Friends activity"}/>

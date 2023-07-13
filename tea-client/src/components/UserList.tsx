@@ -40,7 +40,7 @@ export default function UserList() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar username="" userID=""/>
             <button onClick={() => console.log(userList)}>list</button>
             <ul>
                 {/* <li><a href="/userinfo">User</a></li> */}
