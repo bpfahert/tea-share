@@ -41,9 +41,7 @@ export default function UserInfo() {
 
     return (
         <div>
-            <Navbar username="" userID=""/>
-            <button onClick={() => console.log(user)}>user log</button>
-            <button onClick={() => console.log(userDetails)}>user details</button>
+            {/* <Navbar username="" userID=""/> */}
             <p>Username: {userDetails?.username}</p>
             <p>Favorite type of tea: {userDetails?.favorite_tea_type}</p>
             <p>User's favorite teas: </p>

@@ -12,7 +12,7 @@ const upload = multer({dest: '../tea-api/public/images/'});
 const mongoose = require("mongoose");
 
 exports.index = (req, res, next) => {
-    Tea.findById(req.params.id).exec((err, tea) => {
+    Tea.findById(req.params.id).populate("created_by _id").exec((err, tea) => {
         if(err) {
           return next(err);
         }

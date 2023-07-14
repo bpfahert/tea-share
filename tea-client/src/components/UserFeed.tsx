@@ -45,12 +45,12 @@ export default function UserFeed() {
     const user_teas = user?.user ? user.user.teas_added : allTeas;
     const top_teas = null;
 
-    const usersname = user?.user?.username ? user.user.username : "";
-    const id = user?.user?._id ? user.user._id : "";
+    // const usersname = user?.user?.username ? user.user.username : "";
+    // const id = user?.user?._id ? user.user._id : "";
 
     return (
         <div>
-            <Navbar username={usersname} userID={id}/>
+            {/* <Navbar username={usersname} userID={id}/> */}
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={allTeas} listname={"Friends activity"}/>

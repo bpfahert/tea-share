@@ -26,6 +26,11 @@ export interface TeaTypeImg {
         contentType: string,
     },
     _id: string,
+    created_by: {
+        username: string,
+        _id: string,
+    },
+    created_on: string,
 }
 
 export interface PropTeaType {
@@ -35,6 +40,7 @@ tea: {
     brand: string,
     rating: number,
     notes: string,
+    _id: string,
     img: {
         data: any,
         contentType: string,
