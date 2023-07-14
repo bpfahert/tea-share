@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import TeaList from './TeaList';
-import { TeaType, UserType } from '../ts/interfaces';
+import { TeaRecType, TeaType, UserType } from '../ts/interfaces';
 
 export default function UserFeed() {
 
@@ -38,8 +38,12 @@ export default function UserFeed() {
         getUser();
     }, []);
 
-    //TODO: DISPLAY RECOMMENDED TEAS
-    const recommended_teas = user?.user ? user.user.recommended_teas : allTeas;
+    //Get recommended teas into array for tealist
+    const recommended_teas_elements = user?.user?.recommended_teas?.map((recommendation : TeaRecType)=> {
+        return recommendation.tea_rec;
+    })
+
+    const recommended_teas = user?.user?.recommended_teas ? recommended_teas_elements : [];
     const saved_teas = user?.user ? user.user.saved_teas : allTeas;
     const favorite_teas = user?.user ? user.user.favorite_teas : allTeas;
     const user_teas = user?.user ? user.user.teas_added : allTeas;

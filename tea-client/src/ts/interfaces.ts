@@ -96,3 +96,11 @@ export interface CurrentUser {
         url: string
     }
 }
+
+
+export interface TeaRecType {
+    message: string,
+    tea_rec: TeaType,
+    recommended_by: string,
+
+}
