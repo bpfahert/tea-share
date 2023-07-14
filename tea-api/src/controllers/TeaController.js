@@ -86,7 +86,7 @@ exports.tea_create_post = [
 
 exports.tea_recommend_post = [
   body("recommendedtea"),
-  // body("currentuser"),
+  body("currentuser"),
   body("user"),
   body("recmessage"),
   (req, res, next) => {
@@ -97,7 +97,7 @@ exports.tea_recommend_post = [
       }
       let tea_obj = {
         tea_rec: req.body.recommendedtea,
-        // recommended_by: req.body.currentuser,
+        recommended_by: req.body.currentuser,
         message: req.body.recmessage,
       };
       friend.recommended_teas.push(tea_obj);
