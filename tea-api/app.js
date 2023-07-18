@@ -13,6 +13,8 @@ const logger = require("morgan");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const User = require("./src/models/User");
+
+const { createSecretToken } = require("./src/util/Token");
 require('dotenv').config();
 
 
@@ -72,6 +74,7 @@ passport.deserializeUser(async function(id, done) {
 
 //Set Middleware
 
+
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -110,9 +113,16 @@ app.get('/user/getuser', (req, res) => {
 app.post(
     "/user/login", 
     passport.authenticate("local", {
-      successRedirect: "http://localhost:3000/",
+      // successRedirect: "http://localhost:3000/",
       failureRedirect: "http://localhost:3000/viewteas"
-    })
+    }), function(req, res) {
+      const token = createSecretToken(req.user._id);
+      res.cookie("token", token, {
+        withCredentials: true,
+        httpOnly: false,
+      });
+      res.redirect("http://localhost:3000");
+    }
 );
   
 app.get("/user/logout", (req, res, next) => {

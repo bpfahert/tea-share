@@ -4,13 +4,26 @@ const User = require("../models/User");
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
-
+const { createSecretToken } = require('../util/Token');
+const jwt = require("jsonwebtoken");
 const upload = multer({dest: './public/images/'});
 const mongoose = require('mongoose');
 
-exports.index = (req, res, next) => {
+exports.userVerification = (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.json({ status: false })
+  }
+  jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
+    if (err) {
+     return res.json({ status: false })
+    } else {
+      const user = await User.findById(data.id)
+      if (user) return res.json({ status: true, user: user.username })
+      else return res.json({ status: false })
+    }
+  })
 }
-
 exports.user_list = (req, res) => {
   User.find({})
   .sort({username: 1})
@@ -63,6 +76,11 @@ exports.new_user = [
         if (err) {
           return next(err);
         }
+        const token = createSecretToken(user._id);
+        res.cookie("token", token, {
+          withCredentials: true,
+          httpOnly: false,
+        });
         res.redirect("http://localhost:3000");
       })
     })

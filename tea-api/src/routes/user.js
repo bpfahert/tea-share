@@ -9,4 +9,6 @@ router.post("/create", user_controller.new_user);
 
 router.get("/profile/:id", user_controller.get_user_info);
 
+router.get("/verify", user_controller.userVerification);
+
 module.exports = router;
