@@ -40,7 +40,6 @@ export default function UserList() {
 
     return (
         <div>
-            <Navbar username="" userID=""/>
             <ul>
                 {/* <li><a href="/userinfo">User</a></li> */}
                 {listElements}

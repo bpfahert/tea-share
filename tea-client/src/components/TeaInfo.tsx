@@ -1,8 +1,9 @@
 import React from "react";
-import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
 import { TeaTypeImg, UserRef, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 export default function TeaInfo() {
     let initialUserState : UserType = {
@@ -18,14 +19,31 @@ export default function TeaInfo() {
             recommended_teas: [],
             _id: "",
         }
-
     }
 
     const [tea, setTea] = React.useState<TeaTypeImg>();
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [userList, setUserList] = React.useState<UserRef[]>();
+    const [cookies, removeCookie] = useCookies<string>([]);
 
     const pathID = useLocation().pathname;
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+      const verifyCookie = async () => {
+        if (!cookies.token) {
+          navigate("/createaccount");
+        }
+        const response = await fetch('http://localhost:9000/user/getuser', {
+            credentials: 'include',
+        });
+        const json = await response.json();
+        if(response.ok) {
+            setUser(json);
+        }
+      };
+      verifyCookie();
+    }, [cookies, navigate, removeCookie]);
 
     async function getTeaInfo() {
         const response = await fetch(`http://localhost:9000${pathID}`);
@@ -33,23 +51,9 @@ export default function TeaInfo() {
     
         if(response.ok) {
           setTea(json);
-        }
-        
-      }
-
-    async function getUser() {
-        const response = await fetch('http://localhost:9000/user/getuser', {
-            credentials: 'include',
-        });
-        const json = await response.json();
-
-        if(response.ok) {
-            setUser(user => ({
-                ...user,
-                ...json
-            }))
-        }
+        }      
     }
+
 
     async function getUserList() {
         const response = await fetch('http://localhost:9000/user/userlist', {
@@ -69,10 +73,6 @@ export default function TeaInfo() {
     }, []);
 
     React.useEffect(() => {
-        getUser();
-    }, []);
-
-    React.useEffect(() => {
         getUserList();
     }, []);
 
@@ -84,7 +84,6 @@ export default function TeaInfo() {
     
     return (
         <div>
-            {/* <Navbar username="" userID="" /> */}
             <p>Tea name: {tea ? tea.tea_name : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? tea.brand : ""}</p>

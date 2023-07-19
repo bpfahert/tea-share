@@ -5,11 +5,13 @@ import UserList from "./components/UserList";
 import TeaInfo from "./components/TeaInfo";
 import ViewTeas from "./components/ViewTeas";
 import Signup from "./components/Signup";
+import Navbar from "./components/Navbar";
 
 export default function RouteSwitch() {
 
     return (
         <BrowserRouter>
+            <Navbar />
             <Routes>
                 <Route path="/" element={<UserFeed />} />
                 <Route path="/createaccount" element={<Signup />} />

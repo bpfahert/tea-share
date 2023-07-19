@@ -1,7 +1,5 @@
 import { Types } from "mongoose";
 
-
-
 export interface TeaType {
     tea_name: string, 
     type: string, 
@@ -53,10 +51,10 @@ export interface PropTeaList {
     listname: string,
     }
 
-export interface PropUsername {
-    username: string,
-    userID: string,
-}
+// export interface PropUsername {
+//     username: string,
+//     userID: string,
+// }
 
 export interface UserType {
     user: {

@@ -1,23 +1,37 @@
 import React from 'react';
-import Navbar from './Navbar';
 import TeaList from './TeaList';
 import { TeaRecType, TeaType, UserType } from '../ts/interfaces';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function UserFeed() {
 
     const [user, setUser] = React.useState<UserType>();
     const [allTeas, setAllTeas] = React.useState([]);
+    const [cookies, removeCookie] = useCookies<string>([]);
 
-    async function getUser() {
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+      const verifyCookie = async () => {
+        if (!cookies.token) {
+          navigate("/createaccount");
+        }
         const response = await fetch('http://localhost:9000/user/getuser', {
             credentials: 'include',
         });
         const json = await response.json();
-
         if(response.ok) {
             setUser(json);
         }
-    }
+      };
+      verifyCookie();
+    }, [cookies, navigate, removeCookie]);
+
+
+
 
     async function getAllTeas() {
         const response = await fetch('http://localhost:9000/teas/all');
@@ -34,10 +48,6 @@ export default function UserFeed() {
         
     }, []);
 
-    React.useEffect(() => {
-        getUser();
-    }, []);
-
     //Get recommended teas into array for tealist
     const recommended_teas_elements = user?.user?.recommended_teas?.map((recommendation : TeaRecType)=> {
         return recommendation.tea_rec;
@@ -49,12 +59,8 @@ export default function UserFeed() {
     const user_teas = user?.user ? user.user.teas_added : allTeas;
     const top_teas = null;
 
-    // const usersname = user?.user?.username ? user.user.username : "";
-    // const id = user?.user?._id ? user.user._id : "";
-
     return (
         <div>
-            {/* <Navbar username={usersname} userID={id}/> */}
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={allTeas} listname={"Friends activity"}/>

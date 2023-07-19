@@ -24,6 +24,7 @@ exports.userVerification = (req, res) => {
     }
   })
 }
+
 exports.user_list = (req, res) => {
   User.find({})
   .sort({username: 1})
