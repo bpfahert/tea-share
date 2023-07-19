@@ -2,8 +2,6 @@ import Navbar from './Navbar';
 import { TeaType } from '../ts/interfaces';
 import TeaList from './TeaList';
 import React from 'react';
-import { all } from 'axios';
-
 
 export default function ViewTeas() {
     const [allTeas, setAllTeas] = React.useState([]);
@@ -20,15 +18,21 @@ export default function ViewTeas() {
         getAllTeas();
         
     }, []);
-    
+
+    const green_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Green");
+    const black_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Black");
+    const herbal_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Herbal");
+    const white_tea_list = allTeas.filter((tea : TeaType) => tea.type == "White");
+    const oolong_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Oolong");
+
     return (
         <div>
             <TeaList tealist={allTeas} listname={"Recently added teas"} />
-            <TeaList tealist={allTeas} listname={"Green teas"} />
-            <TeaList tealist={allTeas} listname={"Black teas"} />
-            <TeaList tealist={allTeas} listname={"Herbal teas"} />
-            <TeaList tealist={allTeas} listname={"White teas"} />
-            <TeaList tealist={allTeas} listname={"Oolong teas"} />
+            <TeaList tealist={green_tea_list} listname={"Green teas"} />
+            <TeaList tealist={black_tea_list} listname={"Black teas"} />
+            <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} />
+            <TeaList tealist={white_tea_list} listname={"White teas"} />
+            <TeaList tealist={oolong_tea_list} listname={"Oolong teas"} />
         </div>
     )
 
