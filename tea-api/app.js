@@ -129,7 +129,7 @@ app.get("/user/logout", (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/teas/tealist");
+    res.redirect("http://localhost:3000");
   });
 });
 

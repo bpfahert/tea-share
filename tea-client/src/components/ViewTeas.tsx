@@ -18,11 +18,11 @@ export default function ViewTeas() {
         
     }, []);
 
-    const green_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Green");
-    const black_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Black");
-    const herbal_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Herbal");
-    const white_tea_list = allTeas.filter((tea : TeaType) => tea.type == "White");
-    const oolong_tea_list = allTeas.filter((tea : TeaType) => tea.type == "Oolong");
+    const green_tea_list = allTeas.filter((tea : TeaType) => tea.type === "Green");
+    const black_tea_list = allTeas.filter((tea : TeaType) => tea.type === "Black");
+    const herbal_tea_list = allTeas.filter((tea : TeaType) => tea.type === "Herbal");
+    const white_tea_list = allTeas.filter((tea : TeaType) => tea.type === "White");
+    const oolong_tea_list = allTeas.filter((tea : TeaType) => tea.type === "Oolong");
 
     return (
         <div>

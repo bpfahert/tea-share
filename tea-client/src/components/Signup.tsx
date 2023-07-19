@@ -3,6 +3,7 @@ export default function Signup() {
     return (
         <div>
             <h2>Sign up for an account!</h2>
+            <p>Welcome to tea share! This site is meant to help you keep track of teas you've tried and for recommending teas to others! Please make an account to log in. Passwords are encrypted, but it's still recommended to use a unique password for this site.</p>
             <div className="formdiv border border-dark w-50">
             <form method="POST" action="http://localhost:9000/user/create" className="userform" id="newuserform">
                 <div className="row">

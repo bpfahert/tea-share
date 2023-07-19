@@ -60,7 +60,7 @@ export default function Navbar() {
                     {user?.user?.username !== undefined ? 
                     <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?.user?._id}`}>Profile</Link></li>: 
                     <div>
-                        <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#loginmodal">Log in</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#loginmodal">Log In</Link></li>
                         <div className="modal fade" id="loginmodal">
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -80,6 +80,9 @@ export default function Navbar() {
                     }
                     {user?.user?.username !== undefined ? 
                     <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li> : ""
+                    }
+                    {user?.user?.username !== undefined ? 
+                    <li className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/logout">Log Out</Link></li> : ""
                     }
                 </ul>
             </div>
