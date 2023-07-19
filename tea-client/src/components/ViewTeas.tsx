@@ -1,4 +1,3 @@
-import Navbar from './Navbar';
 import { TeaType } from '../ts/interfaces';
 import TeaList from './TeaList';
 import React from 'react';

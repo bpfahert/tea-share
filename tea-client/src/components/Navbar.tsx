@@ -32,12 +32,16 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "turquoise"}}>
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
                 <ul className="navbar-nav">
-                    {user?.user !== undefined ? 
+                    {user?.user?.username !== undefined ? 
                     <li className="nav-item active"><Link className="nav-link" to="/">{user?.user?.username}</Link></li> : 
                     <li className="nav-item"><Link className="nav-link" to="/createaccount">Sign up</Link></li>
                     }
-                    <li className="nav-item"><Link className="nav-link" to="/viewteas">Teas</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#newteamodal">Add New Tea</Link></li>
+                    {user?.user?.username !== undefined ? 
+                    <li className="nav-item"><Link className="nav-link" to="/viewteas">Teas</Link></li> : ""
+                    }
+                    {user?.user?.username !== undefined ? 
+                    <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#newteamodal">Add New Tea</Link></li> : ""
+                    }
                     <div className="modal fade" id="newteamodal">
                         <div className="modal-dialog">
                             <div className="modal-content">
@@ -74,7 +78,9 @@ export default function Navbar() {
                         </div>
                     </div>
                     }
-                    <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li>
+                    {user?.user?.username !== undefined ? 
+                    <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li> : ""
+                    }
                 </ul>
             </div>
       </nav>
