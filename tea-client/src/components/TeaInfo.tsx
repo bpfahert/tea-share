@@ -77,9 +77,12 @@ export default function TeaInfo() {
     }, []);
 
     const userListElements = userList?.map((rec_user) => {
-        return (
-            <option value={rec_user._id}>{rec_user.username}</option>
-        )
+        if(rec_user.username !== user.user.username) {
+            return (
+                <option value={rec_user._id}>{rec_user.username}</option>
+            )
+        }
+
     });
     
     return (

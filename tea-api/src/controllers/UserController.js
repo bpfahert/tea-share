@@ -82,7 +82,13 @@ exports.new_user = [
           withCredentials: true,
           httpOnly: false,
         });
-        res.redirect("http://localhost:3000");
+        req.login(user, function(err) {
+          console.log(user);
+          if (err) { 
+            return next(err); 
+          }
+          return res.redirect("http://localhost:3000");
+        });
       })
     })
   }

@@ -113,8 +113,7 @@ app.get('/user/getuser', (req, res) => {
 app.post(
     "/user/login", 
     passport.authenticate("local", {
-      // successRedirect: "http://localhost:3000/",
-      failureRedirect: "http://localhost:3000/viewteas"
+      failureRedirect: "http://localhost:3000/user/createaccount"
     }), function(req, res) {
       const token = createSecretToken(req.user._id);
       res.cookie("token", token, {
