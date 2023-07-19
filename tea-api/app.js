@@ -129,7 +129,8 @@ app.get("/user/logout", (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.redirect("http://localhost:3000");
+    res.clearCookie("token");
+    res.redirect("http://localhost:3000/createaccount");
   });
 });
 
