@@ -16,4 +16,6 @@ router.get("/favorite/:id", tea_controller.tea_favorite_get);
 
 router.get("/save/:id", tea_controller.tea_save_get);
 
+router.post("/delete/:id", tea_controller.tea_delete_post);
+
 module.exports = router;

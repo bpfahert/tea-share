@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { redirect, useLocation } from "react-router-dom";
 import { TeaTypeImg, UserRef, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
 import { useCookies } from 'react-cookie';
@@ -82,7 +82,6 @@ export default function TeaInfo() {
                 <option value={rec_user._id}>{rec_user.username}</option>
             )
         }
-
     });
 
     return (
@@ -123,6 +122,31 @@ export default function TeaInfo() {
                     </div>
                 </div>
             </div>
+            <p></p>
+            {tea?.created_by._id == user.user._id ? 
+            <div>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete this tea</a>
+                <div className="modal fade" id="deletemodal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header text-centered">
+                                <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#deletemodal"></button>
+                            </div>
+                            <div className="modal-body">
+                                <div>
+                                    <form method="POST" action={`http://localhost:9000/teas/delete/${tea?._id}`} className="teaform" id="deleteform">
+                                        <h4>Permanently delete {tea?.tea_name}?</h4>
+                                        <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id}></input>
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            : ""        
+            }
         </div>
     )
 }

@@ -84,6 +84,27 @@ exports.tea_create_post = [
   }
 ];
 
+exports.tea_delete_post = (req, res, next) => {
+  Tea.findById(req.params.id).exec((err, tea) => {
+    if(err) {
+      return next(err);
+    }
+    if (tea === null) {
+      const err = new Error ("Tea does not exist or has already been deleted!");
+      err.status = 404;
+      return next(err);
+    }
+    if ((req.user.teas_added.includes(req.params.id))) {
+      Tea.findByIdAndRemove(req.params.id, (err) => {
+        if(err) {
+          return next(err);
+        }
+      })
+    }
+    res.redirect("http://localhost:3000/");
+    })
+};
+
 exports.tea_recommend_post = [
   body("recommendedtea"),
   body("currentuser"),
