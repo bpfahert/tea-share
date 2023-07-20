@@ -12,4 +12,6 @@ router.get("/:id", tea_controller.index);
 
 router.post("/create", tea_controller.tea_create_post);
 
+router.get("/favorite/:id", tea_controller.tea_favorite_get);
+
 module.exports = router;
