@@ -1,28 +1,31 @@
+import { TeaTypeImg } from "../ts/interfaces"
+import { Buffer } from "buffer";
 
-export default function TeaForm() {
+export default function EditTeaForm( {tea_name, brand, notes, type, rating, img, _id} : TeaTypeImg ) {
+
 
     return (
-        <form method="POST" action="http://localhost:9000/teas/create" className="teaform" id="newteaform" encType="multipart/form-data" >
+        <form method="POST" action={`http://localhost:9000/teas/update/${_id}`} className="updateteaform" id="updateteaform" encType="multipart/form-data" >
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                    <input type="text" id="teaname" className="form-control" name="teaname" placeholder="Tea" required maxLength={50} ></input>
-                    <label htmlFor="teaname" className="form-label">Tea Name</label>
+                    <input type="text" id="updateteaname" className="form-control" name="updateteaname" defaultValue={tea_name} required maxLength={50} ></input>
+                    <label htmlFor="updateteaname" className="form-label">Tea Name</label>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                        <input type="text" id="brand" className="form-control" name="brand" placeholder="Brand" maxLength={30} ></input>
-                        <label htmlFor="brand" className="form-label">Brand</label>
+                        <input type="text" id="updatebrand" className="form-control" name="updatebrand" defaultValue={brand} maxLength={30} ></input>
+                        <label htmlFor="updatebrand" className="form-label">Brand</label>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="form-group col-md-6 mb-3">
                     <div className="form-floating">
-                        <select className="form-select" id="type" aria-label="new tea type" name="type">
+                        <select className="form-select" id="updatetype" aria-label="update tea type" defaultValue={type} name="updatetype">
                             <option value="Green">Green</option>
                             <option value="Black">Black</option>
                             <option value="Oolong">Oolong</option>
@@ -30,12 +33,12 @@ export default function TeaForm() {
                             <option value="White">White</option>
                             <option value="Unknown">Unknown</option>
                         </select>
-                        <label htmlFor="type" className="form-label">Type of Tea</label>
+                        <label htmlFor="updatetype" className="form-label">Type of Tea</label>
                     </div>
                 </div>
                 <div className="form-group col-md-6 mb-3">
                     <div className="form-floating">
-                        <select className="form-select" id="rating" name="rating" aria-label="new tea rating">
+                        <select className="form-select" id="updaterating" name="updaterating" aria-label="update tea rating" defaultValue={rating}>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -48,26 +51,27 @@ export default function TeaForm() {
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select>
-                        <label htmlFor="rating" className="form-label">Rating</label>
+                        <label htmlFor="updaterating" className="form-label">Rating</label>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                        <textarea className="form-control" style={{height: "220px"}} id="notes" placeholder="Notes about this tea" name="notes" maxLength={400} ></textarea>
-                        <label htmlFor="notes" className="form-label">Notes on Tea</label>
+                        <textarea className="form-control" style={{height: "220px"}} id="updatenotes" defaultValue={notes} name="updatenotes" maxLength={400} ></textarea>
+                        <label htmlFor="updatenotes" className="form-label">Notes on Tea</label>
                     </div>
                 </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                        <input type="file" className="form-control" id="teaimg" name="teaimg"></input>
-                        <label htmlFor="teaimg" className="form-label">Upload Picture</label>
+                        <input type="file" className="form-control" id="updateteaimg" name="updateteaimg">
+                            {img ? <img src={`data:image/${img.contentType};base64, ${Buffer.from(img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}</input>
+                        <label htmlFor="updateteaimg" className="form-label">Upload Picture</label>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <button className="btn btn-info" type="submit">Submit</button>
         </form>
     )

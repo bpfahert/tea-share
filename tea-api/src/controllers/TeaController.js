@@ -187,3 +187,40 @@ exports.tea_favorite_get = (req, res, next) => {
       res.redirect(`http://localhost:3000/teas/${req.params.id}`);
     })
     };
+
+    exports.tea_update_post = [
+      upload.single('teaimg'),
+      body("updateteaname").trim().isLength({min: 2}).escape().withMessage("Please enter a tea name"),
+      body("updatetype"),
+      body("updatebrand").trim().isLength({min: 1}).escape(),
+      body("updaterating"),
+      body("updatenotes").trim().escape(),
+      (req, res, next) => {
+        const uploadedImage = {
+          teaImage: req.file ? {
+            data: fs.readFileSync(path.join(__dirname + "/../public/images/" + req.file.filename)),
+          contentType: "image/png"
+          } : ""
+        }
+    
+        const errors = validationResult(req);
+    
+        const tea = new Tea({
+          tea_name: req.body.updateteaname,
+          type: req.body.updatetype,
+          brand: req.body.updatebrand,
+          rating: req.body.updaterating,
+          notes: req.body.updatenotes,
+          created_by: req.user._id,
+          updated_on: new Date(),
+          img: uploadedImage.teaImage,
+          _id: req.params.id,
+        });
+        Tea.findByIdAndUpdate(req.params.id, tea, {}, (err, updatedtea) => {
+          if(err) {
+            return next(err);
+          }
+        })      
+        res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+        }
+    ];

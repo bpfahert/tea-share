@@ -4,6 +4,7 @@ import { TeaTypeImg, UserRef, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import EditTeaForm from "./EditTeaForm";
 
 export default function TeaInfo() {
     let initialUserState : UserType = {
@@ -84,12 +85,15 @@ export default function TeaInfo() {
         }
     });
 
+    // TODO: ADD EDIT TEA FORM TO MODAL. FINISH ADAPTING TEA UPDATE CONTROLLER. ALLOW ONLY CREATING USER TO EDIT TEA.
+
     return (
         <div>
             <p>Tea name: {tea ? tea.tea_name : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? tea.brand : ""}</p>
             <p>Rating: {tea ? tea.rating : ""}</p>
+            <p>Notes: {tea ? tea.notes : ""}</p>
             {tea?.img ? <img src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
             <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {tea?.created_on}</p>
             <p><a href={`http://localhost:9000/teas/favorite/${tea?._id}`}> Favorite this tea </a></p>
@@ -125,10 +129,27 @@ export default function TeaInfo() {
             <p></p>
             {tea?.created_by._id == user.user._id ? 
             <div>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editmodal">Edit this tea</a>
+                <div className="modal fade" id="editmodal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header text-centered">
+                                <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#editmodal"></button>
+                            </div>
+                            <div className="modal-body">
+                                <div>
+                                    <EditTeaForm tea_name={tea.tea_name} type={tea.type} brand={tea.brand} img={tea.img} rating={tea.rating} notes={tea.notes} _id={tea._id} created_by={tea.created_by} created_on={tea.created_on} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete this tea</a>
                 <div className="modal fade" id="deletemodal">
                     <div className="modal-dialog">
                         <div className="modal-content">
+
                             <div className="modal-header text-centered">
                                 <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#deletemodal"></button>
                             </div>
