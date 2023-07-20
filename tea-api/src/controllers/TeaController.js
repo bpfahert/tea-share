@@ -127,14 +127,14 @@ exports.tea_favorite_get = (req, res, next) => {
       if(err) {
         return next(err);
       }
-      self.favorite_teas.push(tea);
-
-      self.save((err) => {
-        if(err) {
-          return next(err);
-        }
-      })
-      
+      if(!self.favorite_teas.includes(req.params.id)) {
+        self.favorite_teas.push(tea);
+        self.save((err) => {
+          if(err) {
+            return next(err);
+          }
+        })
+      } 
     })
     res.redirect(`http://localhost:3000/teas/${req.params.id}`);
   })
@@ -154,14 +154,14 @@ exports.tea_favorite_get = (req, res, next) => {
         if(err) {
           return next(err);
         }
-        self.saved_teas.push(tea);
-  
-        self.save((err) => {
-          if(err) {
-            return next(err);
-          }
-        })
-        
+        if(!self.saved_teas.includes(req.params.id)) {
+          self.saved_teas.push(tea);
+          self.save((err) => {
+            if(err) {
+              return next(err);
+            }
+          })
+        }
       })
       res.redirect(`http://localhost:3000/teas/${req.params.id}`);
     })
