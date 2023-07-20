@@ -114,7 +114,6 @@ exports.tea_recommend_post = [
 ];
 
 exports.tea_favorite_get = (req, res, next) => {
-  console.log(req.params.id);
   Tea.findById(req.params.id).exec((err, tea) => {
     if(err) {
       return next(err);
@@ -140,3 +139,30 @@ exports.tea_favorite_get = (req, res, next) => {
     res.redirect(`http://localhost:3000/teas/${req.params.id}`);
   })
   };
+
+  exports.tea_save_get = (req, res, next) => {
+    Tea.findById(req.params.id).exec((err, tea) => {
+      if(err) {
+        return next(err);
+      }
+      if (tea === null) {
+        const err = new Error ("Tea does not exist!");
+        err.status = 404;
+        return next(err);
+      }
+      User.findOne({username: req.user.username}).exec((err, self) => {
+        if(err) {
+          return next(err);
+        }
+        self.saved_teas.push(tea);
+  
+        self.save((err) => {
+          if(err) {
+            return next(err);
+          }
+        })
+        
+      })
+      res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+    })
+    };
