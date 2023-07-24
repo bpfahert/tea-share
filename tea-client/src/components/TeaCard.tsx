@@ -1,7 +1,21 @@
-import { PropTeaType} from '../ts/interfaces';
+import { TeaType, PropTeaCardType} from '../ts/interfaces';
 import { Buffer } from 'buffer';
 
-export default function TeaCard(props: PropTeaType) {
+export default function TeaCard(props: PropTeaCardType) {
+
+    function isFavorited() {
+        const tea_ids = props.currentuser.user.favorite_teas.map((tea : TeaType) => {
+            return tea._id;
+        });
+        return (tea_ids.includes(props.tea._id));
+    }
+
+    function isSaved() {
+        const tea_ids = props.currentuser.user.saved_teas.map((tea : TeaType) => {
+            return tea._id;
+        });
+        return (tea_ids.includes(props.tea._id));
+    }
 
     return (
         <div className="card mr-2 border border-dark rounded" style={{backgroundColor: "peachpuff", width: "18rem"}}>
@@ -12,6 +26,8 @@ export default function TeaCard(props: PropTeaType) {
                 <li>Brand: {props.tea.brand} </li> 
                 <li>Rating(out of 10): {props.tea.rating} </li> 
                 <li>Notes: {props.tea.notes} </li>
+                {isFavorited() ? <li style={{fontWeight: "bold"}}>Favorited</li> : <li>Favorite</li>}
+                {isSaved() ? <li style={{fontWeight: "bold"}}>Saved</li> : <li>Save</li>}
             </div>
         </div>
     )

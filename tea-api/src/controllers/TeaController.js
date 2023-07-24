@@ -159,7 +159,16 @@ exports.tea_favorite_get = (req, res, next) => {
     })
     res.redirect(`http://localhost:3000/teas/${req.params.id}`);
   })
-  };
+};
+
+exports.tea_favorite_delete = (req, res, next) => {
+  User.findOneAndUpdate({username: req.user.username}, {$pull : {favorite_teas: req.params.id}}).exec((err, self) => {
+    if(err) {
+      return next(err);
+    }
+    res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+  })
+};
 
   exports.tea_save_get = (req, res, next) => {
     Tea.findById(req.params.id).exec((err, tea) => {
@@ -187,6 +196,15 @@ exports.tea_favorite_get = (req, res, next) => {
       res.redirect(`http://localhost:3000/teas/${req.params.id}`);
     })
     };
+
+  exports.tea_saved_delete = (req, res, next) => {
+    User.findOneAndUpdate({username: req.user.username}, {$pull : {saved_teas: req.params.id}}).exec((err, user) => {
+      if(err) {
+        return next(err);
+      }
+      res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+    })
+  };
 
     exports.tea_update_post = [
       upload.single('teaimg'),

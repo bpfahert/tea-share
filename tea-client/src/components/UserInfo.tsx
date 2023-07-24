@@ -1,11 +1,26 @@
 import TeaList from "./TeaList";
 import { TeaType, UserRef, UserType } from "../ts/interfaces";
-import Navbar from "./Navbar";
 import React from "react";
 import { useLocation } from "react-router-dom";
 
 export default function UserInfo() {
-    const [user, setUser] = React.useState<UserType>();
+
+    let initialUserState : UserType = {
+        user: {
+            username: "",
+            password: "",
+            about: "",
+            favorite_tea_type: "",
+            email: "",
+            favorite_teas: [],
+            teas_added: [],
+            saved_teas: [],
+            recommended_teas: [],
+            _id: "",
+        }
+    }
+
+    const [user, setUser] = React.useState<UserType>(initialUserState);
     const [userDetails, setUserDetails] = React.useState<UserRef>();
 
     const pathID = useLocation().pathname;
@@ -41,17 +56,16 @@ export default function UserInfo() {
 
     return (
         <div>
-            {/* <Navbar username="" userID=""/> */}
             <p>Username: {userDetails?.username}</p>
             <p>Favorite type of tea: {userDetails?.favorite_tea_type}</p>
             <p>User's favorite teas: </p>
             { userDetails?.favorite_teas ? 
-            <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`}/> : 
+            <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`} currentuser={user}/> : 
             <p>{`${userDetails?.username} hasn't favorited any teas yet!`}</p>
             }
             <p>Teas added by {userDetails?.username}</p>
             { userDetails?.teas_added ? 
-            <TeaList tealist={userDetails?.teas_added} listname={`${userDetails?.username}'s added teas`}/> :
+            <TeaList tealist={userDetails?.teas_added} listname={`${userDetails?.username}'s added teas`} currentuser={user}/> :
             <p>{`${userDetails?.username} hasn't added any teas yet!`}</p>
             } 
 

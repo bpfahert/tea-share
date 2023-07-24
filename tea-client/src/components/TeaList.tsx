@@ -1,11 +1,11 @@
 import TeaCard from './TeaCard';
 import { PropTeaList } from '../ts/interfaces';
 
-export default function TeaList({ tealist, listname } : PropTeaList) {
+export default function TeaList({ tealist, listname, currentuser } : PropTeaList) {
 
     const teaElements = tealist.map((tea) => {
         return (
-            <TeaCard tea={tea} />
+            <TeaCard tea={tea} currentuser={currentuser}/>
         )
     })
 

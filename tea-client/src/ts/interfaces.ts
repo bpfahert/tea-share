@@ -1,19 +1,18 @@
-import { Types } from "mongoose";
 
-export interface TeaType {
-    tea_name: string, 
-    type: string, 
-    brand: string,
-    rating: number,
-    notes: string,
-    img: {
-        data: any,
-        contentType: string,
-    }
-    _id: string,
-}
+// export interface TeaType {
+//     tea_name: string, 
+//     type: string, 
+//     brand: string,
+//     rating: number,
+//     notes: string,
+//     img: {
+//         data: any,
+//         contentType: string,
+//     }
+//     _id: string,
+// }
 
-export interface TeaTypeImg {
+export interface TeaType{
     tea_name: string, 
     type: string, 
     brand: string,
@@ -31,7 +30,7 @@ export interface TeaTypeImg {
     created_on: string,
 }
 
-export interface PropTeaType {
+export interface PropTeaCardType {
 tea: {
     tea_name: string, 
     type: string, 
@@ -43,12 +42,14 @@ tea: {
         data: any,
         contentType: string,
     },
-    }   
+    },
+currentuser: UserType,   
 }
 
 export interface PropTeaList {
     tealist: TeaType[],
     listname: string,
+    currentuser: UserType,
     }
 
 // export interface PropUsername {

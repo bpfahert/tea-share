@@ -1,6 +1,6 @@
 import React from "react";
 import { redirect, useLocation } from "react-router-dom";
-import { TeaTypeImg, UserRef, UserType} from '../ts/interfaces';
+import { TeaType, UserRef, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,25 @@ export default function TeaInfo() {
         }
     }
 
-    const [tea, setTea] = React.useState<TeaTypeImg>();
+    let initialTeaState : TeaType = {
+        tea_name: "",
+        brand: "",
+        type: "",
+        rating: 0,
+        notes: "",
+        img: {
+            data: "",
+            contentType: "",
+        },
+        _id: "",
+        created_on: "",
+        created_by: {
+            username: "",
+            _id: ""
+        }
+    }
+
+    const [tea, setTea] = React.useState<TeaType>(initialTeaState);
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [userList, setUserList] = React.useState<UserRef[]>();
     const [cookies, removeCookie] = useCookies<string>([]);
@@ -85,7 +103,19 @@ export default function TeaInfo() {
         }
     });
 
-    // TODO: ADD EDIT TEA FORM TO MODAL. FINISH ADAPTING TEA UPDATE CONTROLLER. ALLOW ONLY CREATING USER TO EDIT TEA.
+    function isFavorited() {
+        const tea_ids = user.user.favorite_teas.map((tea : TeaType) => {
+            return tea._id;
+        });
+        return (tea_ids.includes(tea?._id));
+    }
+
+    function isSaved() {
+        const tea_ids = user.user.saved_teas.map((tea : TeaType) => {
+            return tea._id;
+        });
+        return (tea_ids.includes(tea?._id));
+    }
 
     return (
         <div>
@@ -96,8 +126,8 @@ export default function TeaInfo() {
             <p>Notes: {tea ? tea.notes : ""}</p>
             {tea?.img ? <img src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
             <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {tea?.created_on}</p>
-            <p><a href={`http://localhost:9000/teas/favorite/${tea?._id}`}> Favorite this tea </a></p>
-            <p><a href={`http://localhost:9000/teas/save/${tea?._id}`}> Save this tea </a></p>
+            <p>{isFavorited() ? <span> This is one of your favorite teas <a href={`http://localhost:9000/teas/unfavorite/${tea?._id}`}> Remove from favorites </a> </span> : <a href={`http://localhost:9000/teas/favorite/${tea?._id}`}> Favorite this tea </a> } </p>
+            <p>{isSaved() ? <span> This is one of your saved teas <a href={`http://localhost:9000/teas/unsave/${tea?._id}`}> Remove from saved teas </a> </span> : <a href={`http://localhost:9000/teas/save/${tea?._id}`}> Save this tea </a> } </p>
             <p></p>
             <a href="#" data-bs-toggle="modal" data-bs-target="#teamodal">Recommend this tea to a user</a>
             <div className="modal fade" id="teamodal">
