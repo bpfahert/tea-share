@@ -6,12 +6,10 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const session = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require('./server/passport/index');
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const bcrypt = require("bcryptjs");
 const User = require("./src/models/User");
 
 const { createSecretToken } = require("./src/util/Token");
@@ -32,48 +30,7 @@ mongoose.connect(mongoDB, { useNewURLParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
-// Set password middleware
-  passport.use(
-    new LocalStrategy(async(username, password, done) => {
-      try {
-        const user = await User.findOne({ username: username });
-        if (!user) {
-          return done(null, false, { message: "Username does not exist" });
-        };
-        bcrypt.compare(password, user.password, (err, res) => {
-          if (res) {
-            return done(null, user);
-          }
-          else {
-            return done(null, false, {message: "Incorrect password!"});
-          }
-        })
-      } catch(err) {
-        return done(err);
-      };
-    })
-  );
-  
-
-
-// Set passport serialize/deserialize
-
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async function(id, done) {
-  try {
-    const user = await User.findById(id).exec();
-    done(null, user);
-  } catch(err) {
-    done(err);
-  };
-});
-
-
 //Set Middleware
-
 
 app.use(
   cors({
