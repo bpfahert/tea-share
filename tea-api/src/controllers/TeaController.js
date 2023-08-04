@@ -11,6 +11,7 @@ const upload = multer({dest: '../tea-api/public/images/'});
 
 const mongoose = require("mongoose");
 
+// Get tea with id that matches parameter
 exports.index = (req, res, next) => {
     Tea.findById(req.params.id).populate("created_by _id").exec((err, tea) => {
         if(err) {
@@ -25,8 +26,15 @@ exports.index = (req, res, next) => {
       })
 }
 
+// Get all teas
 exports.get_all_teas = async (req, res, next) => {
   const teas = await Tea.find({});
+  res.status(200).json(teas);
+}
+
+// Get 10 most recently added teas
+exports.get_new_teas = async (req, res, next) => {
+  const teas = await Tea.find({}).populate("created_by").sort({created_on : -1}).limit(10);
   res.status(200).json(teas);
 }
 

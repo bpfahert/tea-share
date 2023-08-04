@@ -56,12 +56,12 @@ export default function ViewTeas() {
 
     return (
         <div>
-            <TeaList tealist={allTeas} listname={"Recently added teas"} currentuser={user} />
             <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user}/>
             <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user}/>
             <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user}/>
             <TeaList tealist={white_tea_list} listname={"White teas"} currentuser={user}/>
             <TeaList tealist={oolong_tea_list} listname={"Oolong teas"} currentuser={user}/>
+            <TeaList tealist={allTeas} listname={"All teas"} currentuser={user} />
         </div>
     )
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import TeaList from './TeaList';
-import { Recommender, TeaRecType, TeaType, UserType } from '../ts/interfaces';
+import { TeaRecType, TeaType, UserType } from '../ts/interfaces';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import RecommendedTeaList from './RecommendedList';
@@ -26,6 +26,7 @@ export default function UserFeed() {
 
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [allTeas, setAllTeas] = React.useState([]);
+    const [newTeas, setNewTeas] = React.useState([]);
     const [cookies, removeCookie] = useCookies<string>([]);
 
     const navigate = useNavigate();
@@ -59,8 +60,19 @@ export default function UserFeed() {
         
     }
 
+    async function getNewTeas() {
+        const response = await fetch('http://localhost:9000/teas/recent');
+        const json = await response.json();
+    
+        if(response.ok) {
+          setNewTeas(json);
+        }
+        
+    }
+
     React.useEffect(() => {
         getAllTeas();
+        getNewTeas();
         
     }, []);
 
@@ -79,7 +91,7 @@ export default function UserFeed() {
         <div>
             <div className="friendactivitydiv">
                 <h3>Teas recently added by friends: </h3>
-                <TeaList tealist={allTeas} listname={"Friends activity"} currentuser={user}/>
+                <TeaList tealist={newTeas} listname={"Friends activity"} currentuser={user}/>
             </div>
             <div className="recommendedteas">
                 <h3>Recommended Teas</h3>
