@@ -157,7 +157,7 @@ exports.tea_favorite_get = (req, res, next) => {
         })
       } 
     })
-    res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+    res.redirect('back');
   })
 };
 
@@ -166,7 +166,7 @@ exports.tea_favorite_delete = (req, res, next) => {
     if(err) {
       return next(err);
     }
-    res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+    res.redirect('back');
   })
 };
 
@@ -193,7 +193,7 @@ exports.tea_favorite_delete = (req, res, next) => {
           })
         }
       })
-      res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+      res.redirect('back');
     })
     };
 
@@ -202,7 +202,7 @@ exports.tea_favorite_delete = (req, res, next) => {
       if(err) {
         return next(err);
       }
-      res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+      res.redirect('back');
     })
   };
 

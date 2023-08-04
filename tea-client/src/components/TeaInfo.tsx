@@ -126,8 +126,8 @@ export default function TeaInfo() {
             <p>Notes: {tea ? tea.notes : ""}</p>
             {tea?.img ? <img src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
             <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {tea?.created_on}</p>
-            <p>{isFavorited() ? <span> This is one of your favorite teas <a href={`http://localhost:9000/teas/unfavorite/${tea?._id}`}> Remove from favorites </a> </span> : <a href={`http://localhost:9000/teas/favorite/${tea?._id}`}> Favorite this tea </a> } </p>
-            <p>{isSaved() ? <span> This is one of your saved teas <a href={`http://localhost:9000/teas/unsave/${tea?._id}`}> Remove from saved teas </a> </span> : <a href={`http://localhost:9000/teas/save/${tea?._id}`}> Save this tea </a> } </p>
+            <p>{isFavorited() ? <span> This is one of your favorite teas <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${tea?._id}`}> Remove from favorites </a> </span> : <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${tea?._id}`}> Favorite this tea </a> } </p>
+            <p>{isSaved() ? <span> This is one of your saved teas <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${tea?._id}`}> Remove from saved teas </a> </span> : <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${tea?._id}`}> Save this tea </a> } </p>
             <p></p>
             <a href="#" data-bs-toggle="modal" data-bs-target="#teamodal">Recommend this tea to a user</a>
             <div className="modal fade" id="teamodal">
