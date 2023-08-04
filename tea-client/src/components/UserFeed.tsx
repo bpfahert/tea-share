@@ -76,20 +76,21 @@ export default function UserFeed() {
         
     }, []);
 
-    //Get recommended teas into array form for tealist
-    const recommended_teas_elements = user?.user?.recommended_teas?.map((recommendation : TeaRecType)=> {
-        return recommendation;
+    //Filter out deleted tea recommendations
+    const recommended_teas_elements = user?.user?.recommended_teas?.filter((recommendation : TeaRecType)=> {
+        return recommendation.tea_rec !== null;
     })
 
     const recommended_teas = user?.user?.recommended_teas ? recommended_teas_elements : [];
-    const saved_teas = user?.user ? user.user.saved_teas : allTeas;
-    const favorite_teas = user?.user ? user.user.favorite_teas : allTeas;
-    const user_teas = user?.user ? user.user.teas_added : allTeas;
+    const saved_teas = user?.user ? user.user.saved_teas : [];
+    const favorite_teas = user?.user ? user.user.favorite_teas : [];
+    const user_teas = user?.user ? user.user.teas_added : [];
     const top_teas = null;
 
     return (
         <div>
             <div className="friendactivitydiv">
+                <button onClick={() => console.log(recommended_teas_elements)}>recs</button>
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={newTeas} listname={"Friends activity"} currentuser={user}/>
             </div>
