@@ -1,8 +1,9 @@
 import React from 'react';
 import TeaList from './TeaList';
-import { TeaRecType, TeaType, UserType } from '../ts/interfaces';
+import { Recommender, TeaRecType, TeaType, UserType } from '../ts/interfaces';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import RecommendedTeaList from './RecommendedList';
 
 
 
@@ -63,9 +64,9 @@ export default function UserFeed() {
         
     }, []);
 
-    //Get recommended teas into array for tealist
+    //Get recommended teas into array form for tealist
     const recommended_teas_elements = user?.user?.recommended_teas?.map((recommendation : TeaRecType)=> {
-        return recommendation.tea_rec;
+        return recommendation;
     })
 
     const recommended_teas = user?.user?.recommended_teas ? recommended_teas_elements : [];
@@ -83,7 +84,7 @@ export default function UserFeed() {
             <div className="recommendedteas">
                 <h3>Recommended Teas</h3>
                 {recommended_teas ? 
-                    <TeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user}/>
+                    <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user}/>
                     : <p>You have no recommendations currently.</p>
                 }
             </div>

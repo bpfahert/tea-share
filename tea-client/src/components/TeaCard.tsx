@@ -17,6 +17,10 @@ export default function TeaCard(props: PropTeaCardType) {
         return (tea_ids.includes(props.tea._id));
     }
 
+    function isRecommendation() {
+        return props.rec_user !== undefined;
+    }
+
     return (
         <div className="card mr-2 border border-dark rounded" style={{backgroundColor: "peachpuff", width: "18rem"}}>
             {props.tea?.img ? <img className="card-img-top" src={`data:image/${props.tea.img.contentType};base64, ${Buffer.from(props.tea.img.data).toString('base64')}`} alt="tea-image" /> : <p>There is no image for this tea.</p>}
@@ -30,6 +34,7 @@ export default function TeaCard(props: PropTeaCardType) {
                 <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${props.tea._id}`}>Favorite</a></li>}
                 {isSaved() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${props.tea._id}`}>Saved</a></li> : 
                 <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${props.tea._id}`}>Save</a></li>}
+                {isRecommendation() ? <div><li>Recommended by {`${props.rec_user}`}</li> <li>"{props.rec_message}"</li></div> : ""}
             </div>
         </div>
     )

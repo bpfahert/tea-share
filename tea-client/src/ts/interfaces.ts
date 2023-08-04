@@ -1,17 +1,4 @@
 
-// export interface TeaType {
-//     tea_name: string, 
-//     type: string, 
-//     brand: string,
-//     rating: number,
-//     notes: string,
-//     img: {
-//         data: any,
-//         contentType: string,
-//     }
-//     _id: string,
-// }
-
 export interface TeaType{
     tea_name: string, 
     type: string, 
@@ -31,31 +18,38 @@ export interface TeaType{
 }
 
 export interface PropTeaCardType {
-tea: {
-    tea_name: string, 
-    type: string, 
-    brand: string,
-    rating: number,
-    notes: string,
-    _id: string,
-    img: {
-        data: any,
-        contentType: string,
-    },
-    },
-currentuser: UserType,   
+    tea: {
+        tea_name: string, 
+        type: string, 
+        brand: string,
+        rating: number,
+        notes: string,
+        _id: string,
+        img: {
+            data: any,
+            contentType: string,
+        },
+        },
+    currentuser: UserType,  
+    rec_message?: string,
+    rec_user?: string,
 }
+
+
 
 export interface PropTeaList {
     tealist: TeaType[],
     listname: string,
     currentuser: UserType,
-    }
+    recommender?: Recommender[],
+}
 
-// export interface PropUsername {
-//     username: string,
-//     userID: string,
-// }
+export interface PropTeaRecList {
+    tealist: TeaRecType[],
+    listname: string,
+    currentuser: UserType,
+    recommender?: Recommender[],
+}
 
 export interface UserType {
     user: {
@@ -96,10 +90,14 @@ export interface CurrentUser {
     }
 }
 
+export interface Recommender {
+        recommender: string,
+        message: string,
+}
+
 
 export interface TeaRecType {
     message: string,
     tea_rec: TeaType,
-    recommended_by: string,
-
+    recommended_by: UserRef,
 }
