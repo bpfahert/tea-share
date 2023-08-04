@@ -26,8 +26,10 @@ export default function TeaCard(props: PropTeaCardType) {
                 <li>Brand: {props.tea.brand} </li> 
                 <li>Rating(out of 10): {props.tea.rating} </li> 
                 <li>Notes: {props.tea.notes} </li>
-                {isFavorited() ? <li style={{fontWeight: "bold"}}>Favorited</li> : <li>Favorite</li>}
-                {isSaved() ? <li style={{fontWeight: "bold"}}>Saved</li> : <li>Save</li>}
+                {isFavorited() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${props.tea._id}`}>Favorited</a></li> : 
+                <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${props.tea._id}`}>Favorite</a></li>}
+                {isSaved() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${props.tea._id}`}>Saved</a></li> : 
+                <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${props.tea._id}`}>Save</a></li>}
             </div>
         </div>
     )
