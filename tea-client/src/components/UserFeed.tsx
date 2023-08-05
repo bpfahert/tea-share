@@ -90,7 +90,6 @@ export default function UserFeed() {
     return (
         <div>
             <div className="friendactivitydiv">
-                <button onClick={() => console.log(recommended_teas_elements)}>recs</button>
                 <h3>Teas recently added by friends: </h3>
                 <TeaList tealist={newTeas} listname={"Friends activity"} currentuser={user}/>
             </div>
