@@ -142,6 +142,17 @@ exports.tea_recommend_post = [
   }
 ];
 
+// TODO: Add tea_recommend_delete controller function, route, and button to remove a tea from a users' tea recs list. FIX: THIS ARRAY IS NOT LISTED ONLY BY ID, NEED TO FIGURE OUT HOW TO REMOVE THIS ANOTHER WAY. DIFFERENT PULL FILTER??
+exports.tea_recommend_delete = (req, res, next) => {
+  User.findOneAndUpdate({username: req.user.username}, {$pull : {recommended_teas: {tea_rec: req.params.id }}}).exec((err, self) => {
+    if(err) {
+      return next(err);
+    }
+    res.redirect('back');
+  })
+};
+
+
 exports.tea_favorite_get = (req, res, next) => {
   Tea.findById(req.params.id).exec((err, tea) => {
     if(err) {

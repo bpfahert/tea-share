@@ -6,6 +6,8 @@ const user_controller = require("../controllers/UserController");
 
 router.post("/recommend", tea_controller.tea_recommend_post);
 
+router.get("/removerec/:id", tea_controller.tea_recommend_delete);
+
 router.get("/all", tea_controller.get_all_teas);
 
 router.get("/recent", tea_controller.get_new_teas);
