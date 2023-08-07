@@ -63,6 +63,7 @@ export interface UserType {
         recommended_teas: [],
         teas_added: [],
         _id: string,
+        notificationStatus?: boolean,
     }
 }
 

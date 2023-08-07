@@ -21,6 +21,7 @@ export default function UserFeed() {
             saved_teas: [],
             recommended_teas: [],
             _id: "",
+            notificationStatus: false,
         }
     }
 
@@ -95,6 +96,7 @@ export default function UserFeed() {
             </div>
             <div className="recommendedteas">
                 <h3>Recommended Teas</h3>
+                {user.user.notificationStatus ? <div>You have a new recommendation! <button>Ok</button></div> : ""}
                 {recommended_teas ? 
                     <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user}/>
                     : <p>You have no recommendations currently.</p>

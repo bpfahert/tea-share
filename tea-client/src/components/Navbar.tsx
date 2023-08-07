@@ -86,6 +86,9 @@ export default function Navbar() {
                     }
                 </ul>
             </div>
+            <ul className="navbar-nav">
+            {user?.user?.notificationStatus ? <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="/" >New recommendation!</Link></li> : ""}
+            </ul>
       </nav>
     )
 }
