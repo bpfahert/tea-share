@@ -11,4 +11,6 @@ router.get("/profile/:id", user_controller.get_user_info);
 
 router.post("/verify", user_controller.userVerification);
 
+router.get("/clearnotifications", user_controller.acknowledge_notification);
+
 module.exports = router;

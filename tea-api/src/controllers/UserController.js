@@ -93,3 +93,18 @@ exports.new_user = [
     })
   }
 ]
+
+exports.acknowledge_notification = (req, res, next) => {
+  User.findOne({username: req.user.username}).exec((err, self) => {
+    if(err) {
+      return next(err);
+    }
+    self.notificationStatus = false;
+    self.save((err) => {
+      if(err) {
+        return next(err);
+      }
+    })
+  })
+  res.redirect("http://localhost:3000");
+}
