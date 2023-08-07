@@ -6,8 +6,8 @@ export default function TeaForm() {
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                    <input type="text" id="teaname" className="form-control" name="teaname" placeholder="Tea" required maxLength={50} ></input>
-                    <label htmlFor="teaname" className="form-label">Tea Name</label>
+                        <input type="text" id="teaname" className="form-control" name="teaname" placeholder="Tea" required maxLength={50} ></input>
+                        <label htmlFor="teaname" className="form-label">Tea Name</label>
                     </div>
                 </div>
             </div>
