@@ -5,7 +5,7 @@ export default function RecommendedTeaList({ tealist, listname, currentuser } : 
 
     const teaElements = tealist.map((tea) => {
         return (
-            <TeaCard tea={tea.tea_rec} currentuser={currentuser} rec_message={tea.message} rec_user={tea.recommended_by.username} />
+            <TeaCard tea={tea.tea_rec} currentuser={currentuser} rec_message={tea.message} rec_user={tea.recommended_by.username} key={tea.tea_rec._id}/>
         )
     })
 

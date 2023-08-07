@@ -5,7 +5,7 @@ export default function TeaList({ tealist, listname, currentuser } : PropTeaList
 
     const teaElements = tealist.map((tea) => {
         return (
-            <TeaCard tea={tea} currentuser={currentuser}/>
+            <TeaCard tea={tea} currentuser={currentuser} key={tea._id}/>
         )
     })
 
