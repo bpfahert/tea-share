@@ -4,7 +4,7 @@ import SignUpForm from "./SignUpForm"
 export default function Signup() {
 
     return (
-        <div>
+        <div className="container">
             <h2>Sign up for an account or log in!</h2>
             <p>Welcome to tea share! This site is meant to help you keep track of teas you've tried and for recommending teas to others! Please make an account to log in. Passwords are encrypted, but it's still recommended to use a unique password for this site.</p>
             <div>
@@ -17,10 +17,14 @@ export default function Signup() {
                 </ul>
             </div>
             <p></p>
-            <div className="formdiv border border-dark w-25">
-                <LoginForm />
-                <p></p>
-                New user? <button data-bs-toggle="modal" data-bs-target="#signupmodal" className="btn btn-info" type="button">Create an account!</button>
+            <div className="row justify-content-center mb-3">
+                <div className="col-sm-4 formdiv border border-dark">
+                    <LoginForm />
+                </div>
+            </div>
+            <div className="row justify-content-center">
+                    New user? 
+                    <button data-bs-toggle="modal" data-bs-target="#signupmodal" className="btn btn-info btn-sm col-sm-2" type="button">Create an account!</button>
             </div>
             <div className="modal fade" id="signupmodal">
                 <div className="modal-dialog">

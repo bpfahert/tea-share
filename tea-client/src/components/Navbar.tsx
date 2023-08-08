@@ -29,7 +29,10 @@ export default function Navbar() {
     }, [cookies, navigate, removeCookie]);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "turquoise"}}>
+        <nav className="navbar navbar-expand-sm navbar-light" style={{backgroundColor: "turquoise"}}>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsupportedcontent">
+                <span className="navbar-toggler-icon"></span>
+            </button>
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
                 <ul className="navbar-nav">
                     {user?.user?.username !== undefined ? 
@@ -87,8 +90,9 @@ export default function Navbar() {
                 </ul>
             </div>
             <ul className="navbar-nav">
-            {user?.user?.notificationStatus ? <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications" >New recommendation!</Link></li> : ""}
+            {user?.user?.notificationStatus ? <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications">New recommendation!</Link></li> : ""}
             </ul>
-      </nav>
+        </nav>
+
     )
 }
