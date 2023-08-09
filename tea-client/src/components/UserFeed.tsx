@@ -90,30 +90,30 @@ export default function UserFeed() {
     return (
         <div>
             <div className="friendactivitydiv">
-                <TeaList tealist={newTeas} listname={"Friends activity"} currentuser={user}/>
+                <TeaList tealist={newTeas} listname={"Friends activity"} currentuser={user} listtype={"friend"}/>
             </div>
             <div className="recommendedteas">
                 {user?.user?.notificationStatus ? <div>You have a new recommendation!</div> : ""}
                 {recommended_teas ? 
-                    <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user}/>
+                    <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
                     : <p>You have no recommendations currently.</p>
                 }
             </div>
             <div className="savedteas">
                 {saved_teas ? 
-                    <TeaList tealist={saved_teas} listname={"Saved teas"} currentuser={user}/>
+                    <TeaList tealist={saved_teas} listname={"Saved teas"} currentuser={user} listtype={"saved"}/>
                     : <p>You have no saved teas.</p>
                 }
             </div>
             <div className="favoriteteas">
                 {favorite_teas ? 
-                    <TeaList tealist={favorite_teas} listname={"Favorite teas"} currentuser={user}/>
+                    <TeaList tealist={favorite_teas} listname={"Favorite teas"} currentuser={user} listtype={"favorite"}/>
                     : <p>You have no favorited teas.</p>
                 }
             </div>
             <div className="yourteas">
                 {user_teas ? 
-                    <TeaList tealist={user_teas} listname={"Your teas"} currentuser={user} />
+                    <TeaList tealist={user_teas} listname={"Your teas"} currentuser={user} listtype={"added"}/>
                     : <p>You have no added teas.</p>
                 }
             </div>

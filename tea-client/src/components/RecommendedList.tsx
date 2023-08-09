@@ -1,20 +1,37 @@
 import TeaCard from './TeaCard';
 import { PropTeaRecList } from '../ts/interfaces';
 
-export default function RecommendedTeaList({ tealist, listname, currentuser } : PropTeaRecList) {
+export default function RecommendedTeaList({ tealist, listname, currentuser, listtype } : PropTeaRecList) {
 
-    const teaElements = tealist.map((tea) => {
+    const firstFiveTeas = tealist.slice(0, 5);
+    const moreTeas = tealist.slice(5);
+
+    const firstFiveElements = firstFiveTeas.map((tea) => {
         return (
-            <TeaCard tea={tea.tea_rec} currentuser={currentuser} rec_message={tea.message} rec_user={tea.recommended_by.username} key={tea.tea_rec._id}/>
+            <TeaCard tea={tea.tea_rec} currentuser={currentuser} key={tea.tea_rec._id} />
+        )
+    })
+
+    const moreTeaElements = moreTeas.map((tea) => {
+        return (
+            <TeaCard tea={tea.tea_rec} currentuser={currentuser} key={tea.tea_rec._id}/>
         )
     })
 
     return (
         <div className="container-fluid">
             <h2 className="text-center mb-3">{listname}</h2>
-            <ul style={{display: "flex", justifyContent: "center", listStyle: "none", gap: "5px"}}>
-                {teaElements}
+            <ul className="list-group list-group-horizontal-xl" style={{display: "flex", justifyContent: "center", alignItems: "center", listStyle: "none", gap: "5px"}}>
+                {firstFiveElements}
             </ul>
+            <div className="container text-center">
+                <button className='btn btn-info btn-lg mb-3' type='button'  data-bs-toggle="collapse"  data-bs-target={`#expanded${listtype}tealist`}>Show more</button>
+            </div>
+            <div className="collapse" id={`expanded${listtype}tealist`}>
+            <ul className="list-group list-group-horizontal-xl" style={{display: "flex", justifyContent: "center", alignItems: "center", listStyle: "none", gap: "5px"}}>
+                {moreTeaElements}
+            </ul>
+            </div>
         </div>
     )
 }

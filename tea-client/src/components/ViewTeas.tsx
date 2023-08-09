@@ -78,8 +78,8 @@ export default function ViewTeas() {
     return (
         <div>
             <p></p>
-            <form onSubmit={handleSubmit}>
-                <input value={search} onChange={handleChange} style={{justifySelf: "center"}} type="text" id="searchbar" name="searchbar" placeholder="Search for teas"></input>
+            <form className="d-flex justify-content-center mb-5" onSubmit={handleSubmit}>
+                <input value={search} onChange={handleChange} type="text" id="searchbar" name="searchbar" placeholder="Search for teas"></input>
             </form>
             <TeaList tealist={searchTeas} listname={"Search Results"} currentuser={user}/>
             {isEmpty(searchTeas) ? <p style={{justifySelf: "center"}}> No teas found with that name. </p> : "" }

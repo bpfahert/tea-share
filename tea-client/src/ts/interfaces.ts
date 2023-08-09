@@ -42,6 +42,7 @@ export interface PropTeaList {
     listname: string,
     currentuser: UserType,
     recommender?: Recommender[],
+    listtype?: string,
 }
 
 export interface PropTeaRecList {
@@ -49,6 +50,7 @@ export interface PropTeaRecList {
     listname: string,
     currentuser: UserType,
     recommender?: Recommender[],
+    listtype?: string,
 }
 
 export interface UserType {
