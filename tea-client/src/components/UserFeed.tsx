@@ -26,7 +26,7 @@ export default function UserFeed() {
     }
 
     const [user, setUser] = React.useState<UserType>(initialUserState);
-    const [allTeas, setAllTeas] = React.useState([]);
+    // const [allTeas, setAllTeas] = React.useState([]);
     const [newTeas, setNewTeas] = React.useState([]);
     const [cookies, removeCookie] = useCookies<string>([]);
 
@@ -51,15 +51,15 @@ export default function UserFeed() {
 
 
 
-    async function getAllTeas() {
-        const response = await fetch('http://localhost:9000/teas/all');
-        const json = await response.json();
+    // async function getAllTeas() {
+    //     const response = await fetch('http://localhost:9000/teas/all');
+    //     const json = await response.json();
     
-        if(response.ok) {
-          setAllTeas(json);
-        }
+    //     if(response.ok) {
+    //       setAllTeas(json);
+    //     }
         
-    }
+    // }
 
     async function getNewTeas() {
         const response = await fetch('http://localhost:9000/teas/recent');
@@ -72,7 +72,7 @@ export default function UserFeed() {
     }
 
     React.useEffect(() => {
-        getAllTeas();
+        // getAllTeas();
         getNewTeas();
         
     }, []);

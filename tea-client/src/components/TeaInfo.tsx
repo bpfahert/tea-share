@@ -168,7 +168,7 @@ export default function TeaInfo() {
                             </div>
                             <div className="modal-body">
                                 <div>
-                                    <EditTeaForm tea_name={tea.tea_name} type={tea.type} brand={tea.brand} img={tea.img} rating={tea.rating} notes={tea.notes} _id={tea._id} created_by={tea.created_by} created_on={tea.created_on} />
+                                    <EditTeaForm tea_name={tea.tea_name.replace("&#x27;", "'")} type={tea.type} brand={tea.brand.replace("&#x27;", "'")} img={tea.img} rating={tea.rating} notes={tea.notes.replace("&#x27;", "'")} _id={tea._id} created_by={tea.created_by} created_on={tea.created_on} />
                                 </div>
                             </div>
                         </div>

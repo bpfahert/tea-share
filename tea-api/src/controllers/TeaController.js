@@ -226,7 +226,7 @@ exports.tea_favorite_delete = (req, res, next) => {
   };
 
     exports.tea_update_post = [
-      upload.single('teaimg'),
+      upload.single('updateteaimg'),
       body("updateteaname").trim().isLength({min: 2}).withMessage("Please enter a tea name").escape(),
       body("updatetype"),
       body("updatebrand").trim().isLength({min: 1}).escape(),
@@ -235,7 +235,7 @@ exports.tea_favorite_delete = (req, res, next) => {
       (req, res, next) => {
         const uploadedImage = {
           teaImage: req.file ? {
-            data: fs.readFileSync(path.join(__dirname + "/../public/images/" + req.file.filename)),
+            data: fs.readFileSync(path.join(__dirname + "/../../public/images/" + req.file.filename)),
           contentType: "image/png"
           } : ""
         }

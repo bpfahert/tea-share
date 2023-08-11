@@ -9,8 +9,8 @@ export default function EditTeaForm( {tea_name, brand, notes, type, rating, img,
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                    <input type="text" id="updateteaname" className="form-control" name="updateteaname" defaultValue={tea_name} required maxLength={50} ></input>
-                    <label htmlFor="updateteaname" className="form-label">Tea Name</label>
+                        <input type="text" id="updateteaname" className="form-control" name="updateteaname" defaultValue={tea_name} required maxLength={50} ></input>
+                        <label htmlFor="updateteaname" className="form-label">Tea Name</label>
                     </div>
                 </div>
             </div>
@@ -63,15 +63,14 @@ export default function EditTeaForm( {tea_name, brand, notes, type, rating, img,
                     </div>
                 </div>
             </div>
-            {/* <div className="row">
+            <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                        <input type="file" className="form-control" id="updateteaimg" name="updateteaimg">
-                            {img ? <img src={`data:image/${img.contentType};base64, ${Buffer.from(img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}</input>
+                        <input type="file" className="form-control" id="updateteaimg" name="updateteaimg"></input>
                         <label htmlFor="updateteaimg" className="form-label">Upload Picture</label>
                     </div>
                 </div>
-            </div> */}
+            </div>
             <button className="btn btn-info" type="submit">Submit</button>
         </form>
     )

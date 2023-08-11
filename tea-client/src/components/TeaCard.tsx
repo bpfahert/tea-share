@@ -29,7 +29,7 @@ export default function TeaCard(props: PropTeaCardType) {
                 <li>Type: {props.tea.type} </li> 
                 <li>Brand: {props.tea.brand.replace("&#x27;", "'")} </li> 
                 <li>Rating(out of 10): {props.tea.rating} </li> 
-                <li>Notes: {props.tea.notes.replace("&#x27;", "'")} </li>
+                <li style={{height: "10rem"}}>Notes: {props.tea.notes.replace("&#x27;", "'")} </li>
                 {isFavorited() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${props.tea._id}`}>Favorited</a></li> : 
                 <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${props.tea._id}`}>Favorite</a></li>}
                 {isSaved() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${props.tea._id}`}>Saved</a></li> : 
