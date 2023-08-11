@@ -25,14 +25,18 @@ export default function TeaList({ tealist, listname, currentuser, listtype } : P
             <ul className="list-group list-group-horizontal-xl" style={{display: "flex", justifyContent: "center", alignItems: "center", listStyle: "none", gap: "5px"}}>
                 {firstFiveElements}
             </ul>
-            <div className="container text-center">
-                <button className='btn btn-info btn-lg mb-3' type='button'  data-bs-toggle="collapse"  data-bs-target={`#expanded${listtype}tealist`}>Show more</button>
-            </div>
-            <div className="collapse" id={`expanded${listtype}tealist`}>
-                <ul className="list-group list-group-horizontal-xl" style={{display: "flex", justifyContent: "center", alignItems: "center",  listStyle: "none", gap: "5px"}}>
-                    {moreTeaElements}
-                </ul>
-            </div>
+            {moreTeaElements.length !== 0 ? 
+            <div>
+                <div className="container text-center">
+                    <button className='btn btn-info btn-lg mb-3' type='button'  data-bs-toggle="collapse"  data-bs-target={`#expanded${listtype}tealist`}>Show more</button>
+                </div>
+                <div className="collapse" id={`expanded${listtype}tealist`}>
+                    <ul className="list-group list-group-horizontal-xl" style={{display: "flex", justifyContent: "center", alignItems: "center",  listStyle: "none", gap: "5px"}}>
+                        {moreTeaElements}
+                    </ul>
+                </div>
+            </div> 
+            : ""}
         </div>
     )
 }

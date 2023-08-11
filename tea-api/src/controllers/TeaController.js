@@ -41,10 +41,10 @@ exports.get_new_teas = async (req, res, next) => {
 exports.tea_create_post = [
   upload.single('teaimg'),
   body("tea_name").trim().isLength({min: 2}).escape().withMessage("Please enter a tea name"),
-  body("brand").trim().isLength({min: 2}),
+  body("brand").trim().escape().isLength({min: 2}),
   body("type"),
   body("rating"),
-  body("notes").trim(),
+  body("notes").trim().escape(),
   (req, res, next) => {
     const uploadedImage = {
       teaImage: req.file ? {
@@ -117,7 +117,7 @@ exports.tea_recommend_post = [
   body("recommendedtea"),
   body("currentuser"),
   body("user"),
-  body("recmessage"),
+  body("recmessage").escape(),
   (req, res, next) => {
     const errors = validationResult(req);
     User.findById(req.body.user).exec((err, friend) => {
@@ -227,7 +227,7 @@ exports.tea_favorite_delete = (req, res, next) => {
 
     exports.tea_update_post = [
       upload.single('teaimg'),
-      body("updateteaname").trim().isLength({min: 2}).escape().withMessage("Please enter a tea name"),
+      body("updateteaname").trim().isLength({min: 2}).withMessage("Please enter a tea name").escape(),
       body("updatetype"),
       body("updatebrand").trim().isLength({min: 1}).escape(),
       body("updaterating"),
@@ -253,6 +253,7 @@ exports.tea_favorite_delete = (req, res, next) => {
           img: uploadedImage.teaImage,
           _id: req.params.id,
         });
+        console.log(tea);
         Tea.findByIdAndUpdate(req.params.id, tea, {}, (err, updatedtea) => {
           if(err) {
             return next(err);

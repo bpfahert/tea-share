@@ -119,11 +119,11 @@ export default function TeaInfo() {
 
     return (
         <div>
-            <p>Tea name: {tea ? tea.tea_name : ""}</p>
+            <p>Tea name: {tea ? tea.tea_name.replace("&#x27;", "'") : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
-            <p>Brand: {tea ? tea.brand : ""}</p>
+            <p>Brand: {tea ? tea.brand.replace("&#x27;", "'") : ""}</p>
             <p>Rating: {tea ? tea.rating : ""}</p>
-            <p>Notes: {tea ? tea.notes : ""}</p>
+            <p>Notes: {tea ? tea.notes.replace("&#x27;", "'") : ""}</p>
             {tea?.img ? <img src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
             <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {tea?.created_on}</p>
             <p>{isFavorited() ? <span> This is one of your favorite teas <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${tea?._id}`}> Remove from favorites </a> </span> : <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${tea?._id}`}> Favorite this tea </a> } </p>
