@@ -23,11 +23,11 @@ export default function TeaCard(props: PropTeaCardType) {
 
     return (
         <div className="card mr-2 border border-dark rounded mb-3" style={{backgroundColor: "peachpuff", width: "18rem"}}>
-            {props.tea?.img ? <img className="card-img-top" src={`data:image/${props.tea.img.contentType};base64, ${Buffer.from(props.tea.img.data).toString('base64')}`} alt="tea-image" /> : <p>There is no image for this tea.</p>}
+            {props.tea?.img ? <img className="card-img-top" style={{height: "13rem", objectFit: "cover"}} src={`data:image/${props.tea.img.contentType};base64, ${Buffer.from(props.tea.img.data).toString('base64')}`} alt="tea-image" /> : <p style={{height: "12rem"}}>There is no image for this tea.</p>}
             <div className="card-body">
-                <li><h5><a style={{textDecoration: "none", color: "black"}}  data-testid="teacardtest" href={`/teas/${props.tea._id}`}> {props.tea.tea_name.replace("&#x27;", "'")}</a></h5></li> 
+                <li><h5 style={{height:"3rem"}} className="mb-3"><a style={{textDecoration: "none", color: "black"}}  data-testid="teacardtest" href={`/teas/${props.tea._id}`}> {props.tea.tea_name.replace("&#x27;", "'")}</a></h5></li> 
                 <li>Type: {props.tea.type} </li> 
-                <li>Brand: {props.tea.brand.replace("&#x27;", "'")} </li> 
+                <li>Brand: {props.tea.brand.replace("&#x27;", "'")} </li>
                 <li>Rating(out of 10): {props.tea.rating} </li> 
                 <li style={{height: "10rem"}}>Notes: {props.tea.notes.replace("&#x27;", "'")} </li>
                 {isFavorited() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${props.tea._id}`}>Favorited</a></li> : 
@@ -37,7 +37,7 @@ export default function TeaCard(props: PropTeaCardType) {
                 {isRecommendation() ? 
                 <div>
                     <li>Recommended by {`${props.rec_user}`}</li> 
-                    <li>"{props.rec_message?.replace("&#x27;", "'")}"</li> 
+                    {props.rec_message ? <li>"{props.rec_message?.replace("&#x27;", "'")}"</li> : ""} 
                     <p></p> 
                     <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/removerec/${props.tea._id}`} >Remove recommendation</a></li>
                 </div> 

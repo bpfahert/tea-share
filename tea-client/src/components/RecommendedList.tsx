@@ -8,13 +8,13 @@ export default function RecommendedTeaList({ tealist, listname, currentuser, lis
 
     const firstFiveElements = firstFiveTeas.map((tea) => {
         return (
-            <TeaCard tea={tea.tea_rec} currentuser={currentuser} key={tea.tea_rec._id} />
+            <TeaCard tea={tea.tea_rec} currentuser={currentuser} key={tea.tea_rec._id} rec_user={tea.recommended_by.username} />
         )
     })
 
     const moreTeaElements = moreTeas.map((tea) => {
         return (
-            <TeaCard tea={tea.tea_rec} currentuser={currentuser} key={tea.tea_rec._id}/>
+            <TeaCard tea={tea.tea_rec} currentuser={currentuser} key={tea.tea_rec._id} rec_user={tea.recommended_by.username}/>
         )
     })
 
