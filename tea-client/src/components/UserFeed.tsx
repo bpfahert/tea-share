@@ -5,8 +5,6 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import RecommendedTeaList from './RecommendedList';
 
-
-
 export default function UserFeed() {
 
     let initialUserState : UserType = {

@@ -118,7 +118,7 @@ export default function TeaInfo() {
     }
 
     return (
-        <div>
+        <div className="text-center">
             <p>Tea name: {tea ? tea.tea_name.replace("&#x27;", "'") : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? tea.brand.replace("&#x27;", "'") : ""}</p>

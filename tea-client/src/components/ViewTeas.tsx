@@ -81,14 +81,14 @@ export default function ViewTeas() {
             <form className="d-flex justify-content-center mb-5" onSubmit={handleSubmit}>
                 <input value={search} onChange={handleChange} type="text" id="searchbar" name="searchbar" placeholder="Search for teas"></input>
             </form>
-            <TeaList tealist={searchTeas} listname={"Search Results"} currentuser={user}/>
-            {isEmpty(searchTeas) ? <p style={{justifySelf: "center"}}> No teas found with that name. </p> : "" }
-            <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user}/>
-            <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user}/>
-            <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user}/>
-            <TeaList tealist={white_tea_list} listname={"White teas"} currentuser={user}/>
+            <TeaList tealist={searchTeas} listname={"Search Results"} currentuser={user} listtype="searchresults"/>
+            {isEmpty(searchTeas) ? <p style={{textAlign: "center"}}> No teas found with that name. </p> : "" }
+            <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user} listtype="greenteas"/>
+            <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user} listtype="blackteas"/>
+            <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user} listtype="herbalteas"/>
+            <TeaList tealist={white_tea_list} listname={"White teas"} currentuser={user} listtype="whiteteas"/>
             <TeaList tealist={oolong_tea_list} listname={"Oolong teas"} currentuser={user}/>
-            <TeaList tealist={allTeas} listname={"All teas"} currentuser={user} />
+            <TeaList tealist={allTeas} listname={"All teas"} currentuser={user} listtype="allteas"/>
         </div>
     )
 
