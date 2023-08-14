@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { cleanString } from "../services/teaFunctions";
 import EditTeaForm from "./EditTeaForm";
+import moment from 'moment';
 
 export default function TeaInfo() {
     let initialUserState : UserType = {
@@ -126,7 +127,7 @@ export default function TeaInfo() {
             <p>Rating: {tea ? tea.rating : ""}</p>
             <p>Notes: {tea ? cleanString(tea.notes) : ""}</p>
                 {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
-            <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {tea?.created_on}</p>
+            <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
             <p>{isFavorited() ? <span> This is one of your favorite teas <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${tea?._id}`}> Remove from favorites </a> </span> : <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${tea?._id}`}> Favorite this tea </a> } </p>
             <p>{isSaved() ? <span> This is one of your saved teas <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${tea?._id}`}> Remove from saved teas </a> </span> : <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${tea?._id}`}> Save this tea </a> } </p>
             <p></p>

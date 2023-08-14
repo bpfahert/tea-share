@@ -4,22 +4,40 @@ import { cleanString } from '../services/teaFunctions';
 
 export default function TeaCard(props: PropTeaCardType) {
 
-    function isFavorited() {
-        const tea_ids = props.currentuser.user.favorite_teas.map((tea : TeaType) => {
+    function isFavorited(favoriteArray: TeaType[], teaID: string) {
+        const tea_ids = favoriteArray.map((tea : TeaType) => {
             return tea._id;
         });
-        return (tea_ids.includes(props.tea._id));
+        if (tea_ids.includes(teaID)) {
+            return <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${teaID}`}>Favorited</a></li>
+        } else {
+            return <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${teaID}`}>Favorite</a></li>
+        }
     }
 
-    function isSaved() {
-        const tea_ids = props.currentuser.user.saved_teas.map((tea : TeaType) => {
+    function isSaved(savedArray: TeaType[], teaID: string) {
+        const tea_ids = savedArray.map((tea : TeaType) => {
             return tea._id;
         });
-        return (tea_ids.includes(props.tea._id));
+        if (tea_ids.includes(teaID)) {
+            return <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${props.tea._id}`}>Saved</a></li>
+        } else {
+            return <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${props.tea._id}`}>Save</a></li>
+        }
     }
 
-    function isRecommendation() {
-        return props.rec_user !== undefined;
+    function isRecommendation(recommendee: string | undefined, message: string | undefined, teaID: string) {
+        if (recommendee !== undefined) {
+            return (
+                <div>
+                    <li>Recommended by {`${recommendee}`}</li> 
+                    {message ? <li>"{cleanString(message)}"</li> : ""} 
+                    <p></p> 
+                    <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/removerec/${teaID}`} >Remove recommendation</a></li>
+                </div>   
+        )}  else {
+            return "";
+        }
     }
 
     return (
@@ -30,19 +48,10 @@ export default function TeaCard(props: PropTeaCardType) {
                 <li>Type: {props.tea.type} </li> 
                 <li>Brand: {cleanString(props.tea.brand)} </li>
                 <li>Rating(out of 10): {props.tea.rating} </li> 
-                <li style={{height: "10rem"}}>Notes: {cleanString(props.tea.notes)} </li>
-                {isFavorited() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${props.tea._id}`}>Favorited</a></li> : 
-                <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${props.tea._id}`}>Favorite</a></li>}
-                {isSaved() ? <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${props.tea._id}`}>Saved</a></li> : 
-                <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${props.tea._id}`}>Save</a></li>}
-                {isRecommendation() ? 
-                <div>
-                    <li>Recommended by {`${props.rec_user}`}</li> 
-                    {props.rec_message ? <li>"{props.rec_message?.replace("&#x27;", "'")}"</li> : ""} 
-                    <p></p> 
-                    <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/removerec/${props.tea._id}`} >Remove recommendation</a></li>
-                </div> 
-                : ""}
+                <li className="overflow-auto" style={{height: "6rem", border: "solid 1px black"}}>Notes: {cleanString(props.tea.notes)} </li>
+                {isFavorited(props.currentuser.user.favorite_teas, props.tea._id)}
+                {isSaved(props.currentuser.user.saved_teas, props.tea._id)}
+                {isRecommendation(props.rec_user, props.rec_message, props.tea._id)}
             </div>
         </div>
     )

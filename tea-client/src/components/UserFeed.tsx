@@ -87,8 +87,8 @@ export default function UserFeed() {
 
     return (
         <div>
-            <div className="friendactivitydiv">
-                <TeaList tealist={newTeas} listname={"Friends activity"} currentuser={user} listtype={"friend"}/>
+            <div className="recentactivitydiv">
+                <TeaList tealist={newTeas} listname={"Recently added teas"} currentuser={user} listtype={"recent"}/>
             </div>
             <div className="recommendedteas">
                 {user?.user?.notificationStatus ? <div>You have a new recommendation!</div> : ""}
