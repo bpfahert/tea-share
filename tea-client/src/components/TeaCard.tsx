@@ -4,25 +4,33 @@ import { cleanString } from '../services/teaFunctions';
 
 export default function TeaCard(props: PropTeaCardType) {
 
+    // TODO: FINISH HANDLE POST FUNCTION AND MOVE TO TEA FUNCTIONS? ADD REACT CONTEXT
+
+    async function handlePost(url: string) {
+        const response = await fetch(url, {method: "POST", credentials: "include"});
+        const json = await response.json();
+        return json;
+    }
+
     function isFavorited(favoriteArray: TeaType[], teaID: string) {
         const tea_ids = favoriteArray.map((tea : TeaType) => {
             return tea._id;
         });
         if (tea_ids.includes(teaID)) {
-            return <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unfavorite/${teaID}`}>Favorited</a></li>
+            return <li style={{fontWeight: "bold"}}><button onClick={() => handlePost(`http://localhost:9000/teas/unfavorite/${props.tea._id}`)}>Favorited</button></li>
         } else {
-            return <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/favorite/${teaID}`}>Favorite</a></li>
+            return <li><button onClick={() => handlePost(`http://localhost:9000/teas/favorite/${props.tea._id}`)}>Favorite</button></li>
         }
-    }
+    }  
 
     function isSaved(savedArray: TeaType[], teaID: string) {
         const tea_ids = savedArray.map((tea : TeaType) => {
             return tea._id;
         });
         if (tea_ids.includes(teaID)) {
-            return <li style={{fontWeight: "bold"}}><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${props.tea._id}`}>Saved</a></li>
+            return <li style={{fontWeight: "bold"}}><button onClick={() => handlePost(`http://localhost:9000/teas/unsave/${props.tea._id}`)}>Saved</button></li>
         } else {
-            return <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${props.tea._id}`}>Save</a></li>
+            return <li><button onClick={() => handlePost(`http://localhost:9000/teas/save/${props.tea._id}`)}>Save</button></li>
         }
     }
 
@@ -33,7 +41,7 @@ export default function TeaCard(props: PropTeaCardType) {
                     <li>Recommended by {`${recommendee}`}</li> 
                     {message ? <li>"{cleanString(message)}"</li> : ""} 
                     <p></p> 
-                    <li><a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/removerec/${teaID}`} >Remove recommendation</a></li>
+                    <li><button onClick={() => handlePost(`http://localhost:9000/teas/removerec/${teaID}`)}>Remove recommendation</button></li>
                 </div>   
         )}  else {
             return "";

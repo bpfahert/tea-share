@@ -142,18 +142,16 @@ exports.tea_recommend_post = [
   }
 ];
 
-// TODO: Add tea_recommend_delete controller function, route, and button to remove a tea from a users' tea recs list. FIX: THIS ARRAY IS NOT LISTED ONLY BY ID, NEED TO FIGURE OUT HOW TO REMOVE THIS ANOTHER WAY. DIFFERENT PULL FILTER??
 exports.tea_recommend_delete = (req, res, next) => {
   User.findOneAndUpdate({username: req.user.username}, {$pull : {recommended_teas: {tea_rec: req.params.id }}}).exec((err, self) => {
     if(err) {
       return next(err);
     }
-    res.redirect('back');
   })
 };
 
 
-exports.tea_favorite_get = (req, res, next) => {
+exports.tea_favorite_post = (req, res, next) => {
   Tea.findById(req.params.id).exec((err, tea) => {
     if(err) {
       return next(err);
@@ -176,7 +174,6 @@ exports.tea_favorite_get = (req, res, next) => {
         })
       } 
     })
-    res.redirect('back');
   })
 };
 
@@ -189,7 +186,7 @@ exports.tea_favorite_delete = (req, res, next) => {
   })
 };
 
-  exports.tea_save_get = (req, res, next) => {
+  exports.tea_save_post = (req, res, next) => {
     Tea.findById(req.params.id).exec((err, tea) => {
       if(err) {
         return next(err);
@@ -212,7 +209,6 @@ exports.tea_favorite_delete = (req, res, next) => {
           })
         }
       })
-      res.redirect('back');
     })
     };
 
@@ -221,7 +217,6 @@ exports.tea_favorite_delete = (req, res, next) => {
       if(err) {
         return next(err);
       }
-      res.redirect('back');
     })
   };
 
@@ -253,7 +248,6 @@ exports.tea_favorite_delete = (req, res, next) => {
           img: uploadedImage.teaImage,
           _id: req.params.id,
         });
-        console.log(tea);
         Tea.findByIdAndUpdate(req.params.id, tea, {}, (err, updatedtea) => {
           if(err) {
             return next(err);
