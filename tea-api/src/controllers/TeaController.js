@@ -147,6 +147,7 @@ exports.tea_recommend_delete = (req, res, next) => {
     if(err) {
       return next(err);
     }
+    res.status(204).send();
   })
 };
 
@@ -174,6 +175,7 @@ exports.tea_favorite_post = (req, res, next) => {
         })
       } 
     })
+    res.status(204).send();
   })
 };
 
@@ -182,7 +184,7 @@ exports.tea_favorite_delete = (req, res, next) => {
     if(err) {
       return next(err);
     }
-    res.redirect('back');
+    res.status(204).send();
   })
 };
 
@@ -209,6 +211,7 @@ exports.tea_favorite_delete = (req, res, next) => {
           })
         }
       })
+      res.status(204).send();
     })
     };
 
@@ -217,6 +220,7 @@ exports.tea_favorite_delete = (req, res, next) => {
       if(err) {
         return next(err);
       }
+      res.status(204).send();
     })
   };
 
