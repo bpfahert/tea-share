@@ -34,7 +34,7 @@ exports.get_all_teas = async (req, res, next) => {
 
 // Get 10 most recently added teas
 exports.get_new_teas = async (req, res, next) => {
-  const teas = await Tea.find({}).populate("created_by").sort({created_on : -1}).limit(10);
+  const teas = await Tea.find({}).populate("created_by").populate({path:'created_by', populate: {path: 'favorite_teas', model: 'User'}}).sort({created_on : -1}).limit(10);
   res.status(200).json(teas);
 }
 
@@ -147,7 +147,7 @@ exports.tea_recommend_delete = (req, res, next) => {
     if(err) {
       return next(err);
     }
-    res.status(204).send();
+    res.status(200).json({});
   })
 };
 
@@ -175,7 +175,7 @@ exports.tea_favorite_post = (req, res, next) => {
         })
       } 
     })
-    res.status(204).send();
+    res.status(200).json(tea);
   })
 };
 
@@ -184,7 +184,7 @@ exports.tea_favorite_delete = (req, res, next) => {
     if(err) {
       return next(err);
     }
-    res.status(204).send();
+    res.status(200).json({});
   })
 };
 
@@ -211,7 +211,7 @@ exports.tea_favorite_delete = (req, res, next) => {
           })
         }
       })
-      res.status(204).send();
+      res.status(200).json(tea);
     })
     };
 
@@ -220,7 +220,7 @@ exports.tea_favorite_delete = (req, res, next) => {
       if(err) {
         return next(err);
       }
-      res.status(204).send();
+      res.status(200).json({});
     })
   };
 
