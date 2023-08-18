@@ -33,8 +33,8 @@ export default function TeaInfo() {
     const [user, setUser] = React.useState<UserType>();
     const [userList, setUserList] = React.useState<UserRef[]>();
     const [cookies, removeCookie] = useCookies<string>([]);
-    const [favoriteStatus, setFavoriteStatus] = React.useState<Boolean>();
-    const [saveStatus, setSaveStatus] = React.useState<Boolean>();
+    const [favoriteStatus, setFavoriteStatus] = React.useState<boolean>();
+    const [saveStatus, setSaveStatus] = React.useState<boolean>();
 
     const pathID = useLocation().pathname;
     const navigate = useNavigate();
@@ -109,17 +109,19 @@ export default function TeaInfo() {
         return (tea_ids?.includes(tea._id));
     }
 
-    let displayFavoriteButton = favoriteStatus ? <span>This is one of your favorite teas <button onClick={() => setFavoriteStatus(false)}>Remove from favorites</button></span> : <span><button onClick={() => setFavoriteStatus(true)}>Favorite this tea</button></span>;
+    let displayFavoriteButton = favoriteStatus ? <span>This is one of your favorite teas <button onClick={() => handleFavorite()}>Remove from favorites</button></span> : <span><button onClick={() => handleFavorite()}>Favorite this tea</button></span>;
 
-    React.useEffect(() => {
+    async function handleFavorite() {
         if (user !== undefined) {
             if(favoriteStatus === true) {
-                handlePost(`http://localhost:9000/teas/favorite/${tea?._id}`);
+                await handlePost(`http://localhost:9000/teas/unfavorite/${tea?._id}`);
+                setFavoriteStatus(false);
             } else {
-                handlePost(`http://localhost:9000/teas/unfavorite/${tea?._id}`);
+                await handlePost(`http://localhost:9000/teas/favorite/${tea?._id}`);
+                setFavoriteStatus(true);
             }
         }
-    },[favoriteStatus])
+    }
 
 
 
@@ -131,17 +133,19 @@ export default function TeaInfo() {
         return (tea_ids?.includes(tea._id));
     }
 
-    let displaySaveButton = saveStatus ? <span>This is one of your saved teas <button onClick={() => setSaveStatus(false)}>Remove from saved teas</button></span> : <span><button onClick={() => setSaveStatus(true)}>Save this tea</button></span>;
+    let displaySaveButton = saveStatus ? <span>This is one of your saved teas <button onClick={() => handleSave()}>Remove from saved teas</button></span> : <span><button onClick={() => handleSave()}>Save this tea</button></span>;
 
-    React.useEffect(() => {
+    async function handleSave() {
         if (user !== undefined) {
             if(saveStatus === true) {
-                handlePost(`http://localhost:9000/teas/save/${tea?._id}`);
+                await handlePost(`http://localhost:9000/teas/unsave/${tea?._id}`);
+                setSaveStatus(false);
             } else {
-                handlePost(`http://localhost:9000/teas/unsave/${tea?._id}`);
+                await handlePost(`http://localhost:9000/teas/save/${tea?._id}`);
+                setSaveStatus(true);
             }
         }
-    },[saveStatus])
+    }
     
 
     return (
@@ -152,7 +156,7 @@ export default function TeaInfo() {
             <p>Rating: {tea ? tea.rating : ""}</p>
             <p>Notes: {tea ? cleanString(tea.notes) : ""}</p>
                 {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
-            <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
+            <p>Added by <a style={{textDecoration: "none", color: "black", fontWeight: "bold"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
             <p>{displayFavoriteButton}</p>
             <p>{displaySaveButton}</p>
             <p></p>
