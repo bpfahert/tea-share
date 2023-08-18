@@ -33,6 +33,7 @@ export interface PropTeaCardType {
     currentuser: UserType,  
     rec_message?: string,
     rec_user?: string,
+    rec_id? :string,
 }
 
 
@@ -51,6 +52,7 @@ export interface PropTeaRecList {
     currentuser: UserType,
     recommender?: Recommender[],
     listtype?: string,
+
 }
 
 export interface UserType {

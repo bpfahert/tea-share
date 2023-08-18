@@ -36,9 +36,6 @@ export default function TeaInfo() {
     const [favoriteStatus, setFavoriteStatus] = React.useState<Boolean>();
     const [saveStatus, setSaveStatus] = React.useState<Boolean>();
 
-
-    // NEED TO ADJUST LOADING ORDER - USE ASYNC/AWAIT? USER ISN'T LOADING IN TIME TO DISPLAY
-
     const pathID = useLocation().pathname;
     const navigate = useNavigate();
     
@@ -94,10 +91,10 @@ export default function TeaInfo() {
     
 
 
-    const userListElements = userList?.map((rec_user) => {
+    const userListElements = userList?.map((rec_user, index) => {
         if(rec_user.username !== user?.user.username) {
             return (
-                <option value={rec_user._id}>{rec_user.username}</option>
+                <option value={rec_user._id} key={index}>{rec_user.username}</option>
             )
         }
     });
@@ -149,8 +146,6 @@ export default function TeaInfo() {
 
     return (
         <div className="text-center">
-            <button onClick={() => console.log(user)}>User</button>
-            <button onClick={() => console.log(tea)}>tea</button>
             <p>Tea name: {tea ? cleanString(tea.tea_name) : ""}</p>
             <p>Type: {tea ? tea.type : ""}</p>
             <p>Brand: {tea ? cleanString(tea.brand) : ""}</p>
@@ -173,7 +168,7 @@ export default function TeaInfo() {
                             <div>
                                 <form method="POST" action="http://localhost:9000/teas/recommend" className="teaform" id="recommendationform">
                                     <h4>Recommend this Tea</h4>
-                                    <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id}></input>
+                                    <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id || ""}></input>
                                     <input type="hidden" id="recommendedtea" name="recommendedtea" value={tea?._id}></input>
                                     <input type="hidden" id="recommendedteaname" name="recommendedteaname" disabled value={tea?.tea_name}></input>
                                     <select id="user" name="user">

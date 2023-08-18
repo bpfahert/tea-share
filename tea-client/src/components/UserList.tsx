@@ -18,8 +18,8 @@ export default function UserList() {
         fetchData()
     }, [])
 
-    const listElements = userList.map((user : UserRef) => {
-        return <li><a href={`/user/profile/${user._id}`} >{user.username}</a></li>
+    const listElements = userList.map((user : UserRef, index) => {
+        return <li key={index}><a href={`/user/profile/${user._id}`} >{user.username}</a></li>
     })
 
     return (

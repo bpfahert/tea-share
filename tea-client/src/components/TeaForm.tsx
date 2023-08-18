@@ -62,9 +62,9 @@ export default function TeaForm() {
             </div>
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
-                    <div className="form-floating">
-                        <input type="file" className="form-control" id="teaimg" name="teaimg"></input>
-                        <label htmlFor="teaimg" className="form-label">Upload Picture</label>
+                    <div>                        
+                        <label htmlFor="teaimg" className="form-label">Upload Picture:</label>
+                        <input type="file" className="form-control" id="teaimg" name="teaimg" accept=".jpg, .jpeg, .png"></input>
                     </div>
                 </div>
             </div>
