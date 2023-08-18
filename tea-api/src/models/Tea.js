@@ -5,7 +5,7 @@ const user = require("./User");
 const opts = { toJSON: { virtuals: true } };
 
 const TeaSchema = new Schema({
-    tea_name: {type: String, required: [true, "Please enter a tea name"], minLength: 2, maxLength: 35},
+    tea_name: {type: String, required: [true, "Please enter a tea name"], minLength: 2, maxLength: 35, unique: [true, 'There is already a tea with this name']},
     brand: {type: String, maxLength: 30},
     rating: {type: Number},
     average_rating: {type: Number},

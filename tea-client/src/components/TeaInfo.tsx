@@ -34,6 +34,7 @@ export default function TeaInfo() {
     const [userList, setUserList] = React.useState<UserRef[]>();
     const [cookies, removeCookie] = useCookies<string>([]);
     const [favoriteStatus, setFavoriteStatus] = React.useState<Boolean>();
+    const [saveStatus, setSaveStatus] = React.useState<Boolean>();
 
 
     // NEED TO ADJUST LOADING ORDER - USE ASYNC/AWAIT? USER ISN'T LOADING IN TIME TO DISPLAY
@@ -67,6 +68,7 @@ export default function TeaInfo() {
 
     React.useEffect(() => {
         setFavoriteStatus(isFavorited());
+        setSaveStatus(isSaved());
     }, [user]);
 
     async function getTeaInfo() {
@@ -131,6 +133,18 @@ export default function TeaInfo() {
         });
         return (tea_ids?.includes(tea._id));
     }
+
+    let displaySaveButton = saveStatus ? <span>This is one of your saved teas <button onClick={() => setSaveStatus(false)}>Remove from saved teas</button></span> : <span><button onClick={() => setSaveStatus(true)}>Save this tea</button></span>;
+
+    React.useEffect(() => {
+        if (user !== undefined) {
+            if(saveStatus === true) {
+                handlePost(`http://localhost:9000/teas/save/${tea?._id}`);
+            } else {
+                handlePost(`http://localhost:9000/teas/unsave/${tea?._id}`);
+            }
+        }
+    },[saveStatus])
     
 
     return (
@@ -145,7 +159,7 @@ export default function TeaInfo() {
                 {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
             <p>Added by <a style={{textDecoration: "none", color: "black"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
             <p>{displayFavoriteButton}</p>
-            <p>{isSaved() ? <span> This is one of your saved teas <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/unsave/${tea?._id}`}> Remove from saved teas </a> </span> : <a referrerPolicy="no-referrer-when-downgrade" href={`http://localhost:9000/teas/save/${tea?._id}`}> Save this tea </a> } </p>
+            <p>{displaySaveButton}</p>
             <p></p>
             <a href="#" data-bs-toggle="modal" data-bs-target="#teamodal">Recommend this tea to a user</a>
             <div className="modal fade" id="teamodal">

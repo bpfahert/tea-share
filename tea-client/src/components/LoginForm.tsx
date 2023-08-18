@@ -6,7 +6,7 @@ export default function LoginForm() {
             <div className="row justify-content-center">
                 <div className="form-group col-sm-12 mb-3 mt-2">
                     <div className="form-floating">
-                        <input type="text" id="username" className="form-control" name="username" required></input>
+                        <input type="text" id="loginusername" className="form-control" name="username" required></input>
                         <label htmlFor="username" className="form-label">Username</label>
                     </div>
                 </div>
@@ -14,7 +14,7 @@ export default function LoginForm() {
             <div className="row justify-content-center">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">
-                        <input type="password" id="password" name="password" required className="form-control"></input>
+                        <input type="password" id="loginpassword" name="password" required className="form-control"></input>
                         <label htmlFor="password" className="form-label">Password</label>
                     </div>
                 </div>

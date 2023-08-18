@@ -61,25 +61,7 @@ export default function Navbar() {
                         </div>
                     </div>
                     {user?.user?.username !== undefined ? 
-                    <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?.user?._id}`}>Profile</Link></li> : 
-                    <div>
-                        <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#loginmodal">Log In</Link></li>
-                        <div className="modal fade" id="loginmodal">
-                            <div className="modal-dialog">
-                                <div className="modal-content">
-                                    <div className="modal-header text-centered">
-                                        <h3>Log in to your account!</h3>
-                                        <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#loginmodal"></button>
-                                    </div>
-                                    <div className="modal-body">
-                                        <div>
-                                            <LoginForm />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                        
-                        </div>
-                    </div>
+                    <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?.user?._id}`}>Profile</Link></li> : ""
                     }
                     {user?.user?.username !== undefined ? 
                     <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li> : ""

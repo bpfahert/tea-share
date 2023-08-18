@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const tea = require('./Tea');
 
 const UserSchema = new Schema({
-    username: {type: String, required: true, minLength: 3, maxLength: 15},
+    username: {type: String, required: true, minLength: 3, maxLength: 15, unique: [true, 'This username has already been chosen']},
     password: {type: String, required: true},
     about: {type: String},
     favorite_tea_type: {type: String},
