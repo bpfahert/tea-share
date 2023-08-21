@@ -7,9 +7,11 @@ export default function UserList() {
 
     React.useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:9000/user/userlist`)
-            const json = await response.json()
-
+            const response = await fetch(`http://localhost:9000/user/userlist`, {
+                credentials: 'include',
+                mode: 'cors',
+            });
+            const json = await response.json();
             if(response.ok) {
                 setUserList(json)
             }

@@ -1,9 +1,7 @@
 import React from "react";
-import { redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { TeaType, UserRef, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 import { cleanString, handlePost } from "../services/teaFunctions";
 import EditTeaForm from "./EditTeaForm";
 import moment from 'moment';
@@ -32,35 +30,28 @@ export default function TeaInfo() {
     const [tea, setTea] = React.useState<TeaType>(initialTeaState);
     const [user, setUser] = React.useState<UserType>();
     const [userList, setUserList] = React.useState<UserRef[]>();
-    const [cookies, removeCookie] = useCookies<string>([]);
     const [favoriteStatus, setFavoriteStatus] = React.useState<boolean>();
     const [saveStatus, setSaveStatus] = React.useState<boolean>();
 
     const pathID = useLocation().pathname;
-    const navigate = useNavigate();
-    
 
-    React.useEffect(() => {
-      const verifyCookie = async () => {
-        if (!cookies.token) {
-          navigate("/createaccount");
-        }
+    async function getUser() {
         const response = await fetch('http://localhost:9000/user/getuser', {
             credentials: 'include',
         });
         const json = await response.json();
+
         if(response.ok) {
             setUser(json);
         }
-      };
-      verifyCookie();
-    }, [cookies, navigate, removeCookie]);
+    }
 
     React.useEffect(() => {
         getUserList();
         if (pathID !== "/") {
             getTeaInfo();
         }
+        getUser();
     }, []);
 
     React.useEffect(() => {
@@ -69,7 +60,9 @@ export default function TeaInfo() {
     }, [user]);
 
     async function getTeaInfo() {
-        const response = await fetch(`http://localhost:9000${pathID}`);
+        const response = await fetch(`http://localhost:9000${pathID}`, {
+            credentials: 'include',
+        });
         const json = await response.json();
     
         if(response.ok) {

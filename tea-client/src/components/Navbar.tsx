@@ -1,32 +1,25 @@
-import LoginForm from './LoginForm';
 import TeaForm from './TeaForm';
 import React from 'react';
-import { useCookies } from 'react-cookie';
 import { UserType } from '../ts/interfaces';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     const [user, setUser] = React.useState<UserType>();
-    const [cookies, removeCookie] = useCookies<string>([]);
 
-    const navigate = useNavigate();
-
-    React.useEffect(() => {
-      const verifyCookie = async () => {
-        if (!cookies.token) {
-          navigate("/createaccount");
-        }
+    async function getUser() {
         const response = await fetch('http://localhost:9000/user/getuser', {
             credentials: 'include',
         });
         const json = await response.json();
+
         if(response.ok) {
             setUser(json);
         }
-      };
-      verifyCookie();
-    }, [cookies, navigate, removeCookie]);
+    }
+
+    React.useEffect(() => {
+        getUser();
+    },[]);
 
     return (
         <nav className="navbar navbar-expand-sm navbar-light" style={{backgroundColor: "turquoise"}}>
@@ -36,8 +29,8 @@ export default function Navbar() {
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
                 <ul className="navbar-nav">
                     {user?.user?.username !== undefined ? 
-                    <li className="nav-item active"><Link className="nav-link" to="/">{user?.user?.username}</Link></li> : 
-                    <li className="nav-item"><Link className="nav-link" to="/createaccount">Sign up</Link></li>
+                    <li className="nav-item active"><Link className="nav-link" to="/home">{user?.user?.username}</Link></li> : 
+                    <li className="nav-item"><Link className="nav-link" to="/">Sign up</Link></li>
                     }
                     {user?.user?.username !== undefined ? 
                     <li className="nav-item"><Link className="nav-link" to="/viewteas">Teas</Link></li> : ""
@@ -67,7 +60,7 @@ export default function Navbar() {
                     <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li> : ""
                     }
                     {user?.user?.username !== undefined ? 
-                    <li className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/logout">Log Out</Link></li> : ""
+                    <li className="nav-item"><Link className="nav-link" to="http://localhost:9000/auth/logout">Log Out</Link></li> : ""
                     }
                 </ul>
             </div>

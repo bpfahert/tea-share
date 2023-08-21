@@ -1,8 +1,8 @@
 import React from 'react';
 import TeaList from './TeaList';
 import { TeaRecType, UserType } from '../ts/interfaces';
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+// import { useCookies } from 'react-cookie';
+// import { useNavigate } from 'react-router-dom';
 import RecommendedTeaList from './RecommendedList';
 
 export default function UserFeed() {
@@ -24,43 +24,31 @@ export default function UserFeed() {
     }
 
     const [user, setUser] = React.useState<UserType>(initialUserState);
-    // const [allTeas, setAllTeas] = React.useState([]);
-    const [newTeas, setNewTeas] = React.useState([]);
-    const [cookies, removeCookie] = useCookies<string>([]);
+    const [newTeas, setNewTeas] = React.useState();
+    // const [cookies, removeCookie] = useCookies<string>([]);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    React.useEffect(() => {
-      const verifyCookie = async () => {
-        if (!cookies.token) {
-          navigate("/createaccount");
-        }
-        const response = await fetch('http://localhost:9000/user/getuser', {
-            credentials: 'include',
-        });
-        const json = await response.json();
-        if(response.ok) {
-            setUser(json);
-        }
-      };
-      verifyCookie();
-    }, [cookies, navigate, removeCookie]);
-
-
-
-
-    // async function getAllTeas() {
-    //     const response = await fetch('http://localhost:9000/teas/all');
-    //     const json = await response.json();
-    
-    //     if(response.ok) {
-    //       setAllTeas(json);
+    // React.useEffect(() => {
+    //   const verifyCookie = async () => {
+    //     if (!cookies.token) {
+    //       navigate("/createaccount");
     //     }
-        
-    // }
+    //     const response = await fetch('http://localhost:9000/user/getuser', {
+    //         credentials: 'include',
+    //     });
+    //     const json = await response.json();
+    //     if(response.ok) {
+    //         setUser(json);
+    //     }
+    //   };
+    //   verifyCookie();
+    // }, [cookies, navigate, removeCookie]);
 
     async function getNewTeas() {
-        const response = await fetch('http://localhost:9000/teas/recent');
+        const response = await fetch('http://localhost:9000/teas/recent', {
+            credentials: 'include',
+        });
         const json = await response.json();
     
         if(response.ok) {
@@ -69,8 +57,19 @@ export default function UserFeed() {
         
     }
 
+    async function getUser() {
+        const response = await fetch('http://localhost:9000/user/getuser', {
+            credentials: 'include',
+        });
+        const json = await response.json();
+
+        if(response.ok) {
+            setUser(json);
+        }
+    }
+
     React.useEffect(() => {
-        // getAllTeas();
+        getUser();
         getNewTeas();
         
     }, []);
@@ -80,6 +79,8 @@ export default function UserFeed() {
         return recommendation.tea_rec !== null;
     })
 
+
+    const new_teas = newTeas ? newTeas : [];
     const recommended_teas = user?.user?.recommended_teas ? recommended_teas_elements : [];
     const saved_teas = user?.user ? user.user.saved_teas : [];
     const favorite_teas = user?.user ? user.user.favorite_teas : [];
@@ -88,7 +89,7 @@ export default function UserFeed() {
     return (
         <div>
             <div className="recentactivitydiv">
-                <TeaList tealist={newTeas} listname={"Recently added teas"} currentuser={user} listtype={"recent"}/>
+                <TeaList tealist={new_teas} listname={"Recently added teas"} currentuser={user} listtype={"recent"}/>
             </div>
             <div className="recommendedteas">
                 {user?.user?.notificationStatus ? <div>You have a new recommendation!</div> : ""}

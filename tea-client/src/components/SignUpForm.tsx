@@ -2,7 +2,7 @@
 export default function SignUpForm() {
     
     return (
-        <form method="POST" action="http://localhost:9000/user/create" className="userform" id="newuserform">
+        <form method="POST" action="http://localhost:9000/auth/create" className="userform" id="newuserform">
             <div className="row justify-content-center">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">

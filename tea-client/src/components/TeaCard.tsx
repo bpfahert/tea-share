@@ -19,7 +19,7 @@ export default function TeaCard(props: PropTeaCardType) {
         return json;
     }
 
-    // TODO: 
+    // TODO: FAVORITING AND SAVING TEAS STILL DOESN'T EFFECT OTHER TEA CARDS. IT ALSO DOESN'T SHOULD THE PROPER STATE OF FAVORITE OR SAVE STATUS UNLESS STATE IS HANDED DOWN VIA PROP. MAYBE DELETE INITAL USER STATE? FIXING AUTH STATE OR DELAYING USERFEED TO LOGIN MAY FIX THIS?
     function isFavorited() {
         const tea_ids = props.currentuser.user.favorite_teas.map((favoriteTea : TeaType) => {
             return favoriteTea._id;

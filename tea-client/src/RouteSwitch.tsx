@@ -13,8 +13,8 @@ export default function RouteSwitch() {
         <BrowserRouter>
             <Navbar />
             <Routes>
-                <Route path="/" element={<UserFeed />} />
-                <Route path="/createaccount" element={<Signup />} />
+                <Route path="/" element={<Signup />} />
+                <Route path="/home" element={<UserFeed />} />
                 <Route path='/user/profile/:id' element={<UserInfo />} />
                 <Route path='/userlist' element={<UserList />} />
                 <Route path='/viewteas' element={<ViewTeas />} />

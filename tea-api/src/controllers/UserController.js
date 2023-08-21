@@ -80,7 +80,14 @@ exports.new_user = [
   body("favoritetea"),
   body("email"),
   body("about"),
-  (req, res, next) => {
+  async (req, res, next) => {
+    const usernameTaken = await User.exists({username: req.body.username});
+
+    if(usernameTaken !== null) {
+      console.log("username already taken");
+      return res.json({error: "That username is already taken."});
+    }
+    
     const errors = validationResult(req);
 
     const user = new User({
@@ -101,16 +108,11 @@ exports.new_user = [
         if (err) {
           return next(err);
         }
-        const token = createSecretToken(user._id);
-        res.cookie("token", token, {
-          withCredentials: true,
-          httpOnly: false,
-        });
         req.login(user, function(err) {
           if (err) { 
             return next(err); 
           }
-          return res.redirect("http://localhost:3000");
+          return res.redirect("http://localhost:3000/home");
         });
       })
     })
