@@ -111,7 +111,7 @@ exports.new_user = [
           if (err) { 
             return next(err); 
           }
-          return res.redirect("http://localhost:3000/");
+          return res.status(200).json({user: req.body.username});
         });
       })
     })

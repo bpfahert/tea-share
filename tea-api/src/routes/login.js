@@ -4,8 +4,6 @@ const passport = require('passport');
 const strategy = require("../../server/passport/localStrategy");
 const userController = require("../controllers/UserController");
 
-// TODO: AFTER CONTEXT IS SET UP - INSTEAD OF SUCCESS REDIRECT, SEND A JSON WITH USERNAME TO CONTEXT STATE. NEED TO CHANGE LOGIN FORM TO POST FETCH REQUEST INSTEAD OF ANCHOR.
-
 router.post('/login', 
     passport.authenticate('local'), (req, res) => {
         res.status(200).json({user: req.user.username});
@@ -20,10 +18,6 @@ router.get("/logout", (req, res, next) => {
     });
 });
 
-router.post("/create", userController.new_user);
-
+router.post("/signup", userController.new_user);
 
 module.exports = router;
-
-
-// TODO: CODE SIGNUP FUNCTION WITH DISPATCH AND ADDING LOCAL STORAGE INFO.MAKE SIGNUP REDIRECT IF USER IS NULL IN CONTEXT.

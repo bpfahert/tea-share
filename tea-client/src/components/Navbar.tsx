@@ -32,7 +32,6 @@ export default function Navbar() {
 
     return (
         <nav className="navbar navbar-expand-sm navbar-light" style={{backgroundColor: "turquoise"}}>
-            <button onClick={() => console.log(userContext)}>context</button>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsupportedcontent">
                 <span className="navbar-toggler-icon"></span>
             </button>
