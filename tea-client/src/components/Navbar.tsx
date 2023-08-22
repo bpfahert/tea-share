@@ -24,7 +24,7 @@ export default function Navbar() {
 
     React.useEffect(() => {
         getUser();
-    },[]);
+    },[userContext]);
 
     async function handleLogout() {
         await logout();
@@ -42,10 +42,10 @@ export default function Navbar() {
                     <li className="nav-item active"><Link className="nav-link" to="/">{userContext.user}</Link></li> : 
                     <li className="nav-item"><Link className="nav-link" to="/">Sign up</Link></li>
                     }
-                    {user?.user?.username !== undefined ? 
+                    {userContext !== null ? 
                     <li className="nav-item"><Link className="nav-link" to="/viewteas">Teas</Link></li> : ""
                     }
-                    {user?.user?.username !== undefined ? 
+                    {userContext !== null ? 
                     <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#newteamodal">Add New Tea</Link></li> : ""
                     }
                     <div className="modal fade" id="newteamodal">
@@ -63,19 +63,19 @@ export default function Navbar() {
                             </div>
                         </div>
                     </div>
-                    {user?.user?.username !== undefined ? 
+                    {userContext !== null ? 
                     <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?.user?._id}`}>Profile</Link></li> : ""
                     }
-                    {user?.user?.username !== undefined ? 
+                    {userContext !== null ? 
                     <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li> : ""
                     }
-                    {user?.user?.username !== undefined ? 
+                    {userContext !== null ? 
                     <li className="nav-item"><Link className="nav-link" to="#" onClick={handleLogout}>Log Out</Link></li> : ""
                     }
                 </ul>
             </div>
             <ul className="navbar-nav">
-            {user?.user?.notificationStatus ? <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications">New recommendation!</Link></li> : ""}
+            {userContext && user?.user?.notificationStatus ? <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications">New recommendation!</Link></li> : ""}
             </ul>
         </nav>
 

@@ -1,5 +1,5 @@
 import { useAuthContext } from "./hooks/useAuthContext";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import UserFeed from "./components/UserFeed";
 import UserInfo from "./components/UserInfo";
 import UserList from "./components/UserList";
@@ -15,11 +15,12 @@ export default function App() {
         <BrowserRouter>
             <Navbar />
             <Routes>
-                <Route path="/" element={userContext ? <UserFeed /> : <Signup />} />
-                <Route path='/user/profile/:id' element={<UserInfo />} />
-                <Route path='/userlist' element={<UserList />} />
-                <Route path='/viewteas' element={<ViewTeas />} />
-                <Route path='/teas/:id' element={<TeaInfo />} />
+                <Route path="/" element={userContext ? <UserFeed /> : <Navigate to="/signup" />} />
+                <Route path="/signup" element={!userContext ? <Signup /> : <Navigate to="/" /> } />
+                <Route path='/user/profile/:id' element={userContext ? <UserInfo /> : <Navigate to="/signup" />} />
+                <Route path='/userlist' element={userContext ? <UserList /> : <Navigate to="/signup" />} />
+                <Route path='/viewteas' element={userContext ? <ViewTeas /> : <Navigate to="/signup" />} />
+                <Route path='/teas/:id' element={userContext ? <TeaInfo /> : <Navigate to="/signup" />} />
             </Routes>
         </BrowserRouter>
     )

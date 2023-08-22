@@ -84,14 +84,10 @@ exports.new_user = [
     const usernameTaken = await User.exists({username: req.body.username});
 
     if(usernameTaken !== null) {
-      console.log("username already taken");
       return res.json({error: "That username is already taken."});
     }
     
     const errors = validationResult(req);
-    if(errors) {
-      console.log(errors);
-    }
 
     const user = new User({
       username: req.body.username,
@@ -115,7 +111,7 @@ exports.new_user = [
           if (err) { 
             return next(err); 
           }
-          return res.redirect("http://localhost:3000/home");
+          return res.redirect("http://localhost:3000/");
         });
       })
     })
