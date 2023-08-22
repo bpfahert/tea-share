@@ -36,7 +36,9 @@ export default function ViewTeas() {
     }
 
     async function getAllTeas() {
-        const response = await fetch('http://localhost:9000/teas/all');
+        const response = await fetch('http://localhost:9000/teas/all', {
+            credentials: 'include',
+        });
         const json = await response.json();
     
         if(response.ok) {

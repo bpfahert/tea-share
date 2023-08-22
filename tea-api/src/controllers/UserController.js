@@ -89,6 +89,9 @@ exports.new_user = [
     }
     
     const errors = validationResult(req);
+    if(errors) {
+      console.log(errors);
+    }
 
     const user = new User({
       username: req.body.username,

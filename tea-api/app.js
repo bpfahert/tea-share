@@ -34,8 +34,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000" , "http://localhost:3000/userlist"],
+    origin: true,
     credentials: true,
+    methods: ['GET','POST', 'OPTIONS'],
   })
 );
 

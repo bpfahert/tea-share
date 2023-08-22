@@ -106,3 +106,7 @@ export interface TeaRecType {
     tea_rec: TeaType,
     recommended_by: UserRef,
 }
+
+export interface UserContextType {
+    user: string | null,
+}
