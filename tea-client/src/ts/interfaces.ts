@@ -108,22 +108,22 @@ export interface TeaRecType {
     recommended_by: UserRef,
 }
 
-export interface userContextType {
-    user: string | null,
+export interface UserContextType {
+    userContext: { user: string } | null,
 }
 
 export interface initalUserContext {
-    userContext: userContextType,
+    userContext: UserContextType,
 }
 
 export interface UserContext {
-    userContext: userContextType | null,
-    dispatch: React.Dispatch<any>
+    userContext: UserContextType | null,
+    dispatch: React.Dispatch<any>,
 }
 
 export interface ContextLogin {
     type: "LOGIN";
-    payload: userContextType
+    payload: UserContextType
 }
 
 export interface ContextLogout {
@@ -131,32 +131,3 @@ export interface ContextLogout {
 }
 
 export type ContextActions = ContextLogin | ContextLogout;
-
-
-
-// export interface UserContextState {
-//     userContext: {
-//         user: string | null,
-//     }
-// }
-
-// export interface ContextActionLogin {
-//     type: string,
-//     payload: {
-//         user: string | null,
-//     }
-// }
-
-// export interface ContextActionLogout {
-//     type: string,
-// }
-
-// export type ContextActions = {
-//    action: ContextActionLogin | ContextActionLogout, 
-// }
-
-// export interface AuthContextType {
-//     state: UserContextState;
-//     dispatch: (action: ContextActions) => void;
-//   }
-

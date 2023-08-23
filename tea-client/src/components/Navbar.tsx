@@ -23,7 +23,9 @@ export default function Navbar() {
     }
 
     React.useEffect(() => {
-        getUser();
+        if (userContext !== null) {
+            getUser();
+        }
     },[userContext]);
 
     async function handleLogout() {
@@ -38,7 +40,7 @@ export default function Navbar() {
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
                 <ul className="navbar-nav">
                     {userContext !== null ? 
-                    <li className="nav-item active"><Link className="nav-link" to="/">{userContext.user}</Link></li> : 
+                    <li className="nav-item active"><Link className="nav-link" to="/">{user?.user?.username}</Link></li> : 
                     <li className="nav-item"><Link className="nav-link" to="/">Sign up</Link></li>
                     }
                     {userContext !== null ? 

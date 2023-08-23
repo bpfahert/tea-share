@@ -1,11 +1,18 @@
 import { createContext, useReducer, useEffect } from 'react';
+import { ContextActions, UserContext, UserContextType } from '../ts/interfaces';
 
-export const AuthContext = createContext();
+export const initialState: UserContext = {
+    userContext: null,
+    dispatch: function noop() {},
+}
+
+export const AuthContext = createContext<UserContext>(initialState);
 
 
-export const authReducer = (state, action) => {
+export const authReducer = (state: any, action: ContextActions) => {
     switch (action.type) {
         case 'LOGIN':
+            console.log(state);
             return { userContext: action.payload };
         case 'LOGOUT':
             return { userContext: null };
@@ -14,13 +21,12 @@ export const authReducer = (state, action) => {
 }
 
 
-export const AuthContextProvider = ({children}) => {
-    const [state, dispatch] = useReducer(authReducer, {
-        userContext: null,
-    })
+export const AuthContextProvider = ({children} : {children: React.ReactNode}) => {
+    const [state, dispatch] = useReducer(authReducer, initialState);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const userJSON =  localStorage.getItem('user');
+        const user = userJSON ? JSON.parse(userJSON) : null;
 
         if(user) {
             dispatch({type: 'LOGIN', payload: user});
