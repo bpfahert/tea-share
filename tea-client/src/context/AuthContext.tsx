@@ -1,5 +1,4 @@
 import { createContext, useReducer, useEffect } from 'react';
-import { UserContextType } from '../ts/interfaces';
 
 export const AuthContext = createContext();
 

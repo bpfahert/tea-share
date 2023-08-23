@@ -1,5 +1,16 @@
-
 export default function TeaForm() {
+
+    // const handleSubmit = async (e: FormEvent) => {
+    //     e.preventDefault();
+    //     await fetch("http://localhost:9000/teas/create", {
+    //         method: "POST",
+    //         credentials: "include",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({username, password, favoritetea, email, about}),
+    //     });
+    // }
 
     return (
         <form method="POST" action="http://localhost:9000/teas/create" className="teaform" id="newteaform" encType="multipart/form-data" >

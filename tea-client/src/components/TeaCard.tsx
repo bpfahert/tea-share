@@ -2,6 +2,7 @@ import { PropTeaCardType, TeaType } from "../ts/interfaces";
 import { Buffer } from "buffer";
 import React from "react";
 import { cleanString } from "../services/teaFunctions";
+import { Link } from "react-router-dom";
 
 export default function TeaCard(props: PropTeaCardType) {
     const [favoriteStatus, setFavoriteStatus] = React.useState<boolean>();
@@ -88,7 +89,7 @@ export default function TeaCard(props: PropTeaCardType) {
                 <img className="card-img-top" style={{height: "13rem", objectFit: "cover"}} src="/images/tea1.jpg" alt="default-tea-image" /> 
             }
             <div className="card-body">
-                <li><h5 style={{height:"3rem"}} className="mb-3"><a style={{textDecoration: "none", color: "black"}}  data-testid="teacardtest" href={`/teas/${props.tea._id}`}> {cleanString(props.tea.tea_name)}</a></h5></li> 
+                <li><h5 style={{height:"3rem"}} className="mb-3"><Link style={{textDecoration: "none", color: "black"}}  data-testid="teacardtest" to={`/teas/${props.tea._id}`}> {cleanString(props.tea.tea_name)}</Link></h5></li> 
                 <li>Type: {props.tea.type} </li> 
                 <li>Brand: {cleanString(props.tea.brand)} </li>
                 <li>Rating(out of 10): {props.tea.rating} </li> 

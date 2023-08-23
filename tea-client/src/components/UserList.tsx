@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserRef } from '../ts/interfaces';
+import { Link } from 'react-router-dom';
 
 
 export default function UserList() {
@@ -21,7 +22,7 @@ export default function UserList() {
     }, [])
 
     const listElements = userList.map((user : UserRef, index) => {
-        return <li key={index}><a href={`/user/profile/${user._id}`} >{user.username}</a></li>
+        return <li key={index}><Link to={`/user/profile/${user._id}`} >{user.username}</Link></li>
     })
 
     return (

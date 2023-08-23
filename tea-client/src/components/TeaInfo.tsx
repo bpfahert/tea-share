@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { TeaType, UserRef, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
 import { cleanString, handlePost } from "../services/teaFunctions";
@@ -149,7 +149,7 @@ export default function TeaInfo() {
             <p>Rating: {tea ? tea.rating : ""}</p>
             <p>Notes: {tea ? cleanString(tea.notes) : ""}</p>
                 {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
-            <p>Added by <a style={{textDecoration: "none", color: "black", fontWeight: "bold"}} href={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</a> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
+            <p>Added by <Link style={{textDecoration: "none", color: "black", fontWeight: "bold"}} to={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</Link> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
             <p>{displayFavoriteButton}</p>
             <p>{displaySaveButton}</p>
             <p></p>
@@ -164,7 +164,6 @@ export default function TeaInfo() {
                         <div className="modal-body">
                             <div>
                                 <form method="POST" action="http://localhost:9000/teas/recommend" className="teaform" id="recommendationform">
-                                    <h4>Recommend this Tea</h4>
                                     <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id || ""}></input>
                                     <input type="hidden" id="recommendedtea" name="recommendedtea" value={tea?._id}></input>
                                     <input type="hidden" id="recommendedteaname" name="recommendedteaname" disabled value={tea?.tea_name}></input>
