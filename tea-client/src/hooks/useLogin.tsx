@@ -15,8 +15,9 @@ export const useLogin = () => {
         const json = await response.json();
 
         if(response.ok) {
-            localStorage.setItem("user", JSON.stringify(json));
-            dispatch({type: "LOGIN", payload: json})
+            const userJSON = {user: json.username};
+            localStorage.setItem("user", JSON.stringify(userJSON));
+            dispatch({type: "LOGIN", payload: userJSON})
         }
     }
 

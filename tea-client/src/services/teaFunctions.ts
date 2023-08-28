@@ -10,3 +10,17 @@ export async function handlePost(url: string) {
     const json = await response.json();
     return json;
 }
+
+export const isFavorited = (teaID: string, user: UserType ) => {
+    const teaIDs = user.user.favorite_teas.map((tea: TeaType) => {
+        return tea._id;
+    });
+    return teaIDs.includes(teaID);
+}
+
+export const isSaved = (teaID: string, user: UserType ) => {
+    const teaIDs = user.user.saved_teas.map((tea: TeaType) => {
+        return tea._id;
+    });
+    return teaIDs.includes(teaID);
+}

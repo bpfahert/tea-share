@@ -4,8 +4,6 @@ const User = require("../models/User");
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
-const { createSecretToken } = require('../util/Token');
-const jwt = require("jsonwebtoken");
 const upload = multer({dest: './public/images/'});
 const mongoose = require('mongoose');
 
@@ -79,17 +77,17 @@ exports.new_user = [
   }
 ]
 
-// exports.acknowledge_notification = (req, res, next) => {
-//   User.findOne({username: req.user.username}).exec((err, self) => {
-//     if(err) {
-//       return next(err);
-//     }
-//     self.notificationStatus = false;
-//     self.save((err) => {
-//       if(err) {
-//         return next(err);
-//       }
-//     })
-//   })
-//   res.redirect("http://localhost:3000");
-// }
+exports.acknowledge_notification = (req, res, next) => {
+  User.findOne({username: req.user.username}).exec((err, self) => {
+    if(err) {
+      return next(err);
+    }
+    self.notificationStatus = false;
+    self.save((err) => {
+      if(err) {
+        return next(err);
+      }
+    })
+  })
+  res.redirect("http://localhost:3000");
+}

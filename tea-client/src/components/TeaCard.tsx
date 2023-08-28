@@ -1,72 +1,12 @@
-import { PropTeaCardType, TeaType } from "../ts/interfaces";
+import { PropTeaCardType } from "../ts/interfaces";
 import { Buffer } from "buffer";
-import React from "react";
-import { cleanString } from "../services/teaFunctions";
+import { cleanString, handlePost } from "../services/teaFunctions";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function TeaCard(props: PropTeaCardType) {
-    const [favoriteStatus, setFavoriteStatus] = React.useState<boolean>();
-    const [saveStatus, setSaveStatus] = React.useState<boolean>();
-
-
-    React.useEffect(() => {
-        setFavoriteStatus(isFavorited());
-        setSaveStatus(isSaved());
-    },[])
-
-    async function handlePost(url: string) {
-        const response = await fetch(url, {method: "POST", credentials: "include"});
-        const json = await response.json();
-        return json;
-    }
-
-    // TODO: FAVORITING AND SAVING TEAS STILL DOESN'T EFFECT OTHER TEA CARDS. IT ALSO DOESN'T SHOULD THE PROPER STATE OF FAVORITE OR SAVE STATUS UNLESS STATE IS HANDED DOWN VIA PROP. MAYBE DELETE INITAL USER STATE? FIXING AUTH STATE OR DELAYING USERFEED TO LOGIN MAY FIX THIS?
-    function isFavorited() {
-        const tea_ids = props.currentuser.user.favorite_teas.map((favoriteTea : TeaType) => {
-            return favoriteTea._id;
-        });
-        return (tea_ids?.includes(props.tea._id));
-    }
-
-    let displayFavoriteButton = favoriteStatus ? <button onClick={() => handleFavorite()}>Unfavorite</button> : <button onClick={() => handleFavorite()}>Favorite</button>;
-
-    async function handleFavorite() {
-        if (props.currentuser !== undefined) {
-            if(favoriteStatus === true) {
-                await handlePost(`http://localhost:9000/teas/unfavorite/${props.tea?._id}`);
-                setFavoriteStatus(false);
-            } else {
-                await handlePost(`http://localhost:9000/teas/favorite/${props.tea?._id}`);
-                setFavoriteStatus(true);
-            }
-        }
-    }
-
-    // Save logic
-    function isSaved() {
-        const tea_ids = props.currentuser.user.saved_teas.map((savedTea : TeaType) => {
-            return savedTea._id;
-        });
-        return (tea_ids?.includes(props.tea._id));
-    }
-
-    let displaySaveButton = saveStatus ? <button onClick={() => handleSave()}>Unsave</button> : <button onClick={() => handleSave()}>Save</button>;
-
-    async function handleSave() {
-        if (props.currentuser !== undefined) {
-            if(saveStatus === true) {
-                await handlePost(`http://localhost:9000/teas/unsave/${props.tea?._id}`);
-                setSaveStatus(false);
-            } else {
-                await handlePost(`http://localhost:9000/teas/save/${props.tea?._id}`);
-                setSaveStatus(true);
-            }
-        }
-    }
-
-
+    
     // Recommendation logic
-
     function isRecommendation(recommendee: string | undefined, message: string | undefined, teaID: string, id: string | undefined) {
         if (recommendee !== undefined) {
             return (
@@ -94,8 +34,6 @@ export default function TeaCard(props: PropTeaCardType) {
                 <li>Brand: {cleanString(props.tea.brand)} </li>
                 <li>Rating(out of 10): {props.tea.rating} </li> 
                 <li className="overflow-auto" style={{height: "6rem", border: "solid 1px black"}}>Notes: {cleanString(props.tea.notes)} </li>
-                {displayFavoriteButton}
-                {displaySaveButton}
                 {isRecommendation(props.rec_user, props.rec_message, props.tea._id, props.rec_id)}                       
             </div>
         </div>

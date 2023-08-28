@@ -11,6 +11,7 @@ export default function Navbar() {
 
     const logout = useLogout();
 
+    // Get user info
     async function getUser() {
         const response = await fetch('http://localhost:9000/user/getuser', {
             credentials: 'include',
@@ -28,6 +29,7 @@ export default function Navbar() {
         }
     },[userContext]);
 
+    // Log the user out on Logout button click
     async function handleLogout() {
         await logout();
     }

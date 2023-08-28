@@ -6,7 +6,7 @@ const userController = require("../controllers/UserController");
 
 router.post('/login', 
     passport.authenticate('local'), (req, res) => {
-        res.status(200).json({user: req.user.username});
+        res.status(200).json(req.user);
     });
 
 router.get("/logout", (req, res, next) => {

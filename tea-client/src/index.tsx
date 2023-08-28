@@ -9,7 +9,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+        <App />
     </AuthContextProvider>
   </React.StrictMode>
 );

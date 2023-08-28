@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from 'react';
-import { ContextActions, UserContext, UserContextType } from '../ts/interfaces';
+import { ContextActions, UserContext } from '../ts/interfaces';
 
 export const initialState: UserContext = {
     userContext: null,
@@ -8,13 +8,11 @@ export const initialState: UserContext = {
 
 export const AuthContext = createContext<UserContext>(initialState);
 
-
 export const authReducer = (state: any, action: ContextActions) => {
     switch (action.type) {
-        case 'LOGIN':
-            console.log(state);
+        case "LOGIN":
             return { userContext: action.payload };
-        case 'LOGOUT':
+        case "LOGOUT":
             return { userContext: null };
         default: return state;
     }
@@ -29,7 +27,7 @@ export const AuthContextProvider = ({children} : {children: React.ReactNode}) =>
         const user = userJSON ? JSON.parse(userJSON) : null;
 
         if(user) {
-            dispatch({type: 'LOGIN', payload: user});
+            dispatch({type: "LOGIN", payload: user});
         }
     },[])
 

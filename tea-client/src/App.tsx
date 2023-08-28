@@ -7,7 +7,6 @@ import TeaInfo from "./components/TeaInfo";
 import ViewTeas from "./components/ViewTeas";
 import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
-import { UserContext } from "./ts/interfaces";
 
 export default function App() {
     const { userContext } = useAuthContext();

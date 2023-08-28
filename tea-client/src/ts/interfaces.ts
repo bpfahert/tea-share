@@ -6,7 +6,7 @@ export interface TeaType{
     brand: string,
     rating: number,
     notes: string,
-    img: {
+    img?: {
         data: any,
         contentType: string,
     },
@@ -26,11 +26,11 @@ export interface PropTeaCardType {
         rating: number,
         notes: string,
         _id: string,
-        img: {
+        img?: {
             data: any,
             contentType: string,
         },
-        },
+    },
     currentuser: UserType,  
     rec_message?: string,
     rec_user?: string,
