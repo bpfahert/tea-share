@@ -24,7 +24,7 @@ export default function RecommendedTeaList({ tealist, listname, currentuser, lis
             <ul className="list-group list-group-horizontal-xl" style={{display: "flex", justifyContent: "center", alignItems: "center", listStyle: "none", gap: "5px"}}>
                 {firstFiveElements}
             </ul>
-            {moreTeaElements.length !== 0 ? 
+            {moreTeaElements.length !== 0 && 
             <div>
                 <div className="container text-center">
                     <button className='btn btn-info btn-lg mb-3' type='button'  data-bs-toggle="collapse"  data-bs-target={`#expanded${listtype}tealist`}>Show more</button>
@@ -35,7 +35,7 @@ export default function RecommendedTeaList({ tealist, listname, currentuser, lis
                     </ul>
                 </div>
             </div> 
-            : ""}
+            }
         </div>
     )
 }

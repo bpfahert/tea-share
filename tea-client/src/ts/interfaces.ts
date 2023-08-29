@@ -108,6 +108,9 @@ export interface TeaRecType {
     recommended_by: UserRef,
 }
 
+
+// Types for AuthContext
+
 export interface UserContextType {
     userContext: { user: string } | null,
 }

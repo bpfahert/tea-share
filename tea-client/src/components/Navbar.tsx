@@ -43,13 +43,13 @@ export default function Navbar() {
                 <ul className="navbar-nav">
                     {userContext !== null ? 
                     <li className="nav-item active"><Link className="nav-link" to="/">{user?.user?.username}</Link></li> : 
-                    <li className="nav-item"><Link className="nav-link" to="/">Sign up</Link></li>
+                    <li className="nav-item"><Link className="nav-link" to="/">Tea Share</Link></li>
                     }
-                    {userContext !== null ? 
-                    <li className="nav-item"><Link className="nav-link" to="/viewteas">Teas</Link></li> : ""
+                    {userContext !== null && 
+                    <li className="nav-item"><Link className="nav-link" to="/viewteas">Teas</Link></li>
                     }
-                    {userContext !== null ? 
-                    <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#newteamodal">Add New Tea</Link></li> : ""
+                    {userContext !== null && 
+                    <li className="nav-item"><Link className="nav-link" to="#" data-bs-toggle="modal" data-bs-target="#newteamodal">Add New Tea</Link></li>
                     }
                     <div className="modal fade" id="newteamodal">
                         <div className="modal-dialog">
@@ -66,19 +66,19 @@ export default function Navbar() {
                             </div>
                         </div>
                     </div>
-                    {userContext !== null ? 
-                    <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?.user?._id}`}>Profile</Link></li> : ""
+                    {userContext !== null && 
+                    <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?.user?._id}`}>Profile</Link></li>
                     }
-                    {userContext !== null ? 
-                    <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li> : ""
+                    {userContext !== null && 
+                    <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li>
                     }
-                    {userContext !== null ? 
-                    <li className="nav-item"><Link className="nav-link" to="#" onClick={handleLogout}>Log Out</Link></li> : ""
+                    {userContext !== null && 
+                    <li className="nav-item"><Link className="nav-link" to="#" onClick={handleLogout}>Log Out</Link></li>
                     }
                 </ul>
             </div>
             <ul className="navbar-nav">
-            {userContext && user?.user?.notificationStatus ? <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications">New recommendation!</Link></li> : ""}
+            {userContext && user?.user?.notificationStatus && <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications">New recommendation!</Link></li>}
             </ul>
         </nav>
 

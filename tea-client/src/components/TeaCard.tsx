@@ -2,10 +2,9 @@ import { PropTeaCardType } from "../ts/interfaces";
 import { Buffer } from "buffer";
 import { cleanString, handlePost } from "../services/teaFunctions";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 export default function TeaCard(props: PropTeaCardType) {
-    
+
     // Recommendation logic
     function isRecommendation(recommendee: string | undefined, message: string | undefined, teaID: string, id: string | undefined) {
         if (recommendee !== undefined) {
@@ -16,11 +15,8 @@ export default function TeaCard(props: PropTeaCardType) {
                     <p></p> 
                     <li><button onClick={() => handlePost(`http://localhost:9000/teas/removerec/${teaID}`)}>Remove recommendation</button></li>
                 </div>   
-        )}  else {
-            return "";
-        }
+        )}
     }
-
 
     return (
         <div className="card mr-2 border border-dark rounded mb-3" style={{backgroundColor: "peachpuff", width: "18rem"}}>

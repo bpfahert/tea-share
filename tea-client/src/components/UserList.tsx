@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 export default function UserList() {
     const [userList, setUserList] = React.useState([]);
 
+    // Get list of all users
     React.useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(`http://localhost:9000/user/userlist`, {
@@ -27,7 +28,7 @@ export default function UserList() {
 
     return (
         <div>
-            <ul>
+            <ul style={{listStyle: "none"}}>
                 {listElements}
             </ul>
         </div>

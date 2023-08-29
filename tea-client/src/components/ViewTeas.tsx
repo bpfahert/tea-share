@@ -84,7 +84,7 @@ export default function ViewTeas() {
                 <input value={search} onChange={handleChange} type="text" id="searchbar" name="searchbar" placeholder="Search for teas"></input>
             </form>
             <TeaList tealist={searchTeas} listname={"Search Results"} currentuser={user} listtype="searchresults"/>
-            {isEmpty(searchTeas) ? <p style={{textAlign: "center"}}> No teas found with that name. </p> : "" }
+            {isEmpty(searchTeas) && <p style={{textAlign: "center"}}> No teas found with that name. </p>}
             <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user} listtype="greenteas"/>
             <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user} listtype="blackteas"/>
             <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user} listtype="herbalteas"/>

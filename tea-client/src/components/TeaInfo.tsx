@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { TeaType, UserRef, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
-import { cleanString, handlePost } from "../services/teaFunctions";
+import { cleanString, handlePost, isFavorited, isSaved } from "../services/teaFunctions";
 import EditTeaForm from "./EditTeaForm";
 import moment from 'moment';
 
@@ -35,6 +35,8 @@ export default function TeaInfo() {
 
     const pathID = useLocation().pathname;
 
+
+    // Get user info from backend
     async function getUser() {
         const response = await fetch('http://localhost:9000/user/getuser', {
             credentials: 'include',
@@ -54,9 +56,13 @@ export default function TeaInfo() {
         getUser();
     }, []);
 
+
+    // Set favorite and save status of tea once user info is set
     React.useEffect(() => {
-        setFavoriteStatus(isFavorited());
-        setSaveStatus(isSaved());
+        if(user) {
+            setFavoriteStatus(isFavorited(tea._id, user));
+            setSaveStatus(isSaved(tea._id, user));
+        }
     }, [user]);
 
     async function getTeaInfo() {
@@ -70,7 +76,7 @@ export default function TeaInfo() {
         }      
     }
 
-
+    // Get list of users for recommendations
     async function getUserList() {
         const response = await fetch('http://localhost:9000/user/userlist', {
             credentials: 'include',
@@ -81,9 +87,8 @@ export default function TeaInfo() {
             setUserList(json);
         }
     }
-    
 
-
+    // Map users for recommendations and filter out current user
     const userListElements = userList?.map((rec_user, index) => {
         if(rec_user.username !== user?.user.username) {
             return (
@@ -94,14 +99,6 @@ export default function TeaInfo() {
 
 
     // Favorite tea logic
-
-    function isFavorited() {
-        const tea_ids = user?.user.favorite_teas.map((favoriteTea : TeaType) => {
-            return favoriteTea._id;
-        });
-        return (tea_ids?.includes(tea._id));
-    }
-
     let displayFavoriteButton = favoriteStatus ? <span>This is one of your favorite teas <button onClick={() => handleFavorite()}>Remove from favorites</button></span> : <span><button onClick={() => handleFavorite()}>Favorite this tea</button></span>;
 
     async function handleFavorite() {
@@ -119,12 +116,6 @@ export default function TeaInfo() {
 
 
     // Save tea logic
-    function isSaved() {
-        const tea_ids = user?.user.saved_teas.map((savedTea : TeaType) => {
-            return savedTea._id;
-        });
-        return (tea_ids?.includes(tea._id));
-    }
 
     let displaySaveButton = saveStatus ? <span>This is one of your saved teas <button onClick={() => handleSave()}>Remove from saved teas</button></span> : <span><button onClick={() => handleSave()}>Save this tea</button></span>;
 
@@ -143,11 +134,11 @@ export default function TeaInfo() {
 
     return (
         <div className="text-center">
-            <p>Tea name: {tea ? cleanString(tea.tea_name) : ""}</p>
-            <p>Type: {tea ? tea.type : ""}</p>
-            <p>Brand: {tea ? cleanString(tea.brand) : ""}</p>
-            <p>Rating: {tea ? tea.rating : ""}</p>
-            <p>Notes: {tea ? cleanString(tea.notes) : ""}</p>
+            <p>Tea name: {tea && cleanString(tea.tea_name)}</p>
+            <p>Type: {tea && tea.type}</p>
+            <p>Brand: {tea && cleanString(tea.brand)}</p>
+            <p>Rating: {tea && tea.rating : ""}</p>
+            <p>Notes: {tea && cleanString(tea.notes)}</p>
                 {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
             <p>Added by <Link style={{textDecoration: "none", color: "black", fontWeight: "bold"}} to={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</Link> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
             <p>{displayFavoriteButton}</p>
@@ -180,7 +171,7 @@ export default function TeaInfo() {
                 </div>
             </div>
             <p></p>
-            {tea?.created_by._id == user?.user._id ? 
+            {tea?.created_by._id == user?.user._id && 
             <div>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#editmodal">Edit this tea</a>
                 <div className="modal fade" id="editmodal">
@@ -218,8 +209,7 @@ export default function TeaInfo() {
                         </div>
                     </div>
                 </div>
-            </div>
-            : ""        
+            </div>        
             }
         </div>
     )
