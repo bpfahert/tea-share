@@ -1,72 +1,58 @@
 import { TeaType, UserType } from '../ts/interfaces';
 import TeaList from './TeaList';
 import React, { FormEvent } from 'react';
+import { initialUserState } from '../services/initialStates';
+import { teaSearch } from '../services/teaFunctions';
 
 export default function ViewTeas() {
-
-    let initialUserState : UserType = {
-        user: {
-            username: "",
-            password: "",
-            about: "",
-            favorite_tea_type: "",
-            email: "",
-            favorite_teas: [],
-            teas_added: [],
-            saved_teas: [],
-            recommended_teas: [],
-            _id: "",
-        }
-    }
-
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [allTeas, setAllTeas] = React.useState<TeaType[]>([]);
     const [search, setSearch] = React.useState<string>("");
     const [searchTeas, setSearchTeas] = React.useState<TeaType[]>([]);
 
-    async function getUser() {
-        const response = await fetch('http://localhost:9000/user/getuser', {
-            credentials: 'include',
-        });
-        const json = await response.json();
-
-        if(response.ok) {
-            setUser(json);
-        }
-    }
-
-    async function getAllTeas() {
-        const response = await fetch('http://localhost:9000/teas/all', {
-            credentials: 'include',
-        });
-        const json = await response.json();
-    
-        if(response.ok) {
-          setAllTeas(json);
-        }
-        
-    }
-
+    // Event handler functions for tea search
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setSearch(e.target.value);
     }
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        setSearchTeas(teaSearch(search));
+        setSearchTeas(teaSearch(search, allTeas));
     }
     
+    // Get user info
     React.useEffect(() => {
-        getAllTeas();
+        async function getUser() {
+            const response = await fetch('http://localhost:9000/user/getuser', {
+                credentials: 'include',
+            });
+            const json = await response.json();
+    
+            if(response.ok) {
+                setUser(json);
+            }
+        }
         getUser();
         
     }, []);
 
-    function teaSearch(input: string) {
-        return allTeas.filter((tea: TeaType) => tea.tea_name.toLowerCase().includes(input.toLowerCase()));
+    // Get all teas in an array
+    React.useEffect(() => {
+        async function getAllTeas() {
+            const response = await fetch('http://localhost:9000/teas/all', {
+                credentials: 'include',
+            });
+            const json = await response.json();
+        
+            if(response.ok) {
+              setAllTeas(json);
+            }
+            
+        }
+        getAllTeas();
 
-    }
-
+    }, []);
+    
     function isEmpty(array: TeaType[]) {
         return array.length === 0;
     }

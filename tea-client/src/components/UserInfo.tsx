@@ -1,56 +1,44 @@
 import TeaList from "./TeaList";
-import { TeaType, UserRef, UserType } from "../ts/interfaces";
+import { UserRef, UserType } from "../ts/interfaces";
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { initialUserState } from "../services/initialStates";
 
 export default function UserInfo() {
-
-    let initialUserState : UserType = {
-        user: {
-            username: "",
-            password: "",
-            about: "",
-            favorite_tea_type: "",
-            email: "",
-            favorite_teas: [],
-            teas_added: [],
-            saved_teas: [],
-            recommended_teas: [],
-            _id: "",
-        }
-    }
-
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [userDetails, setUserDetails] = React.useState<UserRef>();
 
     const pathID = useLocation().pathname;
 
-    async function getUserDetails() {
-        const response = await fetch(`http://localhost:9000${pathID}`, {
-            credentials: 'include',
-        });
-        const json = await response.json();
-
-        if(response.ok) {
-            setUserDetails(json);
-        }
-    }
-
-
-    async function getUser() {
-        const response = await fetch('http://localhost:9000/user/getuser', {
-            credentials: 'include',
-        });
-        const json = await response.json();
-
-        if(response.ok) {
-            setUser(json);
-        }
-    }
-
+    // Get logged in user info
     React.useEffect(() => {
-        getUserDetails();
+        async function getUser() {
+            const response = await fetch('http://localhost:9000/user/getuser', {
+                credentials: 'include',
+            });
+            const json = await response.json();
+    
+            if(response.ok) {
+                setUser(json);
+            }
+        }
         getUser();
+
+    }, []);
+
+    // Get user profile details
+    React.useEffect(() => {
+        async function getUserDetails() {
+            const response = await fetch(`http://localhost:9000${pathID}`, {
+                credentials: 'include',
+            });
+            const json = await response.json();
+    
+            if(response.ok) {
+                setUserDetails(json);
+            }
+        }
+        getUserDetails();
 
     }, []);
 

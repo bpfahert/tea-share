@@ -2,58 +2,40 @@ import React from 'react';
 import TeaList from './TeaList';
 import { TeaRecType, UserType } from '../ts/interfaces';
 import RecommendedTeaList from './RecommendedList';
+import { initialUserState } from '../services/initialStates';
 
 export default function UserFeed() {
-
-    let initialUserState : UserType = {
-        user: {
-            username: "",
-            password: "",
-            about: "",
-            favorite_tea_type: "",
-            email: "",
-            favorite_teas: [],
-            teas_added: [],
-            saved_teas: [],
-            recommended_teas: [],
-            _id: "",
-            notificationStatus: false,
-        }
-    }
-
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [newTeas, setNewTeas] = React.useState();
 
+    // Get user information
+    React.useEffect(() => {
+        async function getUser() {
+            const response = await fetch('http://localhost:9000/user/getuser', {
+                credentials: 'include',
+            });
+            const json = await response.json();
+    
+            if(response.ok) {
+                setUser(json);
+            }
+        }
+        getUser();
+    }, []);
 
     // Get recently uploaded teas for New Teas array
-    async function getNewTeas() {
-        const response = await fetch('http://localhost:9000/teas/recent', {
-            credentials: 'include',
-        });
-        const json = await response.json();
-    
-        if(response.ok) {
-          setNewTeas(json);
-        }
-        
-    }
-
-    // Get user information
-    async function getUser() {
-        const response = await fetch('http://localhost:9000/user/getuser', {
-            credentials: 'include',
-        });
-        const json = await response.json();
-
-        if(response.ok) {
-            setUser(json);
-        }
-    }
-
     React.useEffect(() => {
-        getUser();
-        getNewTeas();
+        async function getNewTeas() {
+            const response = await fetch('http://localhost:9000/teas/recent', {
+                credentials: 'include',
+            });
+            const json = await response.json();
         
+            if(response.ok) {
+              setNewTeas(json);
+            }
+        }
+        getNewTeas();
     }, []);
 
     //Filter out deleted tea recommendations

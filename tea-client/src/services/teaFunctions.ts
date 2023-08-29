@@ -24,3 +24,7 @@ export const isSaved = (teaID: string, user: UserType ) => {
     });
     return teaIDs.includes(teaID);
 }
+
+export const teaSearch = (input: string, tealist: TeaType[]) => {
+    return tealist.filter((tea: TeaType) => tea.tea_name.toLowerCase().includes(input.toLowerCase()));
+}
