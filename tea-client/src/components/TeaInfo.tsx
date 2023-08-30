@@ -122,42 +122,46 @@ export default function TeaInfo() {
 
     return (
         <div className="text-center">
-            <p>Tea name: {tea && cleanString(tea.tea_name)}</p>
-            <p>Type: {tea && tea.type}</p>
-            <p>Brand: {tea && cleanString(tea.brand)}</p>
-            <p>Rating: {tea && tea.rating}</p>
-            <p>Notes: {tea && cleanString(tea.notes)}</p>
-                {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
-            <p>Added by <Link style={{textDecoration: "none", color: "black", fontWeight: "bold"}} to={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</Link> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
-            <p>{displayFavoriteButton}</p>
-            <p>{displaySaveButton}</p>
-            <p></p>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#teamodal">Recommend this tea to a user</a>
-            <div className="modal fade" id="teamodal">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header text-centered">
-                            <h3>Recommend this tea to a friend!</h3>
-                            <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#teamodal"></button>
-                        </div>
-                        <div className="modal-body">
-                            <div>
-                                <form method="POST" action="http://localhost:9000/teas/recommend" className="teaform" id="recommendationform">
-                                    <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id || ""}></input>
-                                    <input type="hidden" id="recommendedtea" name="recommendedtea" value={tea?._id}></input>
-                                    <input type="hidden" id="recommendedteaname" name="recommendedteaname" disabled value={tea?.tea_name}></input>
-                                    <select id="user" name="user">
-                                        {userListElements}
-                                    </select>
-                                    <p>Enter a message here:</p>
-                                    <input type="text" id="recmessage" name="recmessage"></input>
-                                    <button type="submit">Submit</button>
-                                </form>
+            {user === undefined ? <h1>Please log in to see tea info</h1> : 
+            <div>
+                <p>Tea name: {tea && cleanString(tea.tea_name)}</p>
+                <p>Type: {tea && tea.type}</p>
+                <p>Brand: {tea && cleanString(tea.brand)}</p>
+                <p>Rating: {tea && tea.rating}</p>
+                <p>Notes: {tea && cleanString(tea.notes)}</p>
+                    {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
+                <p>Added by <Link style={{textDecoration: "none", color: "black", fontWeight: "bold"}} to={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</Link> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
+                <p>{displayFavoriteButton}</p>
+                <p>{displaySaveButton}</p>
+                <p></p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#teamodal">Recommend this tea to a user</a>
+                <div className="modal fade" id="teamodal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header text-centered">
+                                <h3>Recommend this tea to a friend!</h3>
+                                <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#teamodal"></button>
+                            </div>
+                            <div className="modal-body">
+                                <div>
+                                    <form method="POST" action="http://localhost:9000/teas/recommend" className="teaform" id="recommendationform">
+                                        <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id || ""}></input>
+                                        <input type="hidden" id="recommendedtea" name="recommendedtea" value={tea?._id}></input>
+                                        <input type="hidden" id="recommendedteaname" name="recommendedteaname" disabled value={tea?.tea_name}></input>
+                                        <select id="user" name="user">
+                                            {userListElements}
+                                        </select>
+                                        <p>Enter a message here:</p>
+                                        <input type="text" id="recmessage" name="recmessage"></input>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            }
             <p></p>
             {tea?.created_by._id == user?.user._id && 
             <div>

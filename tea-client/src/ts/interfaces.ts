@@ -112,7 +112,7 @@ export interface TeaRecType {
 // Types for AuthContext
 
 export interface UserContextType {
-    userContext: { user: string } | null,
+        user: string | null,
 }
 
 export interface initalUserContext {

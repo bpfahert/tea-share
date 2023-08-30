@@ -42,19 +42,27 @@ export default function UserInfo() {
 
     }, []);
 
+    console.log(user)
+
     return (
         <div>
-            <p>Username: {userDetails?.username}</p>
-            <p>Favorite type of tea: {userDetails?.favorite_tea_type}</p>
-            { userDetails?.favorite_teas ? 
-            <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`} currentuser={user}/> : 
-            <p>{`${userDetails?.username} hasn't favorited any teas yet!`}</p>
+            {user.user.username === "" ? 
+            <div className="text-center">
+                <h1>Please log in to see user info</h1> 
+            </div> :
+            <div>
+                <p>Username: {userDetails?.username}</p>
+                <p>Favorite type of tea: {userDetails?.favorite_tea_type}</p>
+                { userDetails?.favorite_teas ? 
+                <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`} currentuser={user}/> : 
+                <p>{`${userDetails?.username} hasn't favorited any teas yet!`}</p>
+                }
+                { userDetails?.teas_added ? 
+                <TeaList tealist={userDetails?.teas_added} listname={`${userDetails?.username}'s added teas`} currentuser={user}/> :
+                <p>{`${userDetails?.username} hasn't added any teas yet!`}</p>
+                } 
+            </div>
             }
-            { userDetails?.teas_added ? 
-            <TeaList tealist={userDetails?.teas_added} listname={`${userDetails?.username}'s added teas`} currentuser={user}/> :
-            <p>{`${userDetails?.username} hasn't added any teas yet!`}</p>
-            } 
-
         </div>
     )
 }

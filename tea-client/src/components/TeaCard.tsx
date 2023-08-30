@@ -10,7 +10,7 @@ export default function TeaCard(props: PropTeaCardType) {
         if (recommendee !== undefined) {
             return (
                 <div>
-                    <li>Recommended by <a style={{textDecoration: "none", color: "black", fontWeight:"bold"}} href={`/user/profile/${id}`}>{`${recommendee}`}</a></li> 
+                    <li>Recommended by <Link style={{textDecoration: "none", color: "black", fontWeight:"bold"}} to={`/user/profile/${id}`}>{`${recommendee}`}</Link></li> 
                     {message ? <li>"{cleanString(message)}"</li> : ""} 
                     <p></p> 
                     <li><button onClick={() => handlePost(`http://localhost:9000/teas/removerec/${teaID}`)}>Remove recommendation</button></li>
