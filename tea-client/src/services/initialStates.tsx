@@ -1,7 +1,6 @@
 import { UserType, TeaType } from "../ts/interfaces"
 
 export const initialUserState : UserType = {
-    user: {
         username: "",
         password: "",
         about: "",
@@ -13,7 +12,6 @@ export const initialUserState : UserType = {
         recommended_teas: [],
         _id: "",
         notificationStatus: false,
-    }
 }
 
 export const initialTeaState : TeaType = {

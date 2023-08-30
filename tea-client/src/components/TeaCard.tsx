@@ -9,7 +9,7 @@ export default function TeaCard(props: PropTeaCardType) {
     function isRecommendation(recommendee: string | undefined, message: string | undefined, teaID: string, id: string | undefined) {
         if (recommendee !== undefined) {
             return (
-                <div>
+                <div data-testid="teacardrecommendedtest">
                     <li>Recommended by <Link style={{textDecoration: "none", color: "black", fontWeight:"bold"}} to={`/user/profile/${id}`}>{`${recommendee}`}</Link></li> 
                     {message ? <li>"{cleanString(message)}"</li> : ""} 
                     <p></p> 
@@ -25,7 +25,7 @@ export default function TeaCard(props: PropTeaCardType) {
                 <img className="card-img-top" style={{height: "13rem", objectFit: "cover"}} src="/images/tea1.jpg" alt="default-tea-image" /> 
             }
             <div className="card-body">
-                <li><h5 style={{height:"3rem"}} className="mb-3"><Link style={{textDecoration: "none", color: "black"}}  data-testid="teacardtest" to={`/teas/${props.tea._id}`}> {cleanString(props.tea.tea_name)}</Link></h5></li> 
+                <li><h5 style={{height:"3rem"}} className="mb-3"><Link style={{textDecoration: "none", color: "black"}}  data-testid="teacardnametest" to={`/teas/${props.tea._id}`}> {cleanString(props.tea.tea_name)}</Link></h5></li> 
                 <li>Type: {props.tea.type} </li> 
                 <li>Brand: {cleanString(props.tea.brand)} </li>
                 <li>Rating(out of 10): {props.tea.rating} </li> 

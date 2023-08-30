@@ -1,10 +1,10 @@
 import React from 'react';
-import { UserRef } from '../ts/interfaces';
+import { UserType } from '../ts/interfaces';
 import { Link } from 'react-router-dom';
 
 
 export default function UserList() {
-    const [userList, setUserList] = React.useState([]);
+    const [userList, setUserList] = React.useState<UserType[]>([]);
 
     // Get list of all users
     React.useEffect(() => {
@@ -22,7 +22,7 @@ export default function UserList() {
         fetchData()
     }, [])
 
-    const listElements = userList.map((user : UserRef, index) => {
+    const listElements = userList.map((user : UserType, index) => {
         return <li key={index}><Link to={`/user/profile/${user._id}`} >{user.username}</Link></li>
     })
 

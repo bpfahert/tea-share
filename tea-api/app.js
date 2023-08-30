@@ -77,7 +77,7 @@ app.get('/user/getuser', (req, res) => {
       if (err) {
         return next(err);
       }
-    res.json({ user: currentUser });
+    res.json(currentUser);
     });
   } else {
     res.json({ user: null });

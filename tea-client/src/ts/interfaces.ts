@@ -1,5 +1,35 @@
 import React from "react"
 
+// User Types
+
+export interface UserType {
+        username: string,
+        password: string,
+        about: string,
+        favorite_tea_type: string,
+        favorite_teas: [],
+        email: string,
+        saved_teas: [],
+        recommended_teas: [],
+        teas_added: [],
+        _id: string,
+        notificationStatus?: boolean,
+}
+
+export interface CurrentUser {
+    currentuser: {
+        username: string,
+        url: string
+    }
+}
+
+export interface Recommender {
+    recommender: string,
+    message: string,
+}
+
+// Tea Types
+
 export interface TeaType{
     tea_name: string, 
     type: string, 
@@ -18,6 +48,7 @@ export interface TeaType{
     created_on: string,
 }
 
+// Prop Types
 export interface PropTeaCardType {
     tea: {
         tea_name: string, 
@@ -37,8 +68,6 @@ export interface PropTeaCardType {
     rec_id? :string,
 }
 
-
-
 export interface PropTeaList {
     tealist: TeaType[],
     listname: string,
@@ -53,59 +82,12 @@ export interface PropTeaRecList {
     currentuser: UserType,
     recommender?: Recommender[],
     listtype?: string,
-
 }
-
-export interface UserType {
-    user: {
-        username: string,
-        password: string,
-        about: string,
-        favorite_tea_type: string,
-        favorite_teas: [],
-        email: string,
-        saved_teas: [],
-        recommended_teas: [],
-        teas_added: [],
-        _id: string,
-        notificationStatus?: boolean,
-    }
-}
-
-export interface UserRef {
-    username: string,
-    password: string,
-    about: string,
-    favorite_tea_type: string,
-    favorite_teas: [],
-    email: string,
-    saved_teas: [],
-    recommended_teas: [],
-    teas_added: [],
-    _id: string,
-}
-
-export interface UserListType {
-    userlist: UserType[],
-}
-
-export interface CurrentUser {
-    currentuser: {
-        username: string,
-        url: string
-    }
-}
-
-export interface Recommender {
-        recommender: string,
-        message: string,
-}
-
 
 export interface TeaRecType {
     message: string,
     tea_rec: TeaType,
-    recommended_by: UserRef,
+    recommended_by: UserType,
 }
 
 

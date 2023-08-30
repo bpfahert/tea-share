@@ -12,14 +12,14 @@ export async function handlePost(url: string) {
 }
 
 export const isFavorited = (teaID: string, user: UserType ) => {
-    const teaIDs = user.user.favorite_teas.map((tea: TeaType) => {
+    const teaIDs = user.favorite_teas.map((tea: TeaType) => {
         return tea._id;
     });
     return teaIDs.includes(teaID);
 }
 
 export const isSaved = (teaID: string, user: UserType ) => {
-    const teaIDs = user.user.saved_teas.map((tea: TeaType) => {
+    const teaIDs = user.saved_teas.map((tea: TeaType) => {
         return tea._id;
     });
     return teaIDs.includes(teaID);

@@ -1,12 +1,12 @@
 import TeaList from "./TeaList";
-import { UserRef, UserType } from "../ts/interfaces";
+import { UserType } from "../ts/interfaces";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { initialUserState } from "../services/initialStates";
 
 export default function UserInfo() {
     const [user, setUser] = React.useState<UserType>(initialUserState);
-    const [userDetails, setUserDetails] = React.useState<UserRef>();
+    const [userDetails, setUserDetails] = React.useState<UserType>();
 
     const pathID = useLocation().pathname;
 
@@ -42,11 +42,9 @@ export default function UserInfo() {
 
     }, []);
 
-    console.log(user)
-
     return (
         <div>
-            {user.user.username === "" ? 
+            {user.username === "" ? 
             <div className="text-center">
                 <h1>Please log in to see user info</h1> 
             </div> :

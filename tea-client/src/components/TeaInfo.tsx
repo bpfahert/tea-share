@@ -1,6 +1,6 @@
 import { useEffect, useState} from "react";
 import { useLocation, Link } from "react-router-dom";
-import { TeaType, UserRef, UserType} from '../ts/interfaces';
+import { TeaType, UserType} from '../ts/interfaces';
 import { Buffer } from "buffer";
 import { cleanString, handlePost, isFavorited, isSaved } from "../services/teaFunctions";
 import EditTeaForm from "./EditTeaForm";
@@ -10,7 +10,7 @@ import { initialTeaState } from "../services/initialStates";
 export default function TeaInfo() {
     const [tea, setTea] = useState<TeaType>(initialTeaState);
     const [user, setUser] = useState<UserType>();
-    const [userList, setUserList] = useState<UserRef[]>();
+    const [userList, setUserList] = useState<UserType[]>();
     const [favoriteStatus, setFavoriteStatus] = useState<boolean>();
     const [saveStatus, setSaveStatus] = useState<boolean>();
 
@@ -78,7 +78,7 @@ export default function TeaInfo() {
 
     // Map users for recommendations and filter out current user
     const userListElements = userList?.map((rec_user, index) => {
-        if(rec_user.username !== user?.user.username) {
+        if(rec_user.username !== user?.username) {
             return (
                 <option value={rec_user._id} key={index}>{rec_user.username}</option>
             )
@@ -145,7 +145,7 @@ export default function TeaInfo() {
                             <div className="modal-body">
                                 <div>
                                     <form method="POST" action="http://localhost:9000/teas/recommend" className="teaform" id="recommendationform">
-                                        <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id || ""}></input>
+                                        <input type="hidden" id="currentuser" name="currentuser" value={user?._id || ""}></input>
                                         <input type="hidden" id="recommendedtea" name="recommendedtea" value={tea?._id}></input>
                                         <input type="hidden" id="recommendedteaname" name="recommendedteaname" disabled value={tea?.tea_name}></input>
                                         <select id="user" name="user">
@@ -163,7 +163,7 @@ export default function TeaInfo() {
             </div>
             }
             <p></p>
-            {tea?.created_by._id == user?.user._id && 
+            {tea?.created_by._id == user?._id && 
             <div>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#editmodal">Edit this tea</a>
                 <div className="modal fade" id="editmodal">
@@ -193,7 +193,7 @@ export default function TeaInfo() {
                                 <div>
                                     <form method="POST" action={`http://localhost:9000/teas/delete/${tea?._id}`} className="teaform" id="deleteform">
                                         <h4>Permanently delete {tea?.tea_name}?</h4>
-                                        <input type="hidden" id="currentuser" name="currentuser" value={user?.user._id}></input>
+                                        <input type="hidden" id="currentuser" name="currentuser" value={user?._id}></input>
                                         <button type="submit">Delete</button>
                                     </form>
                                 </div>

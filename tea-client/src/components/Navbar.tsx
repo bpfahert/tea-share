@@ -42,7 +42,7 @@ export default function Navbar() {
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
                 <ul className="navbar-nav">
                     {userContext !== null ? 
-                    <li className="nav-item active"><Link className="nav-link" to="/">{user?.user?.username}</Link></li> : 
+                    <li className="nav-item active"><Link className="nav-link" to="/">{user?.username}</Link></li> : 
                     <li className="nav-item"><Link className="nav-link" to="/">Tea Share</Link></li>
                     }
                     {userContext !== null && 
@@ -67,7 +67,7 @@ export default function Navbar() {
                         </div>
                     </div>
                     {userContext !== null && 
-                    <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?.user?._id}`}>Profile</Link></li>
+                    <li className="nav-item"><Link className="nav-link" to={`/user/profile/${user?._id}`}>Profile</Link></li>
                     }
                     {userContext !== null && 
                     <li className="nav-item"><Link className="nav-link" to="/userlist">Friends</Link></li>
@@ -78,7 +78,7 @@ export default function Navbar() {
                 </ul>
             </div>
             <ul className="navbar-nav">
-            {userContext && user?.user?.notificationStatus && <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications">New recommendation!</Link></li>}
+            {userContext && user?.notificationStatus && <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="http://localhost:9000/user/clearnotifications">New recommendation!</Link></li>}
             </ul>
         </nav>
 

@@ -39,15 +39,15 @@ export default function UserFeed() {
     }, []);
 
     //Filter out deleted tea recommendations
-    const recommended_teas_elements = user?.user?.recommended_teas?.filter((recommendation : TeaRecType)=> {
+    const recommended_teas_elements = user?.recommended_teas?.filter((recommendation : TeaRecType)=> {
         return recommendation.tea_rec !== null;
     })
 
     const new_teas = newTeas ? newTeas : [];
-    const recommended_teas = user?.user?.recommended_teas ? recommended_teas_elements : [];
-    const saved_teas = user?.user ? user.user.saved_teas : [];
-    const favorite_teas = user?.user ? user.user.favorite_teas : [];
-    const user_teas = user?.user ? user.user.teas_added : [];
+    const recommended_teas = user?.recommended_teas ? recommended_teas_elements : [];
+    const saved_teas = user ? user.saved_teas : [];
+    const favorite_teas = user ? user.favorite_teas : [];
+    const user_teas = user ? user.teas_added : [];
 
     return (
         <div>
