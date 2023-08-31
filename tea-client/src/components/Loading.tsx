@@ -1,9 +1,8 @@
-
 export default function Loading() {
 
     return (
-        <div>
-            <h1>Loading...</h1>
+        <div className="d-flex justify-content-center">
+            <div className="spinner-border text-info" style={{width: "5rem", height: "5rem", marginTop: "100px"}} aria-label="loading" role="status"></div>
         </div>
     )
 }
