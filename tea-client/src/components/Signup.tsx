@@ -31,7 +31,7 @@ export default function Signup() {
                     <div className="modal-content">
                         <div className="modal-header text-centered">
                             <h3>Sign up for an account!</h3>
-                            <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#signupmodal"></button>
+                            <button className="btn-close" aria-label="close" data-bs-dismiss="modal" data-bs-target="#signupmodal"></button>
                         </div>
                         <div className="modal-body">
                             <SignUpForm />

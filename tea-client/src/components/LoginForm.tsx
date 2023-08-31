@@ -31,7 +31,7 @@ export default function LoginForm() {
                 </div>
             </div>
             <div className="row justify-content-center">         
-                <button className="btn btn-info col-sm-4" type="submit">Log in</button>
+                <button className="btn btn-info col-sm-4" aria-label="Log in button" type="submit">Log in</button>
             </div>
         </form>
     )

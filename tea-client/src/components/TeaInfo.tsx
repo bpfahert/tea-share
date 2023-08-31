@@ -13,6 +13,7 @@ export default function TeaInfo() {
     const [userList, setUserList] = useState<UserType[]>();
     const [favoriteStatus, setFavoriteStatus] = useState<boolean>();
     const [saveStatus, setSaveStatus] = useState<boolean>();
+    const [isLoading, setIsLoading] = useState(true);
 
     const pathID = useLocation().pathname;
 
@@ -31,6 +32,7 @@ export default function TeaInfo() {
         }
 
         getUser();
+        setIsLoading(false);
     },[])
 
     // Get list of all users for recommendation form
@@ -122,7 +124,6 @@ export default function TeaInfo() {
 
     return (
         <div className="text-center">
-            {user === undefined ? <h1>Please log in to see tea info</h1> : 
             <div>
                 <p>Tea name: {tea && cleanString(tea.tea_name)}</p>
                 <p>Type: {tea && tea.type}</p>
@@ -161,7 +162,6 @@ export default function TeaInfo() {
                     </div>
                 </div>
             </div>
-            }
             <p></p>
             {tea?.created_by._id == user?._id && 
             <div>
