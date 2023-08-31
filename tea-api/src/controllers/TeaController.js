@@ -38,6 +38,7 @@ exports.get_new_teas = async (req, res, next) => {
   res.status(200).json(teas);
 }
 
+// Create a new tea in database
 exports.tea_create_post = [
   upload.single('teaimg'),
   body("tea_name").trim().isLength({min: 2}).escape().withMessage("Please enter a tea name"),
@@ -92,6 +93,7 @@ exports.tea_create_post = [
   }
 ];
 
+// Delete a tea from database
 exports.tea_delete_post = (req, res, next) => {
   Tea.findById(req.params.id).exec((err, tea) => {
     if(err) {
@@ -113,6 +115,7 @@ exports.tea_delete_post = (req, res, next) => {
     })
 };
 
+// Recommended a tea to a user
 exports.tea_recommend_post = [
   body("recommendedtea"),
   body("currentuser"),
@@ -142,6 +145,7 @@ exports.tea_recommend_post = [
   }
 ];
 
+// Remove a tea from user's recommendation list
 exports.tea_recommend_delete = (req, res, next) => {
   User.findOneAndUpdate({username: req.user.username}, {$pull : {recommended_teas: {tea_rec: req.params.id }}}).exec((err, self) => {
     if(err) {
@@ -151,7 +155,7 @@ exports.tea_recommend_delete = (req, res, next) => {
   })
 };
 
-
+// Add a tea to favorite teas list
 exports.tea_favorite_post = (req, res, next) => {
   Tea.findById(req.params.id).exec((err, tea) => {
     if(err) {
@@ -179,6 +183,7 @@ exports.tea_favorite_post = (req, res, next) => {
   })
 };
 
+// Remove a tea from favorite list
 exports.tea_favorite_delete = (req, res, next) => {
   User.findOneAndUpdate({username: req.user.username}, {$pull : {favorite_teas: req.params.id}}).exec((err, self) => {
     if(err) {
@@ -188,75 +193,78 @@ exports.tea_favorite_delete = (req, res, next) => {
   })
 };
 
-  exports.tea_save_post = (req, res, next) => {
-    Tea.findById(req.params.id).exec((err, tea) => {
+// Add a tea to saved teas list
+exports.tea_save_post = (req, res, next) => {
+  Tea.findById(req.params.id).exec((err, tea) => {
+    if(err) {
+      return next(err);
+    }
+    if (tea === null) {
+      const err = new Error ("Tea does not exist!");
+      err.status = 404;
+      return next(err);
+    }
+    User.findOne({username: req.user.username}).exec((err, self) => {
       if(err) {
         return next(err);
       }
-      if (tea === null) {
-        const err = new Error ("Tea does not exist!");
-        err.status = 404;
-        return next(err);
-      }
-      User.findOne({username: req.user.username}).exec((err, self) => {
-        if(err) {
-          return next(err);
-        }
-        if(!self.saved_teas.includes(req.params.id)) {
-          self.saved_teas.push(tea);
-          self.save((err) => {
-            if(err) {
-              return next(err);
-            }
-          })
-        }
-      })
-      res.status(200).json(tea);
-    })
-    };
-
-  exports.tea_saved_delete = (req, res, next) => {
-    User.findOneAndUpdate({username: req.user.username}, {$pull : {saved_teas: req.params.id}}).exec((err, user) => {
-      if(err) {
-        return next(err);
-      }
-      res.status(200).json({});
-    })
-  };
-
-    exports.tea_update_post = [
-      upload.single('updateteaimg'),
-      body("updateteaname").trim().isLength({min: 2}).withMessage("Please enter a tea name").escape(),
-      body("updatetype"),
-      body("updatebrand").trim().isLength({min: 1}).escape(),
-      body("updaterating"),
-      body("updatenotes").trim().escape(),
-      (req, res, next) => {
-        const uploadedImage = {
-          teaImage: req.file ? {
-            data: fs.readFileSync(path.join(__dirname + "/../../public/images/" + req.file.filename)),
-          contentType: "image/png"
-          } : ""
-        }
-    
-        const errors = validationResult(req);
-    
-        const tea = new Tea({
-          tea_name: req.body.updateteaname,
-          type: req.body.updatetype,
-          brand: req.body.updatebrand,
-          rating: req.body.updaterating,
-          notes: req.body.updatenotes,
-          created_by: req.user._id,
-          updated_on: new Date(),
-          img: uploadedImage.teaImage,
-          _id: req.params.id,
-        });
-        Tea.findByIdAndUpdate(req.params.id, tea, {}, (err, updatedtea) => {
+      if(!self.saved_teas.includes(req.params.id)) {
+        self.saved_teas.push(tea);
+        self.save((err) => {
           if(err) {
             return next(err);
           }
-        })      
-        res.redirect(`http://localhost:3000/teas/${req.params.id}`);
-        }
-    ];
+        })
+      }
+    })
+    res.status(200).json(tea);
+  })
+  };
+
+// Remove a tea from saved teas list
+exports.tea_saved_delete = (req, res, next) => {
+  User.findOneAndUpdate({username: req.user.username}, {$pull : {saved_teas: req.params.id}}).exec((err, user) => {
+    if(err) {
+      return next(err);
+    }
+    res.status(200).json({});
+  })
+};
+
+// Update a tea entry in database
+exports.tea_update_post = [
+  upload.single('updateteaimg'),
+  body("updateteaname").trim().isLength({min: 2}).withMessage("Please enter a tea name").escape(),
+  body("updatetype"),
+  body("updatebrand").trim().isLength({min: 1}).escape(),
+  body("updaterating"),
+  body("updatenotes").trim().escape(),
+  (req, res, next) => {
+    const uploadedImage = {
+      teaImage: req.file ? {
+        data: fs.readFileSync(path.join(__dirname + "/../../public/images/" + req.file.filename)),
+      contentType: "image/png"
+      } : ""
+    }
+
+    const errors = validationResult(req);
+
+    const tea = new Tea({
+      tea_name: req.body.updateteaname,
+      type: req.body.updatetype,
+      brand: req.body.updatebrand,
+      rating: req.body.updaterating,
+      notes: req.body.updatenotes,
+      created_by: req.user._id,
+      updated_on: new Date(),
+      img: uploadedImage.teaImage,
+      _id: req.params.id,
+    });
+    Tea.findByIdAndUpdate(req.params.id, tea, {}, (err, updatedtea) => {
+      if(err) {
+        return next(err);
+      }
+    })      
+    res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+    }
+];

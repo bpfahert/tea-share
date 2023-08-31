@@ -7,6 +7,8 @@ router.get("/userlist", user_controller.user_list);
 
 router.post("/create", user_controller.new_user);
 
+router.get('/getuser', user_controller.get_current_user);
+
 router.get("/profile/:id", user_controller.get_user_info);
 
 router.get("/clearnotifications", user_controller.acknowledge_notification);

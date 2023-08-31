@@ -7,7 +7,7 @@ const multer = require('multer');
 const upload = multer({dest: './public/images/'});
 const mongoose = require('mongoose');
 
-
+// Get all users
 exports.user_list = (req, res) => {
   User.find({})
   .sort({username: 1})
@@ -19,6 +19,7 @@ exports.user_list = (req, res) => {
   });
 };
 
+// Get user details for user info page
 exports.get_user_info = (req, res, next) => {
   User.findById(req.params.id).select("-password").populate("teas_added favorite_teas _id").exec((err, user) => {
       if(err) {
@@ -33,6 +34,7 @@ exports.get_user_info = (req, res, next) => {
     })
 }
 
+// Create a new user
 exports.new_user = [
   body("username", "Please enter a username").trim().isLength({min: 2}).escape(),
   body("password").trim().isLength({min: 2}).escape(),
@@ -77,6 +79,21 @@ exports.new_user = [
   }
 ]
 
+// Get logged in user's info
+exports.get_current_user = (req, res, next) => {
+  if (req.user) {
+    User.findOne({username: req.user.username}).select("-password").populate("recommended_teas.tea_rec recommended_teas.recommended_by saved_teas teas_added favorite_teas _id").exec(function (err, currentUser) {
+      if (err) {
+        return next(err);
+      }
+    res.json(currentUser);
+    });
+  } else {
+    res.json({ user: null });
+  }
+}
+
+// Acknowledge a new recommendation from another user
 exports.acknowledge_notification = (req, res, next) => {
   User.findOne({username: req.user.username}).exec((err, self) => {
     if(err) {

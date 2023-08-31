@@ -12,18 +12,23 @@ export default function Navbar() {
     const logout = useLogout();
 
     // Get user info
-    async function getUser() {
-        const response = await fetch('http://localhost:9000/user/getuser', {
-            credentials: 'include',
-        });
-        const json = await response.json();
 
-        if(response.ok) {
-            setUser(json);
-        }
-    }
 
     React.useEffect(() => {
+        async function getUser() {
+            try {
+                const response = await fetch('http://localhost:9000/user/getuser', {
+                    credentials: 'include',
+                });
+                const json = await response.json();
+        
+                if(response.ok) {
+                    setUser(json);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
         if (userContext !== null) {
             getUser();
         }

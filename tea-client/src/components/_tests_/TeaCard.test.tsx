@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import TeaCard from './TeaCard';
-import { TeaType, UserType } from '../ts/interfaces';
+import TeaCard from '../TeaCard';
+import { TeaType, UserType } from '../../ts/interfaces';
 import { BrowserRouter } from 'react-router-dom';
 
 const testTea: TeaType = {

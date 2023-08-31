@@ -1,16 +1,11 @@
-
 // Import middleware and passport configuration
-
 const createError = require('http-errors');
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
 const session = require('express-session');
 const passport = require('./server/passport/index');
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const User = require("./src/models/User");
 
 require('dotenv').config();
 
@@ -41,19 +36,13 @@ app.use(
 );
 
 
-app.use(session({secret: 'cat', resave: false, saveUninitialized: true, cookie: {maxAge: 1000 * 60 * 60 * 48}}));
+app.use(session({secret: process.env.SECRET_KEY, resave: false, saveUninitialized: true, cookie: {maxAge: 1000 * 60 * 60 * 48}}));
 app.use(cookieParser('cat'));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// app.use((req, res, next) => {
-//   console.log(req.session);
-//   console.log(req.user);
-//   next();
-// })
 
 // Add routers to middleware
 app.use("/auth", LoginRouter);
@@ -69,20 +58,6 @@ app.use((req, res, next) => {
 
 app.use("/teas", teaRouter);
 app.use("/user", userRouter);
-
-// Get user info
-app.get('/user/getuser', (req, res) => {
-  if (req.user) {
-    User.findOne({username: req.user.username}).select("-password").populate("recommended_teas.tea_rec recommended_teas.recommended_by saved_teas teas_added favorite_teas _id").exec(function (err, currentUser) {
-      if (err) {
-        return next(err);
-      }
-    res.json(currentUser);
-    });
-  } else {
-    res.json({ user: null });
-  }
-})
 
 //Add error handling middleware
 let catch404 = (req, res, next) => {
