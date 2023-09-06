@@ -61,7 +61,7 @@ export default function Navbar() {
                             <div className="modal-content">
                                 <div className="modal-header text-centered">
                                     <h3>Add a new tea!</h3>
-                                    <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#newteamodal"></button>
+                                    <button className="btn-close" data-bs-dismiss="modal" aria-label='close' data-bs-target="#newteamodal"></button>
                                 </div>
                                 <div className="modal-body">
                                     <div>

@@ -50,32 +50,32 @@ export default function UserFeed() {
     const user_teas = user ? user.teas_added : [];
 
     return (
-        <div>
+        <div className='text-center'>
             <div className="recentactivitydiv">
                 <TeaList tealist={new_teas} listname={"Recently added teas"} currentuser={user} listtype={"recent"}/>
             </div>
             <div className="recommendedteas">
-                {recommended_teas ? 
-                    <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
-                    : <p>You have no recommendations currently.</p>
+                <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
+                {recommended_teas.length === 0 && 
+                <p>You have no recommended teas at the moment.</p>
                 }
             </div>
             <div className="savedteas">
-                {saved_teas ? 
-                    <TeaList tealist={saved_teas} listname={"Saved teas"} currentuser={user} listtype={"saved"}/>
-                    : <p>You have no saved teas.</p>
+                <TeaList tealist={saved_teas} listname={"Saved teas"} currentuser={user} listtype={"saved"}/>
+                {saved_teas.length === 0 && 
+                <p>You have no saved teas.</p>
                 }
             </div>
             <div className="favoriteteas">
-                {favorite_teas ? 
-                    <TeaList tealist={favorite_teas} listname={"Favorite teas"} currentuser={user} listtype={"favorite"}/>
-                    : <p>You have no favorited teas.</p>
+                <TeaList tealist={favorite_teas} listname={"Favorite teas"} currentuser={user} listtype={"favorite"}/>
+                {favorite_teas.length === 0 && 
+                <p>You have no favorited teas.</p>
                 }
             </div>
             <div className="yourteas">
-                {user_teas ? 
-                    <TeaList tealist={user_teas} listname={"Your teas"} currentuser={user} listtype={"added"}/>
-                    : <p>You have no added teas.</p>
+                <TeaList tealist={user_teas} listname={"Your teas"} currentuser={user} listtype={"added"}/>
+                {user_teas.length === 0 &&
+                <p>You have no added teas.</p>
                 }
             </div>
         </div>

@@ -1,5 +1,4 @@
 import { TeaType } from "../ts/interfaces"
-import { Buffer } from "buffer";
 
 export default function EditTeaForm( {tea_name, brand, notes, type, rating, img, _id} : TeaType) {
 

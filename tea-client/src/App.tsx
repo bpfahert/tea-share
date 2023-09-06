@@ -1,5 +1,5 @@
 import { useAuthContext } from "./hooks/useAuthContext";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserFeed from "./components/UserFeed";
 import UserInfo from "./components/UserInfo";
 import UserList from "./components/UserList";

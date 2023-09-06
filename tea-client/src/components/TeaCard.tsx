@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function TeaCard(props: PropTeaCardType) {
 
-    // Recommendation logic
+    // Recommendation display logic
     function isRecommendation(recommendee: string | undefined, message: string | undefined, teaID: string, id: string | undefined) {
         if (recommendee !== undefined) {
             return (
