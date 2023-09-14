@@ -1,12 +1,13 @@
 import React from 'react';
 import TeaList from './TeaList';
-import { TeaRecType, UserType } from '../ts/interfaces';
+import { TeaRecType, TeaType, UserType } from '../ts/interfaces';
 import RecommendedTeaList from './RecommendedList';
 import { initialUserState } from '../services/initialStates';
+import { Link } from "react-router-dom";
 
 export default function UserFeed() {
     const [user, setUser] = React.useState<UserType>(initialUserState);
-    const [newTeas, setNewTeas] = React.useState();
+    const [newTeas, setNewTeas] = React.useState([]);
 
     // Get user information
     React.useEffect(() => {
@@ -38,6 +39,15 @@ export default function UserFeed() {
         getNewTeas();
     }, []);
 
+    // Return new teas as list items
+    const activity_feed = newTeas.map((tea: TeaType) => {
+        return (
+            <li key={tea._id}>
+                <Link style={{textDecoration: "none", color: "black", fontWeight:"bold"}} to={`/user/profile/${tea.created_by._id}`}>{tea.created_by.username}</Link> created a new {tea.type} tea called <Link style={{textDecoration: "none", color: "blue"}} to={`/teas/${tea._id}`}>{tea.tea_name}</Link>
+            </li>
+        )
+    });
+
     //Filter out deleted tea recommendations
     const recommended_teas_elements = user?.recommended_teas?.filter((recommendation : TeaRecType)=> {
         return recommendation.tea_rec !== null;
@@ -51,32 +61,23 @@ export default function UserFeed() {
 
     return (
         <div className='text-center'>
+            <ul className='activity feed'>
+                {activity_feed}
+            </ul>
             <div className="recentactivitydiv">
                 <TeaList tealist={new_teas} listname={"Recently added teas"} currentuser={user} listtype={"recent"}/>
             </div>
             <div className="recommendedteas">
                 <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
-                {recommended_teas.length === 0 && 
-                <p>You have no recommended teas at the moment.</p>
-                }
             </div>
             <div className="savedteas">
                 <TeaList tealist={saved_teas} listname={"Saved teas"} currentuser={user} listtype={"saved"}/>
-                {saved_teas.length === 0 && 
-                <p>You have no saved teas.</p>
-                }
             </div>
             <div className="favoriteteas">
                 <TeaList tealist={favorite_teas} listname={"Favorite teas"} currentuser={user} listtype={"favorite"}/>
-                {favorite_teas.length === 0 && 
-                <p>You have no favorited teas.</p>
-                }
             </div>
             <div className="yourteas">
                 <TeaList tealist={user_teas} listname={"Your teas"} currentuser={user} listtype={"added"}/>
-                {user_teas.length === 0 &&
-                <p>You have no added teas.</p>
-                }
             </div>
         </div>
     )

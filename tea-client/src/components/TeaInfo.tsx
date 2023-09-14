@@ -88,7 +88,7 @@ export default function TeaInfo() {
     });
 
 
-    // Favorite tea display logic
+    // Favorited tea display logic
     let displayFavoriteButton = favoriteStatus ? <span>This is one of your favorite teas <button onClick={() => handleFavorite()}>Remove from favorites</button></span> : <span><button onClick={() => handleFavorite()}>Favorite this tea</button></span>;
 
     async function handleFavorite() {
@@ -105,7 +105,7 @@ export default function TeaInfo() {
 
 
 
-    // Save tea display logic
+    // Saved tea display logic
 
     let displaySaveButton = saveStatus ? <span>This is one of your saved teas <button onClick={() => handleSave()}>Remove from saved teas</button></span> : <span><button onClick={() => handleSave()}>Save this tea</button></span>;
 
@@ -125,12 +125,13 @@ export default function TeaInfo() {
     return (
         <div className="text-center">
             <div>
+                {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} alt="tea image"/> : <p>There is no image for this tea.</p>}
                 <p>Tea name: {tea && cleanString(tea.tea_name)}</p>
                 <p>Type: {tea && tea.type}</p>
                 <p>Brand: {tea && cleanString(tea.brand)}</p>
                 <p>Rating: {tea && tea.rating}</p>
                 <p>Notes: {tea && cleanString(tea.notes)}</p>
-                    {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} /> : <p>There is no image for this tea.</p>}
+                    {/* {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} alt="tea image"/> : <p>There is no image for this tea.</p>} */}
                 <p>Added by <Link style={{textDecoration: "none", color: "black", fontWeight: "bold"}} to={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</Link> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
                 <p>{displayFavoriteButton}</p>
                 <p>{displaySaveButton}</p>

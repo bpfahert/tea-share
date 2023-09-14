@@ -39,7 +39,7 @@ exports.new_user = [
   body("username", "Please enter a username").trim().isLength({min: 2}).escape(),
   body("password").trim().isLength({min: 2}).escape(),
   body("favoritetea"),
-  body("email"),
+  body("email").isEmail().withMessage("Invalid email address"),
   body("about"),
   async (req, res, next) => {
     const usernameTaken = await User.exists({username: req.body.username});
