@@ -43,15 +43,15 @@ export default function UserInfo() {
     }, []);
 
     return (
-        <div className="text-center">
+        <div className="text-center" style={{border: "solid 2px black"}}>
             <p>Username: {userDetails?.username}</p>
             <p>Favorite type of tea: {userDetails?.favorite_tea_type}</p>
             { userDetails?.favorite_teas ? 
-            <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`} currentuser={user}/> : 
+            <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`} currentuser={user} listtype={"favorite"}/> : 
             <p>{`${userDetails?.username} hasn't favorited any teas yet!`}</p>
             }
             { userDetails?.teas_added ? 
-            <TeaList tealist={userDetails?.teas_added} listname={`${userDetails?.username}'s added teas`} currentuser={user}/> :
+            <TeaList tealist={userDetails?.teas_added} listname={`${userDetails?.username}'s added teas`} currentuser={user} listtype={"added"}/> :
             <p>{`${userDetails?.username} hasn't added any teas yet!`}</p>
             } 
         </div>

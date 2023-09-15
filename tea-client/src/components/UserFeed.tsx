@@ -53,11 +53,11 @@ export default function UserFeed() {
     const user_teas = user ? user.teas_added : [];
 
     return (
-        <div className='text-center'>
+        <div className='text-center mt-1'>
             <ActivityFeed tealist={new_teas}/>
-            <div className="recentactivitydiv">
+            {/* <div className="recentactivitydiv">
                 <TeaList tealist={new_teas} listname={"Recently added teas"} currentuser={user} listtype={"recent"}/>
-            </div>
+            </div> */}
             <div className="recommendedteas">
                 <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
             </div>
