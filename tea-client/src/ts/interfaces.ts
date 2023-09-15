@@ -76,6 +76,10 @@ export interface PropTeaList {
     listtype?: string,
 }
 
+export interface ActivityFeedType {
+    tealist: TeaType[],
+}
+
 export interface PropTeaRecList {
     tealist: TeaRecType[],
     listname: string,

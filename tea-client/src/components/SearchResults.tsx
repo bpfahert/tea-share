@@ -1,7 +1,7 @@
 import TeaCard from "./TeaCard";
 import { PropTeaList } from "../ts/interfaces";
 
-export default function TeaList({ tealist, listname, currentuser, listtype } : PropTeaList) {
+export default function SearchResults({ tealist, listname, currentuser, listtype} : PropTeaList) {
 
     const firstFiveTeas = tealist.slice(0, 5);
     const moreTeas = tealist.slice(5);
@@ -22,12 +22,8 @@ export default function TeaList({ tealist, listname, currentuser, listtype } : P
     return (
         <div className="container">
             <h2 className="text-center mb-3">{listname}</h2>
-            {tealist.length > 0 ? 
             <div>
-                <div className="container text-center">
-                    <button className='btn btn-info btn-lg mb-3' type='button'  data-bs-toggle="collapse"  data-bs-target={`#${listtype}tealist`}>Show Teas</button>
-                </div>
-                <div className="collapse" id={`${listtype}tealist`}>
+                <div>
                     <ul className="list-group list-group-horizontal-xl d-flex justify-content-center align-items-center" style={{listStyle: "none", gap: "5px"}}>
                         {firstFiveElements}
                     </ul>
@@ -45,8 +41,6 @@ export default function TeaList({ tealist, listname, currentuser, listtype } : P
                     }
                 </div>
             </div>
-            :
-            <p>You have no {listtype} teas at the moment.</p>}
         </div>
     )
 }

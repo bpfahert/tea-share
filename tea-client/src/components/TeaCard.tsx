@@ -2,8 +2,10 @@ import { PropTeaCardType } from "../ts/interfaces";
 import { Buffer } from "buffer";
 import { cleanString, handlePost } from "../services/teaFunctions";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function TeaCard(props: PropTeaCardType) {
+    const [isRecommended, setIsRecommended] = useState(props.rec_user !== undefined);
 
     // Recommendation display logic
     function isRecommendation(recommendee: string | undefined, message: string | undefined, teaID: string, id: string | undefined) {
@@ -13,9 +15,15 @@ export default function TeaCard(props: PropTeaCardType) {
                     <li>Recommended by <Link style={{textDecoration: "none", color: "black", fontWeight:"bold"}} to={`/user/profile/${id}`}>{`${recommendee}`}</Link></li> 
                     {message ? <li>"{cleanString(message)}"</li> : ""} 
                     <p></p> 
-                    <li><button onClick={() => handlePost(`http://localhost:9000/teas/removerec/${teaID}`)}>Remove recommendation</button></li>
+                    <li><button onClick={() => handleClick(teaID)}>{isRecommended ? "Remove recommendation" : "Removed"} </button></li>
                 </div>   
         )}
+    }
+
+    function handleClick(teaID: string) {
+        handlePost(`http://localhost:9000/teas/removerec/${teaID}`);
+        setIsRecommended(false);
+
     }
 
     return (

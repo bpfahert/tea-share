@@ -3,6 +3,7 @@ import TeaList from './TeaList';
 import React, { FormEvent } from 'react';
 import { initialUserState } from '../services/initialStates';
 import { teaSearch } from '../services/teaFunctions';
+import SearchResults from './SearchResults';
 
 export default function ViewTeas() {
     const [user, setUser] = React.useState<UserType>(initialUserState);
@@ -64,18 +65,18 @@ export default function ViewTeas() {
     const oolong_tea_list = allTeas.filter((tea : TeaType) => tea.type === "Oolong");
 
     return (
-        <div>
+        <div className='text-center'>
             <p></p>
             <form className="d-flex justify-content-center mb-5" onSubmit={handleSubmit}>
                 <input value={search} onChange={handleChange} type="text" id="searchbar" name="searchbar" placeholder="Search for teas"></input>
             </form>
-            <TeaList tealist={searchTeas} listname={"Search Results"} currentuser={user} listtype="searchresults"/>
+            <SearchResults tealist={searchTeas} listname={"Search Results"} currentuser={user} listtype="searchresults"/>
             {isEmpty(searchTeas) && <p style={{textAlign: "center"}}> No teas found with that name. </p>}
-            <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user} listtype="greenteas"/>
-            <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user} listtype="blackteas"/>
-            <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user} listtype="herbalteas"/>
-            <TeaList tealist={white_tea_list} listname={"White teas"} currentuser={user} listtype="whiteteas"/>
-            <TeaList tealist={oolong_tea_list} listname={"Oolong teas"} currentuser={user}/>
+            <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user} listtype="green"/>
+            <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user} listtype="black"/>
+            <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user} listtype="herbal"/>
+            <TeaList tealist={white_tea_list} listname={"White teas"} currentuser={user} listtype="white"/>
+            <TeaList tealist={oolong_tea_list} listname={"Oolong teas"} currentuser={user} listtype="oolong"/>
             <TeaList tealist={allTeas} listname={"All teas"} currentuser={user} listtype="allteas"/>
         </div>
     )

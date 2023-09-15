@@ -3,7 +3,7 @@ import TeaList from './TeaList';
 import { TeaRecType, TeaType, UserType } from '../ts/interfaces';
 import RecommendedTeaList from './RecommendedList';
 import { initialUserState } from '../services/initialStates';
-import { Link } from "react-router-dom";
+import ActivityFeed from './ActivityFeed';
 
 export default function UserFeed() {
     const [user, setUser] = React.useState<UserType>(initialUserState);
@@ -39,14 +39,7 @@ export default function UserFeed() {
         getNewTeas();
     }, []);
 
-    // Return new teas as list items
-    const activity_feed = newTeas.map((tea: TeaType) => {
-        return (
-            <li key={tea._id}>
-                <Link style={{textDecoration: "none", color: "black", fontWeight:"bold"}} to={`/user/profile/${tea.created_by._id}`}>{tea.created_by.username}</Link> created a new {tea.type} tea called <Link style={{textDecoration: "none", color: "blue"}} to={`/teas/${tea._id}`}>{tea.tea_name}</Link>
-            </li>
-        )
-    });
+
 
     //Filter out deleted tea recommendations
     const recommended_teas_elements = user?.recommended_teas?.filter((recommendation : TeaRecType)=> {
@@ -61,9 +54,7 @@ export default function UserFeed() {
 
     return (
         <div className='text-center'>
-            <ul className='activity feed'>
-                {activity_feed}
-            </ul>
+            <ActivityFeed tealist={new_teas}/>
             <div className="recentactivitydiv">
                 <TeaList tealist={new_teas} listname={"Recently added teas"} currentuser={user} listtype={"recent"}/>
             </div>
