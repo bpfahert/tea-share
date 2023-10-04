@@ -1,0 +1,22 @@
+{
+  "name": "tea-share",
+  "version": "1.0.0",
+  "description": "A social media site meant for sharing tea with friends.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-server": "cd tea-api && npm install",
+    "start-server": "cd tea-api && node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpfahert/tea-share.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bpfahert/tea-share/issues"
+  },
+  "homepage": "https://github.com/bpfahert/tea-share#readme"
+}
