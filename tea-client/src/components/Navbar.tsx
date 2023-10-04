@@ -45,7 +45,7 @@ export default function Navbar() {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarsupportedcontent">
-                <ul className="navbar-nav">
+                <ul className="navbar-nav" style={{fontWeight: "600"}}>
                     {userContext !== null ? 
                     <li className="nav-item active"><Link className="nav-link" to="/">{user?.username}</Link></li> : 
                     <li className="nav-item"><Link className="nav-link" to="/">Tea Share</Link></li>

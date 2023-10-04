@@ -43,9 +43,9 @@ export default function UserInfo() {
     }, []);
 
     return (
-        <div className="text-center" style={{border: "solid 2px black"}}>
+        <div className="text-center">
             <p>Username: {userDetails?.username}</p>
-            <p>Favorite type of tea: {userDetails?.favorite_tea_type}</p>
+            <p>Favorite type of tea: {userDetails?.favorite_tea_type ? userDetails?.favorite_tea_type : "Unknown"}</p>
             { userDetails?.favorite_teas ? 
             <TeaList tealist={userDetails?.favorite_teas} listname={`${userDetails?.username}'s favorite teas`} currentuser={user} listtype={"favorite"}/> : 
             <p>{`${userDetails?.username} hasn't favorited any teas yet!`}</p>

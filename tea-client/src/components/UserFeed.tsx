@@ -1,6 +1,6 @@
 import React from 'react';
 import TeaList from './TeaList';
-import { TeaRecType, TeaType, UserType } from '../ts/interfaces';
+import { TeaRecType, UserType } from '../ts/interfaces';
 import RecommendedTeaList from './RecommendedList';
 import { initialUserState } from '../services/initialStates';
 import ActivityFeed from './ActivityFeed';

@@ -27,7 +27,7 @@ export default function UserList() {
     })
 
     return (
-        <div>
+        <div className='container text-center'>
             <ul style={{listStyle: "none"}}>
                 {listElements}
             </ul>
