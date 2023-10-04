@@ -1,7 +1,7 @@
 export default function TeaForm() {
 
     return (
-        <form method="POST" action="http://localhost:9000/teas/create" className="teaform" id="newteaform" encType="multipart/form-data" >
+        <form method="POST" action="https://tea-share.onrender.com/teas/create" className="teaform" id="newteaform" encType="multipart/form-data" >
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">

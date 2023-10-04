@@ -4,7 +4,7 @@ export const useLogout = () => {
     const { dispatch } = useAuthContext();
 
     const logout = async () => {
-        const response = await fetch("http://localhost:9000/auth/logout", {
+        const response = await fetch("https://tea-share.onrender.com/auth/logout", {
             method: "GET",      
             credentials: "include",
         })

@@ -21,7 +21,7 @@ export default function TeaCard(props: PropTeaCardType) {
     }
 
     function handleClick(teaID: string) {
-        handlePost(`http://localhost:9000/teas/removerec/${teaID}`);
+        handlePost(`https://tea-share.onrender.com/teas/removerec/${teaID}`);
         setIsRecommended(false);
 
     }

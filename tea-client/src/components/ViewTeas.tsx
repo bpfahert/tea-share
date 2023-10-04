@@ -24,7 +24,7 @@ export default function ViewTeas() {
     // Get user info
     React.useEffect(() => {
         async function getUser() {
-            const response = await fetch('http://localhost:9000/user/getuser', {
+            const response = await fetch('https://tea-share.onrender.com/user/getuser', {
                 credentials: 'include',
             });
             const json = await response.json();
@@ -40,7 +40,7 @@ export default function ViewTeas() {
     // Get all teas in an array
     React.useEffect(() => {
         async function getAllTeas() {
-            const response = await fetch('http://localhost:9000/teas/all', {
+            const response = await fetch('https://tea-share.onrender.com/teas/all', {
                 credentials: 'include',
             });
             const json = await response.json();

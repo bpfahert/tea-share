@@ -9,7 +9,7 @@ export default function UserList() {
     // Get list of all users
     React.useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:9000/user/userlist`, {
+            const response = await fetch(`https://tea-share.onrender.com/user/userlist`, {
                 credentials: 'include',
                 mode: 'cors',
             });
