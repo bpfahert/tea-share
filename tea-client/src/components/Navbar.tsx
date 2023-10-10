@@ -17,7 +17,7 @@ export default function Navbar() {
     React.useEffect(() => {
         async function getUser() {
             try {
-                const response = await fetch('https://tea-share.onrender.com/user/getuser', {
+                const response = await fetch('https://tea-share-production.up.railway.app/user/getuser', {
                     credentials: 'include',
                 });
                 const json = await response.json();
@@ -83,7 +83,7 @@ export default function Navbar() {
                 </ul>
             </div>
             <ul className="navbar-nav">
-            {userContext && user?.notificationStatus && <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="https://tea-share.onrender.com/user/clearnotifications">New recommendation!</Link></li>}
+            {userContext && user?.notificationStatus && <li style={{justifySelf: "flex-end"}} className="nav-item"><Link className="nav-link" to="https://tea-share-production.up.railway.app/user/clearnotifications">New recommendation!</Link></li>}
             </ul>
         </nav>
 

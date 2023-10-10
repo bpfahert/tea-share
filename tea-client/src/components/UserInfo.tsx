@@ -13,7 +13,7 @@ export default function UserInfo() {
     // Get logged in user info
     React.useEffect(() => {
         async function getUser() {
-            const response = await fetch('https://tea-share.onrender.com/user/getuser', {
+            const response = await fetch('https://tea-share-production.up.railway.app/user/getuser', {
                 credentials: 'include',
             });
             const json = await response.json();
@@ -29,7 +29,7 @@ export default function UserInfo() {
     // Get user profile details
     React.useEffect(() => {
         async function getUserDetails() {
-            const response = await fetch(`https://tea-share.onrender.com${pathID}`, {
+            const response = await fetch(`https://tea-share-production.up.railway.app${pathID}`, {
                 credentials: 'include',
             });
             const json = await response.json();

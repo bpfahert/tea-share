@@ -29,7 +29,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 app.use(
   cors({
-    origin: true,
+    origin: "https://tea-share-avln.onrender.com",
     credentials: true,
     methods: ['GET','POST', 'OPTIONS'],
   })

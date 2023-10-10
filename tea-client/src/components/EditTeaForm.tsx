@@ -4,7 +4,7 @@ export default function EditTeaForm( {tea_name, brand, notes, type, rating, img,
 
 
     return (
-        <form method="POST" action={`https://tea-share.onrender.com/teas/update/${_id}`} className="updateteaform" id="updateteaform" encType="multipart/form-data" >
+        <form method="POST" action={`https://tea-share-production.up.railway.app/teas/update/${_id}`} className="updateteaform" id="updateteaform" encType="multipart/form-data" >
             <div className="row">
                 <div className="form-group col-lg-12 mb-3">
                     <div className="form-floating">

@@ -88,7 +88,7 @@ exports.tea_create_post = [
       if(err) {
         return next(err);
       }
-      res.redirect("http://localhost:3000");
+      res.redirect("https://tea-share-avln.onrender.com");
     })
   }
 ];
@@ -111,7 +111,7 @@ exports.tea_delete_post = (req, res, next) => {
         }
       })
     }
-    res.redirect("http://localhost:3000/");
+    res.redirect("https://tea-share-avln.onrender.com");
     })
 };
 
@@ -139,7 +139,7 @@ exports.tea_recommend_post = [
         if(err) {
           return next(err);
         }
-        res.redirect("http://localhost:3000");
+        res.redirect("https://tea-share-avln.onrender.com");
       })
   })
   }
@@ -265,6 +265,6 @@ exports.tea_update_post = [
         return next(err);
       }
     })      
-    res.redirect(`http://localhost:3000/teas/${req.params.id}`);
+    res.redirect(`hhttps://tea-share-avln.onrender.com/teas/${req.params.id}`);
     }
 ];

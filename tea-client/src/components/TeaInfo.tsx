@@ -21,7 +21,7 @@ export default function TeaInfo() {
     // Get logged in user info
     useEffect(() => {
         async function getUser() {
-            const response = await fetch('https://tea-share.onrender.com/user/getuser', {
+            const response = await fetch('https://tea-share-production.up.railway.app/user/getuser', {
                 credentials: 'include',
             });
             const json = await response.json();
@@ -38,7 +38,7 @@ export default function TeaInfo() {
     // Get list of all users for recommendation form
     useEffect(() => {
         async function getUserList() {
-            const response = await fetch('https://tea-share.onrender.com/user/userlist', {
+            const response = await fetch('https://tea-share-production.up.railway.app/user/userlist', {
                 credentials: 'include',
             });
             const json = await response.json();
@@ -54,7 +54,7 @@ export default function TeaInfo() {
     // Get details for tea
     useEffect(() => {
         async function getTeaInfo() {
-            const response = await fetch(`https://tea-share.onrender.com${pathID}`, {
+            const response = await fetch(`https://tea-share-production.up.railway.app${pathID}`, {
                 credentials: 'include',
             });
             const json = await response.json();
@@ -94,10 +94,10 @@ export default function TeaInfo() {
     async function handleFavorite() {
         if (user !== undefined) {
             if(favoriteStatus === true) {
-                await handlePost(`https://tea-share.onrender.com/teas/unfavorite/${tea?._id}`);
+                await handlePost(`https://tea-share-production.up.railway.app/teas/unfavorite/${tea?._id}`);
                 setFavoriteStatus(false);
             } else {
-                await handlePost(`https://tea-share.onrender.com/teas/favorite/${tea?._id}`);
+                await handlePost(`https://tea-share-production.up.railway.app/teas/favorite/${tea?._id}`);
                 setFavoriteStatus(true);
             }
         }
@@ -112,10 +112,10 @@ export default function TeaInfo() {
     async function handleSave() {
         if (user !== undefined) {
             if(saveStatus === true) {
-                await handlePost(`https://tea-share.onrender.com/teas/unsave/${tea?._id}`);
+                await handlePost(`https://tea-share-production.up.railway.app/teas/unsave/${tea?._id}`);
                 setSaveStatus(false);
             } else {
-                await handlePost(`https://tea-share.onrender.com/teas/save/${tea?._id}`);
+                await handlePost(`https://tea-share-production.up.railway.app/teas/save/${tea?._id}`);
                 setSaveStatus(true);
             }
         }
@@ -146,7 +146,7 @@ export default function TeaInfo() {
                             </div>
                             <div className="modal-body">
                                 <div>
-                                    <form method="POST" action="https://tea-share.onrender.com/teas/recommend" className="teaform" id="recommendationform">
+                                    <form method="POST" action="https://tea-share-production.up.railway.app/teas/recommend" className="teaform" id="recommendationform">
                                         <input type="hidden" id="currentuser" name="currentuser" value={user?._id || ""}></input>
                                         <input type="hidden" id="recommendedtea" name="recommendedtea" value={tea?._id}></input>
                                         <input type="hidden" id="recommendedteaname" name="recommendedteaname" disabled value={tea?.tea_name}></input>
@@ -192,7 +192,7 @@ export default function TeaInfo() {
                             </div>
                             <div className="modal-body">
                                 <div>
-                                    <form method="POST" action={`https://tea-share.onrender.com/teas/delete/${tea?._id}`} className="teaform" id="deleteform">
+                                    <form method="POST" action={`https://tea-share-production.up.railway.app/teas/delete/${tea?._id}`} className="teaform" id="deleteform">
                                         <h4>Permanently delete {tea?.tea_name}?</h4>
                                         <input type="hidden" id="currentuser" name="currentuser" value={user?._id}></input>
                                         <button type="submit">Delete</button>

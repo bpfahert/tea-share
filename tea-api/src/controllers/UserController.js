@@ -106,5 +106,5 @@ exports.acknowledge_notification = (req, res, next) => {
       }
     })
   })
-  res.redirect("http://localhost:3000");
+  res.redirect("https://tea-share-avln.onrender.com");
 }

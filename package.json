@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install-server": "cd tea-api && npm install",
-    "start-server": "cd tea-api && node app.js",
+    "start-server": "cd tea-api && node ./bin/www",
     "install-client": "cd tea-client && npm install",
     "build-client": "cd tea-client && npm run build",
     "start-client": "cd tea-client && npm run start"

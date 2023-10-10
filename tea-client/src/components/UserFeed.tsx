@@ -12,7 +12,7 @@ export default function UserFeed() {
     // Get user information
     React.useEffect(() => {
         async function getUser() {
-            const response = await fetch('https://tea-share.onrender.com/user/getuser', {
+            const response = await fetch('https://tea-share-production.up.railway.app/user/getuser', {
                 credentials: 'include',
             });
             const json = await response.json();
@@ -27,7 +27,7 @@ export default function UserFeed() {
     // Get recently uploaded teas for New Teas array
     React.useEffect(() => {
         async function getNewTeas() {
-            const response = await fetch('https://tea-share.onrender.com/teas/recent', {
+            const response = await fetch('https://tea-share-production.up.railway.app/teas/recent', {
                 credentials: 'include',
             });
             const json = await response.json();

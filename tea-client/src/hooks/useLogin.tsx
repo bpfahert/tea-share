@@ -4,7 +4,7 @@ export const useLogin = () => {
     const { dispatch } = useAuthContext();
 
     const login = async (username: string, password: string) => {
-        const response = await fetch("https://tea-share.onrender.com/auth/login", {
+        const response = await fetch("https://tea-share-production.up.railway.app/auth/login", {
             method: "POST",      
             credentials: "include",
             body: JSON.stringify({username, password}),

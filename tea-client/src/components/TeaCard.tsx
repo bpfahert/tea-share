@@ -15,13 +15,13 @@ export default function TeaCard(props: PropTeaCardType) {
                     <li>Recommended by <Link style={{textDecoration: "none", color: "black", fontWeight:"bold"}} to={`/user/profile/${id}`}>{`${recommendee}`}</Link></li> 
                     {message ? <li>"{cleanString(message)}"</li> : ""} 
                     <p></p> 
-                    <li><button onClick={() => handleClick(teaID)}>{isRecommended ? "Remove recommendation" : "Removed"} </button></li>
+                    <li><button onClick={() => handleRemoveClick(teaID)}>{isRecommended ? "Remove recommendation" : "Removed"} </button></li>
                 </div>   
         )}
     }
 
-    function handleClick(teaID: string) {
-        handlePost(`https://tea-share.onrender.com/teas/removerec/${teaID}`);
+    function handleRemoveClick(teaID: string) {
+        handlePost(`https://tea-share-production.up.railway.app/teas/removerec/${teaID}`);
         setIsRecommended(false);
 
     }
