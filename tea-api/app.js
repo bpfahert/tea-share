@@ -37,7 +37,7 @@ app.use(
 
 
 app.use(session({secret: process.env.SECRET_KEY, resave: false, saveUninitialized: true, cookie: {maxAge: 1000 * 60 * 60 * 48}}));
-app.use(cookieParser('cat'));
+app.use(cookieParser(process.env.SECRET_KEY));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
