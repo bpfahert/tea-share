@@ -8,7 +8,7 @@
     "install-server": "cd tea-api && npm install",
     "start-server": "cd tea-api && node ./bin/www",
     "install-client": "cd tea-client && npm install",
-    "build-client": "cd tea-client && npm run build",
+    "build-client": "cd tea-client && npm install && npm run build",
     "start-client": "cd tea-client && npm run start"
   },
   "repository": {

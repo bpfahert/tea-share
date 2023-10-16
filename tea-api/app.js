@@ -29,14 +29,14 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 app.use(
   cors({
-    origin: "https://tea-share-avln.onrender.com",
+    origin: "https://tea-share-front-end-production.up.railway.app",
     credentials: true,
     methods: ['GET','POST', 'OPTIONS'],
   })
 );
 
 
-app.use(session({secret: process.env.SECRET_KEY, resave: false, saveUninitialized: true, cookie: {maxAge: 1000 * 60 * 60 * 48}}));
+app.use(session({secret: process.env.SECRET_KEY, resave: false, saveUninitialized: true}));
 app.use(cookieParser(process.env.SECRET_KEY));
 app.use(logger("dev"));
 app.use(express.json());
@@ -49,11 +49,12 @@ app.use("/auth", LoginRouter);
 
 // Check authentication on every request
 app.use((req, res, next) => {
-  if (req.isAuthenticated()) {
-      next();
-  } else {
-      res.status(401).json({message: "Please log in to use Tea Share"});
-  }
+  // if (req.isAuthenticated()) {
+  //     next();
+  // } else {
+  //     res.status(401).json({message: "Please log in to use Tea Share"});
+  // }
+  console.log(req.session);
 });
 
 app.use("/teas", teaRouter);
