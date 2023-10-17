@@ -19,7 +19,7 @@ export default function UserList() {
             }
         }
 
-        fetchData()
+        fetchData();
     }, [])
 
     const listElements = userList.map((user : UserType, index) => {

@@ -12,8 +12,6 @@ export default function Navbar() {
     const logout = useLogout();
 
     // Get user info
-
-
     React.useEffect(() => {
         async function getUser() {
             try {

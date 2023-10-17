@@ -20,8 +20,4 @@ const UserSchema = new Schema({
     notificationStatus: {type: Boolean},
 });
 
-UserSchema.virtual("url").get(function () {
-    return `/user/${this.id}`;
-});
-
 module.exports = mongoose.model("User", UserSchema);

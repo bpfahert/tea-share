@@ -29,8 +29,8 @@ export default function TeaCard(props: PropTeaCardType) {
     return (
         <div className="card mr-2 border border-dark rounded mb-3" style={{backgroundColor: "peachpuff", maxWidth: "18rem"}}>
             {props.tea?.img ? 
-                <img className="card-img-top" style={{height: "13rem", objectFit: "cover"}} src={`data:image/${props.tea.img.contentType};base64, ${Buffer.from(props.tea.img.data).toString('base64')}`} alt="tea-image" /> : 
-                <img className="card-img-top" style={{height: "13rem", objectFit: "cover"}} src="/images/tea1.jpg" alt="default-tea-image" /> 
+                <img className="card-img-top" style={{height: "13rem", objectFit: "cover"}} src={`data:image/${props.tea.img.contentType};base64, ${Buffer.from(props.tea.img.data).toString('base64')}`} alt="tea" /> : 
+                <img className="card-img-top" style={{height: "13rem", objectFit: "cover"}} src="/images/tea1.jpg" alt="default tea" /> 
             }
             <div className="card-body">
                 <li><h5 style={{height:"2rem"}} className="mb-3"><Link style={{textDecoration: "none", color: "black"}}  data-testid="teacardnametest" to={`/teas/${props.tea._id}`}> {cleanString(props.tea.tea_name)}</Link></h5></li> 

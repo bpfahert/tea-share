@@ -6,7 +6,6 @@ export default function SearchResults({ tealist, listname, currentuser, listtype
     const firstFiveTeas = tealist.slice(0, 5);
     const moreTeas = tealist.slice(5);
 
-
     const firstFiveElements = firstFiveTeas.map((tea) => {
         return (
             <TeaCard tea={tea} currentuser={currentuser} key={tea._id} />

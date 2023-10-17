@@ -13,7 +13,6 @@ export default function TeaInfo() {
     const [userList, setUserList] = useState<UserType[]>();
     const [favoriteStatus, setFavoriteStatus] = useState<boolean>();
     const [saveStatus, setSaveStatus] = useState<boolean>();
-    const [isLoading, setIsLoading] = useState(true);
 
     const pathID = useLocation().pathname;
 
@@ -32,23 +31,6 @@ export default function TeaInfo() {
         }
 
         getUser();
-        setIsLoading(false);
-    },[])
-
-    // Get list of all users for recommendation form
-    useEffect(() => {
-        async function getUserList() {
-            const response = await fetch('https://tea-share-production.up.railway.app/user/userlist', {
-                credentials: 'include',
-            });
-            const json = await response.json();
-    
-            if(response.ok) {
-                setUserList(json);
-            }
-        }
-
-        getUserList();
     },[])
 
     // Get details for tea
@@ -69,7 +51,6 @@ export default function TeaInfo() {
         }
     }, []);
 
-
     // Set favorite and save status of tea once user info is set
     useEffect(() => {
         if(user) {
@@ -77,6 +58,25 @@ export default function TeaInfo() {
             setSaveStatus(isSaved(tea._id, user));
         }
     }, [user]);
+
+
+    // Get list of all users for recommendation form
+    useEffect(() => {
+        async function getUserList() {
+            const response = await fetch('https://tea-share-production.up.railway.app/user/userlist', {
+                credentials: 'include',
+            });
+            const json = await response.json();
+    
+            if(response.ok) {
+                setUserList(json);
+            }
+        }
+        
+        getUserList();
+    },[])
+
+
 
     // Map users for recommendations and filter out current user
     const userListElements = userList?.map((rec_user, index) => {
@@ -125,13 +125,12 @@ export default function TeaInfo() {
     return (
         <div className="text-center">
             <div>
-                {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} alt="tea image"/> : <p>There is no image for this tea.</p>}
+                {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} alt="tea"/> : <p>There is no image for this tea.</p>}
                 <p>Tea name: {tea && cleanString(tea.tea_name)}</p>
                 <p>Type: {tea && tea.type}</p>
                 <p>Brand: {tea && cleanString(tea.brand)}</p>
                 <p>Rating: {tea && tea.rating}</p>
                 <p>Notes: {tea && cleanString(tea.notes)}</p>
-                    {/* {tea?.img ? <img className="img-fluid" style={{maxWidth: "400px"}} src={`data:image/${tea.img.contentType};base64, ${Buffer.from(tea.img.data).toString('base64')}`} alt="tea image"/> : <p>There is no image for this tea.</p>} */}
                 <p>Added by <Link style={{textDecoration: "none", color: "black", fontWeight: "bold"}} to={`/user/profile/${tea?.created_by._id}`}>{tea?.created_by ? tea.created_by.username : "Unknown"}</Link> on {moment(tea?.created_on).format('MM/DD/YYYY HH:MM')}</p>
                 <p>{displayFavoriteButton}</p>
                 <p>{displaySaveButton}</p>
@@ -164,7 +163,7 @@ export default function TeaInfo() {
                 </div>
             </div>
             <p></p>
-            {tea?.created_by._id == user?._id && 
+            {tea?.created_by._id === user?._id && 
             <div>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#editmodal">Edit this tea</a>
                 <div className="modal fade" id="editmodal">
@@ -202,6 +201,7 @@ export default function TeaInfo() {
                         </div>
                     </div>
                 </div>
+                <p></p>
             </div>        
             }
         </div>
