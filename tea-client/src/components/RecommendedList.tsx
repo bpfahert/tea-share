@@ -3,7 +3,7 @@ import { PropTeaRecList } from '../ts/interfaces';
 import { useState } from 'react';
 
 export default function RecommendedTeaList({ tealist, listname, currentuser, listtype } : PropTeaRecList) {
-    const [displayed, setDisplayed] = useState(false);
+    const [displayed, setDisplayed] = useState(true);
 
     const firstFiveTeas = tealist.slice(0, 5);
     const moreTeas = tealist.slice(5);
