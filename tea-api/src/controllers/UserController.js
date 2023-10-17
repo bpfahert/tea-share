@@ -106,5 +106,5 @@ exports.acknowledge_notification = (req, res, next) => {
       }
     })
   })
-  res.redirect("https://tea-share-avln.onrender.com");
+  res.redirect("https://tea-share-front-end-production.up.railway.app/");
 }

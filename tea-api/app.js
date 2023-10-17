@@ -36,7 +36,7 @@ app.use(
 );
 
 
-app.use(session({secret: process.env.SECRET_KEY, resave: false, saveUninitialized: true}));
+app.use(session({secret: process.env.SECRET_KEY, resave: false, saveUninitialized: false}));
 app.use(cookieParser(process.env.SECRET_KEY));
 app.use(logger("dev"));
 app.use(express.json());
@@ -49,12 +49,11 @@ app.use("/auth", LoginRouter);
 
 // Check authentication on every request
 app.use((req, res, next) => {
-  // if (req.isAuthenticated()) {
-  //     next();
-  // } else {
-  //     res.status(401).json({message: "Please log in to use Tea Share"});
-  // }
-  console.log(req.session);
+  if (req.isAuthenticated()) {
+      next();
+  } else {
+      res.status(401).json({message: "Please log in to use Tea Share"});
+  }
 });
 
 app.use("/teas", teaRouter);
