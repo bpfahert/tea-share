@@ -3,7 +3,7 @@ import { PropTeaList } from "../ts/interfaces";
 import { useState } from "react";
 
 export default function TeaList({ tealist, listname, currentuser, listtype } : PropTeaList) {
-    const [displayed, setDisplayed] = useState(false);
+    const [displayed, setDisplayed] = useState(true);
     const [expandedDisplayed, setExpandedDisplayed] = useState(false);
 
     const firstFiveTeas = tealist.slice(0, 5);
