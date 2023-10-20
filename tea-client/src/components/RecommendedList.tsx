@@ -35,9 +35,9 @@ export default function RecommendedTeaList({ tealist, listname, currentuser, lis
                 {moreTeaElements.length !== 0 && 
                 <div>
                     <div className="container text-center">
-                        <button className='btn btn-info btn-lg mb-3' aria-expanded="false" type='button'  data-bs-toggle="collapse" onClick={handleDisplayClick}  data-bs-target={`#expanded${listtype}tealist`}>{displayed ? "Hide Teas" : "Show More"}</button>
+                        <button className='btn btn-info btn-lg mb-3' aria-expanded="true" type='button'  data-bs-toggle="collapse" onClick={handleDisplayClick}  data-bs-target={`#expanded${listtype}tealist`}>{displayed ? "Hide Teas" : "Show More"}</button>
                     </div>
-                    <div className="collapse" id={`expanded${listtype}tealist`}>
+                    <div className="collapse show" id={`expanded${listtype}tealist`}>
                         <ul className="list-group list-group-horizontal-xl d-flex justify-content-center align-items-center flex-wrap" style={{listStyle: "none", gap: "5px"}}>
                             {moreTeaElements}
                         </ul>

@@ -15,7 +15,7 @@ export default function ActivityFeed({tealist}: ActivityFeedType) {
     });
 
     return (
-        <div className="container-md d-flex justify-content-center">
+        <div className="container-md d-flex justify-content-center mb-3">
             <ul className="list-group" style={{ border: "solid 2px black"}}>
                 {activityFeedElements}
             </ul>

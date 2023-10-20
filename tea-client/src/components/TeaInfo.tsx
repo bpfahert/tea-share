@@ -170,6 +170,7 @@ export default function TeaInfo() {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header text-centered">
+                            <h3>Edit this tea!</h3>
                                 <button className="btn-close" data-bs-dismiss="modal" data-bs-target="#editmodal"></button>
                             </div>
                             <div className="modal-body">

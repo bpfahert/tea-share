@@ -3,7 +3,7 @@ import { PropTeaList } from "../ts/interfaces";
 import { useState } from "react";
 
 export default function TeaList({ tealist, listname, currentuser, listtype } : PropTeaList) {
-    const [displayed, setDisplayed] = useState(true);
+    const [displayed, setDisplayed] = useState(false);
     const [expandedDisplayed, setExpandedDisplayed] = useState(false);
 
     const firstFiveTeas = tealist.slice(0, 5);
@@ -23,11 +23,11 @@ export default function TeaList({ tealist, listname, currentuser, listtype } : P
     })
 
     const handleDisplayClick = () => {
-        setDisplayed((displayed) => !displayed)
+        setDisplayed((displayed) => !displayed);
     }
 
     const handleExpandedDisplayClick = () => {
-        setExpandedDisplayed((expandedDisplayed) => !expandedDisplayed)
+        setExpandedDisplayed((expandedDisplayed) => !expandedDisplayed);
     }
 
     return (
@@ -36,9 +36,9 @@ export default function TeaList({ tealist, listname, currentuser, listtype } : P
             {tealist.length > 0 ? 
             <div>
                 <div className="container text-center">
-                    <button className='btn btn-info btn-lg mb-3' type='button' aria-expanded="false" data-bs-toggle="collapse" onClick={handleDisplayClick}  data-bs-target={`#${listtype}tealist`}>{displayed ? "Hide Teas" : "Show Teas"}</button>
+                    <button className='btn btn-info btn-lg mb-3' type='button' aria-expanded="true" data-bs-toggle="collapse" onClick={handleDisplayClick}  data-bs-target={`#${listtype}tealist`}>{displayed ? "Hide Teas" : "Show Teas"}</button>
                 </div>
-                <div className="collapse" id={`${listtype}tealist`}>
+                <div className="collapse show" id={`${listtype}tealist`}>
                     <ul className="list-group list-group-horizontal-xl d-flex justify-content-center align-items-center" style={{listStyle: "none", gap: "5px"}}>
                         {firstFiveElements}
                     </ul>
