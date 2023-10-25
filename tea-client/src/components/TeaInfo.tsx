@@ -89,7 +89,7 @@ export default function TeaInfo() {
 
 
     // Favorited tea display logic
-    let displayFavoriteButton = favoriteStatus ? <span>This is one of your favorite teas <button onClick={() => handleFavorite()}>Remove from favorites</button></span> : <span><button onClick={() => handleFavorite()}>Favorite this tea</button></span>;
+    let displayFavoriteButton = favoriteStatus ? <span>This is one of your favorite teas <button className="btn btn-info btn-sm" onClick={() => handleFavorite()}>Remove from favorites</button></span> : <span><button className="btn btn-info btn-sm" onClick={() => handleFavorite()}>Favorite this tea</button></span>;
 
     async function handleFavorite() {
         if (user !== undefined) {
@@ -107,7 +107,7 @@ export default function TeaInfo() {
 
     // Saved tea display logic
 
-    let displaySaveButton = saveStatus ? <span>This is one of your saved teas <button onClick={() => handleSave()}>Remove from saved teas</button></span> : <span><button onClick={() => handleSave()}>Save this tea</button></span>;
+    let displaySaveButton = saveStatus ? <span>This is one of your saved teas <button className="btn btn-info btn-sm" onClick={() => handleSave()}>Remove from saved teas</button></span> : <span><button className="btn btn-info btn-sm" onClick={() => handleSave()}>Save this tea</button></span>;
 
     async function handleSave() {
         if (user !== undefined) {
@@ -195,7 +195,7 @@ export default function TeaInfo() {
                                     <form method="POST" action={`https://tea-share-production.up.railway.app/teas/delete/${tea?._id}`} className="teaform" id="deleteform">
                                         <h4>Permanently delete {tea?.tea_name}?</h4>
                                         <input type="hidden" id="currentuser" name="currentuser" value={user?._id}></input>
-                                        <button type="submit">Delete</button>
+                                        <button className="btn btn-danger btn-sm" type="submit">Delete</button>
                                     </form>
                                 </div>
                             </div>
