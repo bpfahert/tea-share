@@ -9,7 +9,7 @@ import Loading from './Loading';
 export default function UserFeed() {
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [newTeas, setNewTeas] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     // Get user information
     React.useEffect(() => {
@@ -29,6 +29,7 @@ export default function UserFeed() {
     // Get recently uploaded teas for New Teas array
     React.useEffect(() => {
         async function getNewTeas() {
+            setIsLoading(true);
             const response = await fetch('https://tea-share-production.up.railway.app/teas/recent', {
                 credentials: 'include',
             });
@@ -36,9 +37,10 @@ export default function UserFeed() {
         
             if(response.ok) {
               setNewTeas(json);
+              setIsLoading(false);
             }
 
-            setIsLoading(false);
+
         }
         getNewTeas();
     }, []);
