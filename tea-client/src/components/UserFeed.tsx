@@ -36,8 +36,9 @@ export default function UserFeed() {
         
             if(response.ok) {
               setNewTeas(json);
-              setIsLoading(false);
             }
+
+            setIsLoading(false);
         }
         getNewTeas();
     }, []);
