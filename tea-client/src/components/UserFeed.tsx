@@ -59,20 +59,23 @@ export default function UserFeed() {
     const user_teas = user ? user.teas_added : [];
 
     return (
-        <div className='text-center mt-1'>
-            {isLoading ? <Loading/> : <ActivityFeed tealist={new_teas}/>}
-            <div className="recommendedteas">
-                <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
-            </div>
-            <div className="savedteas">
-                <TeaList tealist={saved_teas} listname={"Saved teas"} currentuser={user} listtype={"saved"}/>
-            </div>
-            <div className="favoriteteas">
-                <TeaList tealist={favorite_teas} listname={"Favorite teas"} currentuser={user} listtype={"favorite"}/>
-            </div>
-            <div className="yourteas">
-                <TeaList tealist={user_teas} listname={"Your teas"} currentuser={user} listtype={"added"}/>
-            </div>
+        <div className='text-center mt-2'>
+            {isLoading ? <Loading/> : 
+            <div>
+                <ActivityFeed tealist={new_teas}/>
+                <div className="recommendedteas">
+                    <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
+                </div>
+                <div className="savedteas">
+                    <TeaList tealist={saved_teas} listname={"Saved teas"} currentuser={user} listtype={"saved"}/>
+                </div>
+                <div className="favoriteteas">
+                    <TeaList tealist={favorite_teas} listname={"Favorite teas"} currentuser={user} listtype={"favorite"}/>
+                </div>
+                <div className="yourteas">
+                    <TeaList tealist={user_teas} listname={"Your teas"} currentuser={user} listtype={"added"}/>
+                </div>
+            </div>}
         </div>
     )
 }
