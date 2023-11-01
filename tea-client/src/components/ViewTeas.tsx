@@ -1,5 +1,6 @@
 import { TeaType, UserType } from '../ts/interfaces';
 import TeaList from './TeaList';
+import Loading from './Loading';
 import React, { FormEvent } from 'react';
 import { initialUserState } from '../services/initialStates';
 import { teaSearch } from '../services/teaFunctions';
@@ -10,6 +11,7 @@ export default function ViewTeas() {
     const [allTeas, setAllTeas] = React.useState<TeaType[]>([]);
     const [search, setSearch] = React.useState<string>("");
     const [searchTeas, setSearchTeas] = React.useState<TeaType[]>([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     // Event handler functions for tea search
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -40,6 +42,7 @@ export default function ViewTeas() {
     // Get all teas in an array
     React.useEffect(() => {
         async function getAllTeas() {
+            setIsLoading(true);
             const response = await fetch('https://tea-share-production.up.railway.app/teas/all', {
                 credentials: 'include',
             });
@@ -47,6 +50,7 @@ export default function ViewTeas() {
         
             if(response.ok) {
               setAllTeas(json);
+              setIsLoading(false);
             }
             
         }
@@ -66,18 +70,22 @@ export default function ViewTeas() {
 
     return (
         <div className='text-center'>
-            <p></p>
-            <form className="d-flex justify-content-center mb-5" onSubmit={handleSubmit}>
-                <input value={search} onChange={handleChange} type="text" id="searchbar" name="searchbar" placeholder="Search for teas"></input>
-            </form>
-            <SearchResults tealist={searchTeas} listname={"Search Results"} currentuser={user} listtype="searchresults"/>
-            {isEmpty(searchTeas) && <p style={{textAlign: "center"}}> No teas found with that name. </p>}
-            <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user} listtype="green"/>
-            <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user} listtype="black"/>
-            <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user} listtype="herbal"/>
-            <TeaList tealist={white_tea_list} listname={"White teas"} currentuser={user} listtype="white"/>
-            <TeaList tealist={oolong_tea_list} listname={"Oolong teas"} currentuser={user} listtype="oolong"/>
-            <TeaList tealist={allTeas} listname={"All teas"} currentuser={user} listtype="allteas"/>
+            {isLoading ? <Loading /> : 
+            <div>
+                <p></p>
+                <form className="d-flex justify-content-center mb-5" onSubmit={handleSubmit}>
+                    <input value={search} onChange={handleChange} type="text" id="searchbar" name="searchbar" placeholder="Search for teas"></input>
+                </form>
+                <SearchResults tealist={searchTeas} listname={"Search Results"} currentuser={user} listtype="searchresults"/>
+                {isEmpty(searchTeas) && <p style={{textAlign: "center"}}> No teas found with that name. </p>}
+                <TeaList tealist={green_tea_list} listname={"Green teas"} currentuser={user} listtype="green"/>
+                <TeaList tealist={black_tea_list} listname={"Black teas"} currentuser={user} listtype="black"/>
+                <TeaList tealist={herbal_tea_list} listname={"Herbal teas"} currentuser={user} listtype="herbal"/>
+                <TeaList tealist={white_tea_list} listname={"White teas"} currentuser={user} listtype="white"/>
+                <TeaList tealist={oolong_tea_list} listname={"Oolong teas"} currentuser={user} listtype="oolong"/>
+                <TeaList tealist={allTeas} listname={"All teas"} currentuser={user} listtype="allteas"/>
+            </div>
+            }
         </div>
     )
 
