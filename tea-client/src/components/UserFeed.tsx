@@ -4,10 +4,12 @@ import { TeaRecType, UserType } from '../ts/interfaces';
 import RecommendedTeaList from './RecommendedList';
 import { initialUserState } from '../services/initialStates';
 import ActivityFeed from './ActivityFeed';
+import Loading from './Loading';
 
 export default function UserFeed() {
     const [user, setUser] = React.useState<UserType>(initialUserState);
     const [newTeas, setNewTeas] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true);
 
     // Get user information
     React.useEffect(() => {
@@ -34,6 +36,7 @@ export default function UserFeed() {
         
             if(response.ok) {
               setNewTeas(json);
+              setIsLoading(false);
             }
         }
         getNewTeas();
@@ -54,7 +57,7 @@ export default function UserFeed() {
 
     return (
         <div className='text-center mt-1'>
-            <ActivityFeed tealist={new_teas}/>
+            {isLoading ? <Loading/> : <ActivityFeed tealist={new_teas}/>}
             <div className="recommendedteas">
                 <RecommendedTeaList tealist={recommended_teas} listname={"Teas recommended by friends"} currentuser={user} listtype={"recommended"}/>
             </div>
